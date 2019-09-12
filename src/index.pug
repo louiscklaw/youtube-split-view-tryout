@@ -1,0 +1,15 @@
+doctype html
+html(lang='en')
+  head
+    include gtag.js
+    include meta.pug
+    script(type="text/javascript",src="https://s3.tradingview.com/tv.js")
+    link(rel="stylesheet",href="css/style.css")
+    title tradingview
+  body
+    div(class="app",id="stock_table")
+    script(src="js/app.js")
+    footer.footer
+      .footer_container
+        .Aligner-item
+          a.footer_link(href="http://louiscklaw.github.io") http://louiscklaw.github.io

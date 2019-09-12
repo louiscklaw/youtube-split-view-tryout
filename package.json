@@ -1,0 +1,30 @@
+{
+  "name": "tradingview-tile-tryout",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/louiscklaw/tradingview-tile-tryout.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/louiscklaw/tradingview-tile-tryout/issues"
+  },
+  "homepage": "https://github.com/louiscklaw/tradingview-tile-tryout#readme",
+  "devDependencies": {
+    "browser-sync": "^2.26.7",
+    "gulp-concat": "^2.6.1",
+    "gulp-csso": "^3.0.1",
+    "gulp-less": "^4.0.1",
+    "gulp-sass": "^4.0.2"
+  }
+}
