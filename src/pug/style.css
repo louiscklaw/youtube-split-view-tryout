@@ -17,7 +17,11 @@ a {
     display: grid;
     grid-column-gap: 0px;
     grid-row-gap: 0px;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+}
+
+object {
+    width: 320px;
 }
 
 .element {

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8 />
+<title>videojs-contrib-hls embed</title>
+
+  <link href="https://unpkg.com/video.js/dist/video-js.css" rel="stylesheet">
+</head>
+<body>
+  <h1>Video.js Example Embed</h1>
+
+
+  <video-js id="my_video_0" class="vjs-default-skin" controls preload="auto" width="640" height="268">
+    <source src="https://d2zihajmogu5jn.cloudfront.net/bipbop-advanced/bipbop_16x9_variant.m3u8" type="application/x-mpegURL">
+  </video-js>
+  <video-js id="my_video_1" class="vjs-default-skin" controls preload="auto" width="640" height="268">
+    <source src="http://media.fantv.hk/m3u8/archive/channel2_stream1.m3u8" type="application/x-mpegURL">
+  </video-js>
+
+  <!-- x http://141av.ga/live/channel_31.m3u8-->
+  <!-- x http://141av.ga/live/channel_110.m3u8 -->
+  <!-- x https://www.rthk.hk/feeds/dtt/rthktv31_https.m3u8 -->
+  <!-- x https://www.rthk.hk/feeds/dtt/rthktv32_https.m3u8 -->
+
+  <video-js id="my_video_2" class="vjs-default-skin" controls preload="auto" width="640" height="268">
+    <source src="http://ewcdnsite09.nowe.com/session/09-f8df9acd4232f0e311f4c85183a27/Content/HLS/LIVE/Channel(HLS_CH331)/index.m3u8?token=8feb14e02e251507cb6a9584d91f6872_1568303830" type="application/x-mpegURL">
+  </video-js>
+
+  <video-js id="my_video_3" class="vjs-default-skin" controls preload="auto" width="640" height="268">
+    <source src="http://ewcdnsite09.nowe.com/session/09-4ee9af31a7f5cfbda41dde562ff6d/Content/HLS/LIVE/Channel(HLS_CH332)/index.m3u8?token=cec8cb78055751805d2093fd6c2d6676_1568303875" type="application/x-mpegURL">
+  </video-js>
+
+  <video-js id="my_video_4" class="vjs-default-skin" controls preload="auto" width="640" height="268">
+      <source src="https://www.rthk.hk/feeds/dtt/rthktv31_https.m3u8" type="application/x-mpegURL">
+    </video-js>
+
+
+
+
+
+
+
+
+
+  <script src="https://unpkg.com/video.js/dist/video.js"></script>
+  <script src="https://unpkg.com/@videojs/http-streaming/dist/videojs-http-streaming.js"></script>
+
+  <script>
+    var player = videojs('my_video_0');
+    var player = videojs('my_video_1');
+    var player = videojs('my_video_2');
+    var player = videojs('my_video_3');
+    var player = videojs('my_video_4');
+  </script>
+
+</body>
+</html>
