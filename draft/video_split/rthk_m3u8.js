@@ -1,17 +1,17 @@
 // rthk_m3u8.js
 
-var video = document.getElementById( 'video' );
-var hls = new Hls();
-
 var rthk31_m3u8 = "https://rthklive1-lh.akamaihd.net/i/rthk31_1@167495/index_2052_av-b.m3u8?sd=10&rebase=on";
 
 var rthk32_m3u8 = "https://rthklive2-lh.akamaihd.net/i/rthk32_1@168450/index_2052_av-p.m3u8?sd=10&rebase=on";
+
+
 
 
 function setup_hls_player ( target_ele, m3u8_uri )
 {
     console.log( target_ele );
     console.log( m3u8_uri );
+    var hls = new Hls();
     hls.attachMedia( target_ele );
     hls.on( Hls.Events.MEDIA_ATTACHED, function () {
         hls.loadSource( m3u8_uri );
@@ -23,31 +23,39 @@ function setup_hls_player ( target_ele, m3u8_uri )
 
 }
 
-function setup_rthk31 ()
+function create_video_tag (dest_ele, tag_name) {
+    // <video width="100%" id="rthk31_video" controls></video>
+    document.querySelector( dest_ele ).outerHTML = '<video width="100%" id="' + tag_name + '" controls></video>';
+}
+
+
+function setup_rthk31 (ele)
 {
+    create_video_tag(ele, 'rthk31_video');
     setup_hls_player(
         document.getElementById( 'rthk31_video' ),
         rthk31_m3u8
     );
 }
 
-function setup_rthk32 () {
+function setup_rthk32 ( ele ) {
+    create_video_tag(ele, 'rthk32_video');
     setup_hls_player(
         document.getElementById( 'rthk32_video' ),
         rthk32_m3u8
     );
 }
 
-function helloworld () {
-    console.log( 'setup rthk32' );
-    load_inlineHTML('video_cell_main');
-    setup_rthk32();
+function load_rthk () {
+    setup_rthk31('#video_cell_main');
+    setup_rthk32('#video_cell_1');
+
+    console.log( "helloworld" );
 }
 
-function load_inlineHTML (id_ele) {
-    console.log( 'load_HTML' );
 
-    document.querySelector( '#'+id_ele ).outerHTML = '<video height="100%" width="100%" id="rthk32_video" controls></video>';
+function init_rthk_source(){
+    load_rthk();
 }
 
-window.onload = helloworld;
+// window.onload = init_rthk_source;
