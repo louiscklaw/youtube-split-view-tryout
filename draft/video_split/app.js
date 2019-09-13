@@ -46,6 +46,7 @@ function load_youtube () {
 
 window.onload = function () {
     load_youtube();
-    load_rthk();
+    init_rthk_source();
+    init_viutv_source();
 
 }

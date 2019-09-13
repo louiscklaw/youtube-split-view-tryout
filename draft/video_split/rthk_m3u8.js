@@ -7,27 +7,6 @@ var rthk32_m3u8 = "https://rthklive2-lh.akamaihd.net/i/rthk32_1@168450/index_205
 
 
 
-function setup_hls_player ( target_ele, m3u8_uri )
-{
-    console.log( target_ele );
-    console.log( m3u8_uri );
-    var hls = new Hls();
-    hls.attachMedia( target_ele );
-    hls.on( Hls.Events.MEDIA_ATTACHED, function () {
-        hls.loadSource( m3u8_uri );
-        hls.on( Hls.Events.MANIFEST_PARSED, function () {
-            target_ele.muted = true;
-            target_ele.play();
-        } );
-    } );
-
-}
-
-function create_video_tag (dest_ele, tag_name) {
-    // <video width="100%" id="rthk31_video" controls></video>
-    document.querySelector( dest_ele ).outerHTML = '<video width="100%" id="' + tag_name + '" controls></video>';
-}
-
 
 function setup_rthk31 (ele)
 {

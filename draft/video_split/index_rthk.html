@@ -16,7 +16,7 @@
 
         body {
             overflow: hidden;
-            background-color:black;
+            background-color: black;
         }
 
         .container {
@@ -61,7 +61,7 @@
             height: 50%;
             display: flex;
             flex-direction: column;
-            flex-wrap:  wrap;
+            flex-wrap: wrap;
         }
 
         .rnd_color01 {
@@ -71,24 +71,25 @@
 
         .bottom_left,
         .bottom_mid,
-        .bottom_right
-         {
+        .bottom_right {
             width: 33.3333%;
             height: 100%;
             display: flex;
             flex-direction: row;
-            flex-wrap:  wrap;
+            flex-wrap: wrap;
         }
 
         .rnd_color07,
         .rnd_color08,
         .rnd_color09,
-        .rnd_color10
-         {
+        .rnd_color10 {
             width: 50%;
             height: 50%;
         }
     </style>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/hls.js/0.12.4/hls.min.js"></script>
 </head>
@@ -97,14 +98,14 @@
     <div class="container">
         <div class="main_screen">
             <div class="box rnd_color01">
-                <div id="video_cell_main"></div>
+                <div id="video_cell_main" style="width:100%; height:100%;"></div>
             </div>
         </div>
         <div class="rigith_container">
             <div class="right_up_container">
                 <div class="box rnd_color07">
                     <!-- <video width="100%" id="rthk31_video" controls></video> -->
-                    <div id="video_cell_1"></div>
+                    <div id="video_cell_1" style="width:100%; height:100%;"></div>
                 </div>
                 <div class="box rnd_color08">
                     <!-- <video width="100%" id="rthk32_video" controls></video> -->
@@ -114,12 +115,14 @@
                     <div id="video_cell_3"></div>
                 </div>
                 <div class="box rnd_color10">
-                    <div id="ytplayer"></div>
+                    <div id="video_cell_4"></div>
+
+
                 </div>
             </div>
             <div class="right_down_container">
                 <div class="box rnd_color07">
-                    1
+
                 </div>
                 <div class="box rnd_color08">
                     1
@@ -172,15 +175,17 @@
                     1
                 </div>
                 <div class="box rnd_color10">
-
+                    <div id="ytplayer"></div>
                 </div>
             </div>
 
         </div>
     </div>
 
+    <script src="hls_util.js"></script>
     <script src="app.js"></script>
     <script src="rthk_m3u8.js"></script>
+    <script src="viutv.js"></script>
 </body>
 
 </html>
