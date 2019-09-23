@@ -1,27 +1,10 @@
-* {
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
-}
 
-body {
-    background-color: #050505;
-    font-family: sans-serif;
-}
-
-a {
-    color: #e0e0e0;
-}
 
 .app {
     display: grid;
     grid-column-gap: 0px;
     grid-row-gap: 0px;
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-}
-
-object {
-    width: 320px;
 }
 
 .element {
@@ -73,4 +56,23 @@ object {
 
 .Aligner-item--bottom {
     align-self: flex-end;
+}
+
+object {
+    width: 320px;
+}
+
+a {
+    color: #e0e0e0;
+}
+
+body {
+    background-color: #050505;
+    font-family: sans-serif;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
 }
