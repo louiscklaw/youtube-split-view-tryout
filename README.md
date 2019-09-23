@@ -1,6 +1,6 @@
 ### youtube/mpv split viewer
 
-this is a youtube/mpv viewer working in browser to let you view 20+ channel in same screen.
+this is a youtube/mpv viewer working in browser to let you monitor 20+ channel in same screen.
 
 
 DEMO
