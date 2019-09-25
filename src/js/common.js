@@ -12,9 +12,9 @@ function get_rthk( video_id ) {
     return `<video id=` + video_id + ` controls crossorigin playsinline poster="https://bitdash-a.akamaihd.net/content/sintel/poster.png"></video>`;
 }
 
-function attach_rthk_script( video_uri, video_id ) {
+function attach_rthk_script( video_uri, video_id, container_id) {
     document.addEventListener( 'DOMContentLoaded', () => {
-        players[video_id] = init_RTHK_player( video_uri, video_id );
+        players[container_id] = init_RTHK_player( video_uri, video_id );
     } );
 }
 
@@ -46,7 +46,7 @@ function get_cover_text( caption_in ) {
 function attach_to_body( video_in ) {
     temp_div = document.createElement( 'div' );
     temp_div.classList.add( 'player' );
-
+    temp_div.id = video_in[ 'container_id' ];
 
     temp_div.setAttribute( 'onclick', 'swap(this);' );
 
@@ -57,11 +57,11 @@ function attach_to_body( video_in ) {
             break;
         case VIDEO_TYPE_RTHK31:
             temp_div.innerHTML = get_rthk( video_in[ 'div_id' ] ) + get_cover_text( video_in[ 'caption' ] );
-            attach_rthk_script( video_in[ 'uri' ], video_in[ 'div_id' ] );
+            attach_rthk_script( video_in[ 'uri' ], video_in[ 'div_id' ], video_in['container_id'] );
             break;
         case VIDEO_TYPE_RTHK32:
             temp_div.innerHTML = get_rthk( video_in[ 'div_id' ] ) + get_cover_text( video_in[ 'caption' ] );
-            attach_rthk_script( video_in[ 'uri' ], video_in[ 'div_id' ] );
+            attach_rthk_script( video_in[ 'uri' ], video_in[ 'div_id' ], video_in['container_id'] );
             break;
 
         case VIDEO_TYPE_DUMMY:
@@ -198,13 +198,33 @@ function move_to_cell( ele_in, dest_node ) {
 
     if ( dest_node == '.' + MAIN_VIDEO_CONTAINER ) {
         ele_in.classList.add( 'main-video' );
-        console.log( ele_in + '--> move to main' );
+        console.log( ele_in.id + '--> move to main' );
+        players[ele_in.id].increaseVolume( 100 );
+        console.log('helloworld1');
+
     } else {
         ele_in.classList.remove( 'main-video' );
-        console.log( ele_in + '--> move out from main' );
+        console.log( ele_in.id + '--> move out from main' );
+        players[ele_in.id].decreaseVolume( 100 );
+        console.log('helloworld2');
     }
 }
 
 function get_parent_node( ele_in ) {
     return ele_in.parentNode;
+}
+
+
+async function init_youtube_players () {
+    document.querySelectorAll( '.plyr__video-embed' ).forEach( p=>{
+        players[p.parentNode.id] = start_child_player( p );
+        // players[p.parentNode.id].increaseVolume(100);
+    });
+}
+
+function init_arrange_cell () {
+    move_to_cell( get_eles( '.player' )[ 0 ], '.main-video-container' );
+        for ( i = 1; i < get_eles( '.player' ).length; i++ ) {
+            move_to_cell( get_eles( '.player' )[ i ], '.child' + i );
+        }
 }

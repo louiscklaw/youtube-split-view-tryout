@@ -73,16 +73,13 @@
         //         return start_child_player( p );
         //     } );
 
-        move_to_cell( get_eles( '.player' )[ 0 ], '.main-video-container' );
-        for ( i = 1; i < get_eles( '.player' ).length; i++ ) {
-            move_to_cell( get_eles( '.player' )[ i ], '.child' + i );
-        }
-
         var players={};
-        document.querySelectorAll( '.plyr__video-embed' ).forEach( p=>{
-            players[p.parentNode.id] = start_child_player( p );
-        });
 
+        document.addEventListener( 'DOMContentLoaded', () => {
+            init_youtube_players()
+                .then(init_arrange_cell());
+            console.log('helloworld');
+        } );
 
         function helloworld(ele_in){
             // alert(get_parent_node(ele_in).id);
