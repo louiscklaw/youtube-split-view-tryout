@@ -5,46 +5,41 @@ function helloworld_common() {
 
 
 function get_youtube_div( video_uri ) {
-    return `<div class="plyr__video-embed" id="player3">
-            <iframe src="` + video_uri + `"></iframe>
-        </div>`;
+    return `<div class="plyr__video-embed"><iframe src="` + video_uri + `"></iframe></div>`;
 }
 
-function get_rthk( video_id) {
-    return `<video id=`+video_id+` controls crossorigin playsinline poster="https://bitdash-a.akamaihd.net/content/sintel/poster.png"></video>`;
+function get_rthk( video_id ) {
+    return `<video id=` + video_id + ` controls crossorigin playsinline poster="https://bitdash-a.akamaihd.net/content/sintel/poster.png"></video>`;
 }
 
 function attach_rthk_script( video_uri, video_id ) {
     document.addEventListener( 'DOMContentLoaded', () => {
-        const source = video_uri;
-        const video = document.querySelector( '#'+video_id );
-
-        // For more options see: https://github.com/sampotts/plyr/#options
-        // captions.update is required for captions to work with hls.js
-        const player = new Plyr( video, child_player_config );
-
-        if ( !Hls.isSupported() ) {
-            video.src = source;
-        } else {
-            // For more Hls.js options, see https://github.com/dailymotion/hls.js
-            const hls = new Hls();
-            hls.loadSource( source );
-            hls.attachMedia( video );
-            window.hls = hls;
-
-            // Handle changing captions
-            player.on( 'languagechange', () => {
-                // Caption support is still flaky. See: https://github.com/sampotts/plyr/issues/994
-                setTimeout( () => hls.subtitleTrack = player.currentTrack, 50 );
-            } );
-        }
-
-        // Expose player so it can be used from the console
-        window.player = player;
+        players[video_id] = init_RTHK_player( video_uri, video_id );
     } );
 }
 
-function get_cover_text ( caption_in ) {
+// TODO: using a common handler to handle all init request
+function init_RTHK_player ( video_uri, video_id )
+{
+    const source = video_uri;
+    const video = document.querySelector( '#' + video_id );
+
+    // For more options see: https://github.com/sampotts/plyr/#options
+    // captions.update is required for captions to work with hls.js
+    const player = new Plyr( video, child_player_config );
+
+    // For more Hls.js options, see https://github.com/dailymotion/hls.js
+    const hls = new Hls();
+    hls.loadSource( source );
+    hls.attachMedia( video );
+    window.hls = hls;
+
+    // Expose player so it can be used from the console
+    window.player = player;
+    return player;
+}
+
+function get_cover_text( caption_in ) {
     return '<div class="cover"><span>' + caption_in + '</span></div>';
 }
 
@@ -52,20 +47,21 @@ function attach_to_body( video_in ) {
     temp_div = document.createElement( 'div' );
     temp_div.classList.add( 'player' );
 
+
     temp_div.setAttribute( 'onclick', 'swap(this);' );
 
     switch ( video_in[ 'type' ] ) {
         case VIDEO_TYPE_YOUTUBE:
             temp_div.id = video_in[ 'div_id' ];
-            temp_div.innerHTML = get_youtube_div( video_in[ 'uri' ] )+get_cover_text(video_in['caption']);
+            temp_div.innerHTML = get_youtube_div( video_in[ 'uri' ] ) + get_cover_text( video_in[ 'caption' ] );
             break;
         case VIDEO_TYPE_RTHK31:
-            temp_div.innerHTML = get_rthk( video_in['div_id'] );
-            attach_rthk_script( video_in[ 'uri' ], video_in['div_id'] )+get_cover_text(video_in['caption']);
+            temp_div.innerHTML = get_rthk( video_in[ 'div_id' ] ) + get_cover_text( video_in[ 'caption' ] );
+            attach_rthk_script( video_in[ 'uri' ], video_in[ 'div_id' ] );
             break;
         case VIDEO_TYPE_RTHK32:
-            temp_div.innerHTML = get_rthk( video_in['div_id'] );
-            attach_rthk_script( video_in[ 'uri' ], video_in['div_id'] )+get_cover_text(video_in['caption']);
+            temp_div.innerHTML = get_rthk( video_in[ 'div_id' ] ) + get_cover_text( video_in[ 'caption' ] );
+            attach_rthk_script( video_in[ 'uri' ], video_in[ 'div_id' ] );
             break;
 
         case VIDEO_TYPE_DUMMY:
@@ -93,7 +89,6 @@ function start_child_player( p ) {
 
 function disable_double_click() {
     document.addEventListener( 'dblclick', function ( event ) {
-            alert( "Double-click disabled!" );
             event.preventDefault();
             event.stopPropagation();
         }, true //capturing phase!!
@@ -112,17 +107,17 @@ function pos_refresh() {
     } );
 }
 
-function swap_to_child ( ele_in, target_child ) {
+function swap_to_child( ele_in, target_child ) {
     assign_data_video_pos( ele_in, target_child );
-    ele_in.classList.remove( 'main-video' );
+
 }
 
-function swap_to_main ( ele_in ) {
+function swap_to_main( ele_in ) {
     assign_data_video_pos( ele_in, '.' + MAIN_VIDEO_CONTAINER );
-    ele_in.classList.add( 'main-video' );
+
 }
 
-function swap ( child_in ) {
+function swap( child_in ) {
     // alert( 'swap' );
     if ( get_data_video_pos( child_in ) == 'main-video-container' ) {
         console.log( 'ignore' );
@@ -200,8 +195,16 @@ function move_to_cell( ele_in, dest_node ) {
     ele_in.style.height = child_ele[ 'height' ] + 'px';
 
     ele_in.setAttribute( DATA_VIDEO_POS, dest_node );
+
+    if ( dest_node == '.' + MAIN_VIDEO_CONTAINER ) {
+        ele_in.classList.add( 'main-video' );
+        console.log( ele_in + '--> move to main' );
+    } else {
+        ele_in.classList.remove( 'main-video' );
+        console.log( ele_in + '--> move out from main' );
+    }
 }
 
-function get_parent_node ( ele_in ) {
+function get_parent_node( ele_in ) {
     return ele_in.parentNode;
 }

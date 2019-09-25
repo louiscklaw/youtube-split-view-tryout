@@ -68,7 +68,8 @@ var child_player_config = {
     ratio: '16:9',
     youtube: {
         height: '240px'
-    }
+    },
+    muted: true
 }
 
 function get_youtube_uri( youtube_id ) {
@@ -109,6 +110,7 @@ var video_list = [
 ].map( p => {
     return {
         type: p[0],
+        container_id: ID(),
         div_id: ID(),
         uri: p[ 1 ],
         caption: p[ 2 ]
