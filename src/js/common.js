@@ -45,7 +45,7 @@ function attach_rthk_script( video_uri, video_id ) {
 }
 
 function get_cover_text ( caption_in ) {
-    return '<div class="cover">' + caption_in + '</div>';
+    return '<div class="cover"><span>' + caption_in + '</span></div>';
 }
 
 function attach_to_body( video_in ) {
@@ -112,6 +112,16 @@ function pos_refresh() {
     } );
 }
 
+function swap_to_child ( ele_in, target_child ) {
+    assign_data_video_pos( ele_in, target_child );
+    ele_in.classList.remove( 'main-video' );
+}
+
+function swap_to_main ( ele_in ) {
+    assign_data_video_pos( ele_in, '.' + MAIN_VIDEO_CONTAINER );
+    ele_in.classList.add( 'main-video' );
+}
+
 function swap ( child_in ) {
     // alert( 'swap' );
     if ( get_data_video_pos( child_in ) == 'main-video-container' ) {
@@ -119,10 +129,15 @@ function swap ( child_in ) {
     } else {
         target_child_node = get_data_video_pos( child_in );
         get_current_main_node()
-            .then( res => {
+            .then( main_ele => {
                 console.log( 'update data-video-pos' );
-                assign_data_video_pos( res, target_child_node );
-                assign_data_video_pos( child_in, '.main-video-container' );
+
+                // assign_data_video_pos( main_ele, target_child_node );
+                swap_to_child( main_ele, target_child_node );
+
+
+                // assign_data_video_pos( child_in, '.main-video-container' );
+                swap_to_main( child_in );
                 return false;
             } )
             .then( _ => {
