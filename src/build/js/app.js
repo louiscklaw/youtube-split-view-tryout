@@ -3,6 +3,38 @@ var ID = function () {
 };
 
 
+
+var child_player_config = {
+    autoplay: true,
+    clickToPlay: false,
+    quality: {
+        default: 240,
+        options: [ 4320, 2880, 2160, 1440, 1080, 720, 576, 480, 360, 240 ]
+    },
+    autopause: false,
+    // controls: ['mute', 'settings'],
+    ratio: '16:9',
+    youtube: {
+        height: '240px'
+    },
+    muted: true
+}
+
+function get_youtube_uri( youtube_id ) {
+    return 'https://www.youtube.com/embed/' + youtube_id;
+}
+
+const VIDEO_TYPE_YOUTUBE = 'youtube';
+const VIDEO_TYPE_RTHK31 = 'rthk31';
+const VIDEO_TYPE_RTHK32 = 'rthk32';
+const VIDEO_TYPE_DUMMY = 'dummy';
+
+const MAIN_VIDEO_CONTAINER = 'main-video-container';
+
+var MAIN_VIDEO_CELL = '.main-video-container';
+const DATA_VIDEO_POS = 'data-video-pos';
+
+
 var RTHK31_M3U8 = "https://rthklive1-lh.akamaihd.net/i/rthk31_1@167495/index_432_av-b.m3u8";
 var RTHK32_M3U8 = "https://rthklive2-lh.akamaihd.net/i/rthk32_1@168450/index_2052_av-p.m3u8";
 
@@ -67,34 +99,6 @@ var FOXNEWS = '-49g22m6nxI';
 // 策略王電視 Live
 var HKSMEDIA = '07QcV06lOSE';
 
-
-var child_player_config = {
-    autoplay: true,
-    clickToPlay: false,
-    quality: {
-        default: 240,
-        options: [ 4320, 2880, 2160, 1440, 1080, 720, 576, 480, 360, 240 ]
-    },
-    autopause: false,
-    // controls: ['mute', 'settings'],
-    ratio: '16:9',
-    youtube: {
-        height: '240px'
-    },
-    muted: true
-}
-
-function get_youtube_uri( youtube_id ) {
-    return 'https://www.youtube.com/embed/' + youtube_id;
-}
-
-const VIDEO_TYPE_YOUTUBE = 'youtube';
-const VIDEO_TYPE_RTHK31 = 'rthk31';
-const VIDEO_TYPE_RTHK32 = 'rthk32';
-const VIDEO_TYPE_DUMMY = 'dummy';
-
-const MAIN_VIDEO_CONTAINER = 'main-video-container';
-
 var video_list = [
     [ VIDEO_TYPE_RTHK31, RTHK31_M3U8, 'RTHK31' ],
     // [ VIDEO_TYPE_RTHK32, RTHK32_M3U8, 'RTHK32' ],
@@ -118,11 +122,6 @@ var video_list = [
     [ VIDEO_TYPE_YOUTUBE, get_youtube_uri( CNN_NEWS ), 'CNN_NEWS' ],
     [ VIDEO_TYPE_YOUTUBE, get_youtube_uri( MSNBC ), 'MSNBC' ],
     [ VIDEO_TYPE_YOUTUBE, get_youtube_uri( HKSMEDIA ), '策略王電視 Live' ],
-    // [VIDEO_TYPE_DUMMY, '','test caption'],
-    // [VIDEO_TYPE_DUMMY, '','test caption'],
-    // [VIDEO_TYPE_DUMMY, '','test caption'],
-    // [VIDEO_TYPE_DUMMY, '','test caption'],
-    // [VIDEO_TYPE_DUMMY, '','test caption'],
 ].map( p => {
     return {
         type: p[ 0 ],
@@ -132,9 +131,6 @@ var video_list = [
         caption: p[ 2 ]
     };
 } );
-
-var MAIN_VIDEO_CELL = '.main-video-container';
-const DATA_VIDEO_POS = 'data-video-pos';
 
 function helloworld_common() {
     var new_node_div = document.createElement( "div" );

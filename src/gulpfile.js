@@ -16,7 +16,7 @@ const javascriptObfuscator = require( 'gulp-javascript-obfuscator' );
 const exec = require( 'child_process' ).exec;
 
 function html() {
-    return src( 'client/templates/*.pug' )
+    return src( 'client/templates/index.pug' )
         .pipe( pug() )
         .pipe( dest( 'build' ) )
 }
@@ -32,6 +32,7 @@ function css() {
 function js() {
     return src( [
         'client/templates/const.js',
+        'client/templates/settings.js',
         'client/templates/common.js',
         'client/templates/app.js',
     ], {
