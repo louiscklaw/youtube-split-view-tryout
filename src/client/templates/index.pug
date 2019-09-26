@@ -1,0 +1,31 @@
+doctype html
+html(lang='en')
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport" content="width=device-width, initial-scale=1.0")
+        meta(http-equiv="X-UA-Compatible" content="ie=edge")
+        title youtube split viewer
+
+        link(rel="stylesheet", href="../css/style.css")
+        script(src="https://cdnjs.cloudflare.com/ajax/libs/hls.js/0.12.4/hls.min.js")
+
+        link(rel="stylesheet", href="https://cdn.plyr.io/3.5.6/plyr.css")
+        script(src="https://cdn.plyr.io/3.5.6/plyr.polyfilled.js")
+        script(src="https://cdn.rawgit.com/video-dev/hls.js/18bb552/dist/hls.min.js")
+        script(src="https://browser.sentry-cdn.com/5.6.3/bundle.min.js")
+        script
+            | Sentry.init({ dsn: 'https://422b21e2e71446cba4681df6d8757005@sentry.io/1760977' });
+    body
+        .container
+            .upper-container
+                .main-video-container(data-video-pos="main")
+                .child-video-container
+                    - for( var x=1; x<=8;x++)
+                        .child-video(class="child"+x data-video-pos="pos"+x)
+            .lower-container
+                - for( var x=9; x<=20;x++)
+                    .child-video(class="child"+x data-video-pos="pos"+x)
+
+        //- script(src="../js/const.js")
+        //- script(src="../js/common.js")
+        script(src="../js/app.min.js")
