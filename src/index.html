@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
     <title>Document</title>
 
     <link rel="stylesheet" href="css/style.css">
@@ -61,37 +62,8 @@
 
     <script src="js/const.js"></script>
     <script src="js/common.js"></script>
+    <script src="js/app.js"></script>
 
-    <script>
-        video_list.forEach( video => {
-            attach_to_body( video );
-        } )
-
-        // const players = Array.from(
-        //         document.querySelectorAll( '.plyr__video-embed' ) )
-        //     .map( p => {
-        //         return start_child_player( p );
-        //     } );
-
-        var players={};
-
-        document.addEventListener( 'DOMContentLoaded', () => {
-            init_youtube_players()
-                .then(init_arrange_cell());
-
-        } );
-
-        function helloworld(ele_in){
-            // alert(get_parent_node(ele_in).id);
-            swap(get_eles('#'+get_parent_node(ele_in).id)[0]);
-        }
-
-        // document.addEventListener( 'DOMContentLoaded', () => {
-
-        // });
-
-        disable_double_click();
-    </script>
 
 </body>
 
