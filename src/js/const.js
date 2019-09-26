@@ -56,6 +56,14 @@ var TTV_NEWS = 'NbjI0cARzjQ';
 
 var THE_SUN = '7_VKQrWPJMk';
 
+var BBC_NEWS = '_r_w8vMF0So';
+
+var CNN_NEWS = '8Pand7w04fo';
+
+var MSNBC = 'qh5279cq2K0';
+
+var FOXNEWS = '-49g22m6nxI';
+
 var child_player_config = {
     autoplay: true,
     clickToPlay: false,
@@ -89,7 +97,7 @@ var video_list = [
     [ VIDEO_TYPE_YOUTUBE, get_youtube_uri( TAIWAN_THREE_NAP_NEWS ), '三立LIVE新聞HD直播' ],
     [ VIDEO_TYPE_YOUTUBE, get_youtube_uri( HKO_YOUTUBE_VIDEO_ID ), '香港天文台' ],
     [ VIDEO_TYPE_YOUTUBE, get_youtube_uri( TAIWAN_NEWS_CH51 ), '年代新聞CH51' ],
-    [ VIDEO_TYPE_YOUTUBE, get_youtube_uri( TAIWAN_NEWS_CTI ), 'TAIWAN_NEWS_CTI' ],
+    [ VIDEO_TYPE_YOUTUBE, get_youtube_uri( TAIWAN_NEWS_CTI ), 'CTI中天新聞' ],
     [ VIDEO_TYPE_YOUTUBE, get_youtube_uri( NASA ), 'NASA' ],
     [ VIDEO_TYPE_YOUTUBE, get_youtube_uri( BLOOMBERG_GLOBAL_NEWS ), 'BLOOMBERG_GLOBAL_NEWS' ],
     [ VIDEO_TYPE_RTHK32, VIUTV_M3U8, 'VIUTV' ],
@@ -102,6 +110,10 @@ var video_list = [
     [ VIDEO_TYPE_YOUTUBE, get_youtube_uri(TVBS_NEWS), 'tvbs' ],
     [ VIDEO_TYPE_YOUTUBE, get_youtube_uri(TTV_NEWS), '台視新聞台' ],
     [ VIDEO_TYPE_YOUTUBE, get_youtube_uri(THE_SUN), 'THE_SUN' ],
+    [ VIDEO_TYPE_YOUTUBE, get_youtube_uri(BBC_NEWS), 'BBC_NEWS' ],
+    [ VIDEO_TYPE_YOUTUBE, get_youtube_uri(CNN_NEWS), 'CNN_NEWS' ],
+    [ VIDEO_TYPE_YOUTUBE, get_youtube_uri(MSNBC), 'MSNBC' ],
+    [ VIDEO_TYPE_YOUTUBE, get_youtube_uri(FOXNEWS), 'FOXNEWS' ],
     // [VIDEO_TYPE_DUMMY, '','test caption'],
     // [VIDEO_TYPE_DUMMY, '','test caption'],
     // [VIDEO_TYPE_DUMMY, '','test caption'],
