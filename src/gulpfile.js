@@ -13,15 +13,18 @@ const concat = require( 'gulp-concat' );
 const rename = require( 'gulp-rename' );
 const javascriptObfuscator = require( 'gulp-javascript-obfuscator' );
 
+const exec = require( 'child_process' ).exec;
+
 function html() {
     return src( 'client/templates/*.pug' )
         .pipe( pug() )
-        .pipe( dest( 'build/html' ) )
+        .pipe( dest( 'build' ) )
 }
 
 function css() {
     return src( 'client/templates/*.less' )
         .pipe( less() )
+        .pipe( concat( 'style.css' ) )
         .pipe( minifyCSS() )
         .pipe( dest( 'build/css' ) )
 }
@@ -50,7 +53,14 @@ function js_compress() {
         .pipe( dest( 'build/js', ) )
 }
 
+function deploy () {
+    return exec( 'rm -rf ../docs && cp -r ./build ../docs', (err, stdout, stderr) => {
+        console.log(stdout);
+    })
+}
+
 exports.js = js;
 exports.css = css;
 exports.html = html;
 exports.default = parallel( css, series(js, js_compress),html );
+exports.deploy = deploy;

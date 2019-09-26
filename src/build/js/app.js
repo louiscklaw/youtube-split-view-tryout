@@ -64,6 +64,10 @@ var MSNBC = 'qh5279cq2K0';
 
 var FOXNEWS = '-49g22m6nxI';
 
+// 策略王電視 Live
+var HKSMEDIA = '07QcV06lOSE';
+
+
 var child_player_config = {
     autoplay: true,
     clickToPlay: false,
@@ -113,7 +117,7 @@ var video_list = [
     [ VIDEO_TYPE_YOUTUBE, get_youtube_uri( BBC_NEWS ), 'BBC_NEWS' ],
     [ VIDEO_TYPE_YOUTUBE, get_youtube_uri( CNN_NEWS ), 'CNN_NEWS' ],
     [ VIDEO_TYPE_YOUTUBE, get_youtube_uri( MSNBC ), 'MSNBC' ],
-    [ VIDEO_TYPE_YOUTUBE, get_youtube_uri( FOXNEWS ), 'FOXNEWS' ],
+    [ VIDEO_TYPE_YOUTUBE, get_youtube_uri( HKSMEDIA ), '策略王電視 Live' ],
     // [VIDEO_TYPE_DUMMY, '','test caption'],
     // [VIDEO_TYPE_DUMMY, '','test caption'],
     // [VIDEO_TYPE_DUMMY, '','test caption'],
