@@ -99,6 +99,9 @@ var FOXNEWS = '-49g22m6nxI';
 // 策略王電視 Live
 var HKSMEDIA = '07QcV06lOSE';
 
+// AI Jazeera English
+var AI_JAZEERA_ENGLISH ='jL8uDJJBjMA'
+
 var video_list = [
     [ VIDEO_TYPE_RTHK31, RTHK31_M3U8, 'RTHK31' ],
     // [ VIDEO_TYPE_RTHK32, RTHK32_M3U8, 'RTHK32' ],
@@ -111,7 +114,7 @@ var video_list = [
     [ VIDEO_TYPE_RTHK32, VIUTV_M3U8, 'VIUTV' ],
     [ VIDEO_TYPE_RTHK32, CABLE_KAI_TV, 'CABLE_KAI_TV' ],
     [ VIDEO_TYPE_RTHK32, CHU_KONG_TV, 'CHU_KONG_TV' ],
-    [ VIDEO_TYPE_RTHK32, SOUTH_TV, 'SOUTH_TV' ],
+    [ VIDEO_TYPE_RTHK32, AI_JAZEERA_ENGLISH, 'AI_JAZEERA_ENGLISH' ],
     [ VIDEO_TYPE_YOUTUBE, get_youtube_uri( ALGO_TRADE ), 'ALGO_TRADE' ],
     [ VIDEO_TYPE_YOUTUBE, get_youtube_uri( APPLE_LIVE ), 'apple_live' ],
     [ VIDEO_TYPE_YOUTUBE, get_youtube_uri( SKYNEWS ), 'skynews' ],
