@@ -99,6 +99,24 @@ var FOXNEWS = '-49g22m6nxI';
 // 策略王電視 Live
 var HKSMEDIA = '07QcV06lOSE';
 
+// AI Jazeera English
+var AI_JAZEERA_ENGLISH ='jL8uDJJBjMA'
+
+// CNA
+var CNA = 'JvZVnBn6zEI';
+
+// CCTV 中文国际频道
+var CCTV = 'vCDDYb_M2B4';
+
+// ABC_NEWS
+var ABC_NEWS = 'kwxtkBcayK8';
+
+// FRANCE 24 English
+var FRANCE_24_English = '0fKyrdQ15gs';
+
+// DW News
+var DW_NEWS = 'NvqKZHpKs';
+
 var video_list = [
     [ VIDEO_TYPE_RTHK31, RTHK31_M3U8, 'RTHK31' ],
     // [ VIDEO_TYPE_RTHK32, RTHK32_M3U8, 'RTHK32' ],
@@ -107,13 +125,13 @@ var video_list = [
     [ VIDEO_TYPE_YOUTUBE, get_youtube_uri( TAIWAN_NEWS_CH51 ), '年代新聞CH51' ],
     [ VIDEO_TYPE_YOUTUBE, get_youtube_uri( TAIWAN_NEWS_CTI ), 'CTI中天新聞' ],
     [ VIDEO_TYPE_YOUTUBE, get_youtube_uri( NASA ), 'NASA' ],
-    [ VIDEO_TYPE_YOUTUBE, get_youtube_uri( BLOOMBERG_GLOBAL_NEWS ), 'BLOOMBERG_GLOBAL_NEWS' ],
+    [ VIDEO_TYPE_YOUTUBE, get_youtube_uri( DW_NEWS ), 'DW news' ],
     [ VIDEO_TYPE_RTHK32, VIUTV_M3U8, 'VIUTV' ],
     [ VIDEO_TYPE_RTHK32, CABLE_KAI_TV, 'CABLE_KAI_TV' ],
     [ VIDEO_TYPE_RTHK32, CHU_KONG_TV, 'CHU_KONG_TV' ],
-    [ VIDEO_TYPE_RTHK32, SOUTH_TV, 'SOUTH_TV' ],
+    [ VIDEO_TYPE_RTHK32, CCTV, 'CCTV' ],
     [ VIDEO_TYPE_YOUTUBE, get_youtube_uri( ALGO_TRADE ), 'ALGO_TRADE' ],
-    [ VIDEO_TYPE_YOUTUBE, get_youtube_uri( APPLE_LIVE ), 'apple_live' ],
+    [ VIDEO_TYPE_YOUTUBE, get_youtube_uri( FRANCE_24_English ), 'FRANCE_24_English' ],
     [ VIDEO_TYPE_YOUTUBE, get_youtube_uri( SKYNEWS ), 'skynews' ],
     [ VIDEO_TYPE_YOUTUBE, get_youtube_uri( TVBS_NEWS ), 'tvbs' ],
     [ VIDEO_TYPE_YOUTUBE, get_youtube_uri( TTV_NEWS ), '台視新聞台' ],
@@ -121,7 +139,7 @@ var video_list = [
     [ VIDEO_TYPE_YOUTUBE, get_youtube_uri( BBC_NEWS ), 'BBC_NEWS' ],
     [ VIDEO_TYPE_YOUTUBE, get_youtube_uri( CNN_NEWS ), 'CNN_NEWS' ],
     [ VIDEO_TYPE_YOUTUBE, get_youtube_uri( MSNBC ), 'MSNBC' ],
-    [ VIDEO_TYPE_YOUTUBE, get_youtube_uri( HKSMEDIA ), '策略王電視 Live' ],
+    [ VIDEO_TYPE_YOUTUBE, get_youtube_uri( ABC_NEWS ), 'ABC_NEWS Live' ],
 ].map( p => {
     return {
         type: p[ 0 ],

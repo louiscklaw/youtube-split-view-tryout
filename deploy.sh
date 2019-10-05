@@ -1,3 +1,5 @@
 #!/usr/bin/env sh
 
-gulp
+gulp && \
+rm -rf docs &&\
+cp -r build docs
