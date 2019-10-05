@@ -92,7 +92,7 @@ var video_list = [
     [ VIDEO_TYPE_YOUTUBE, get_youtube_uri( DW_NEWS ), 'DW news' ],
     [ VIDEO_TYPE_RTHK32, VIUTV_M3U8, 'VIUTV' ],
     [ VIDEO_TYPE_RTHK32, CABLE_KAI_TV, 'CABLE_KAI_TV' ],
-    [ VIDEO_TYPE_RTHK32, CHU_KONG_TV, 'CHU_KONG_TV' ],
+    [ VIDEO_TYPE_RTHK32, CNA, 'CNA' ],
     [ VIDEO_TYPE_RTHK32, CCTV, 'CCTV' ],
     [ VIDEO_TYPE_YOUTUBE, get_youtube_uri( ALGO_TRADE ), 'ALGO_TRADE' ],
     [ VIDEO_TYPE_YOUTUBE, get_youtube_uri( FRANCE_24_English ), 'FRANCE_24_English' ],
