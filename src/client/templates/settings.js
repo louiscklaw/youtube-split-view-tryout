@@ -81,11 +81,13 @@ var FRANCE_24_English = '0fKyrdQ15gs';
 // DW News
 var DW_NEWS = 'NvqKZHpKs';
 
+var TRT_WORLD = 'CV5Fooi8YJA';
+
 var video_list = [
     [ VIDEO_TYPE_RTHK31, RTHK31_M3U8, 'RTHK31' ],
     // [ VIDEO_TYPE_RTHK32, RTHK32_M3U8, 'RTHK32' ],
     [ VIDEO_TYPE_YOUTUBE, get_youtube_uri( TAIWAN_THREE_NAP_NEWS ), '三立LIVE新聞HD直播' ],
-    [ VIDEO_TYPE_YOUTUBE, get_youtube_uri( HKO_YOUTUBE_VIDEO_ID ), '香港天文台' ],
+    [ VIDEO_TYPE_YOUTUBE, get_youtube_uri( TRT_WORLD ), 'TRT_WORLD' ],
     [ VIDEO_TYPE_YOUTUBE, get_youtube_uri( TAIWAN_NEWS_CH51 ), '年代新聞CH51' ],
     [ VIDEO_TYPE_YOUTUBE, get_youtube_uri( TAIWAN_NEWS_CTI ), 'CTI中天新聞' ],
     [ VIDEO_TYPE_YOUTUBE, get_youtube_uri( NASA ), 'NASA' ],
