@@ -119,6 +119,8 @@ var DW_NEWS = 'NvqKZHpKs';
 
 var TRT_WORLD = 'CV5Fooi8YJA';
 
+var FRANCE_24 = '0fKyrdQ15gs';
+
 var video_list = [
     [ VIDEO_TYPE_RTHK31, RTHK31_M3U8, 'RTHK31' ],
     // [ VIDEO_TYPE_RTHK32, RTHK32_M3U8, 'RTHK32' ],
@@ -141,7 +143,7 @@ var video_list = [
     [ VIDEO_TYPE_YOUTUBE, get_youtube_uri( BBC_NEWS ), 'BBC_NEWS' ],
     [ VIDEO_TYPE_YOUTUBE, get_youtube_uri( CNN_NEWS ), 'CNN_NEWS' ],
     [ VIDEO_TYPE_YOUTUBE, get_youtube_uri( MSNBC ), 'MSNBC' ],
-    [ VIDEO_TYPE_YOUTUBE, get_youtube_uri( ABC_NEWS ), 'ABC_NEWS Live' ],
+    [ VIDEO_TYPE_YOUTUBE, get_youtube_uri( FRANCE_24 ), 'FRANCE_24' ],
 ].map( p => {
     return {
         type: p[ 0 ],
