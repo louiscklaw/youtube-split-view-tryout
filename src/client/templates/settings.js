@@ -85,6 +85,12 @@ var TRT_WORLD = 'CV5Fooi8YJA';
 
 var FRANCE_24 = '0fKyrdQ15gs';
 
+var ANN_NEWS = 'coYw-eVU0Ks';
+
+var FOX10_PHOENIX = '1Nfmu4XIfTM';
+
+var ABC_NEWS_AUSTRALIA = 'nu3iXDR7iXo';
+
 var video_list = [
     [ VIDEO_TYPE_RTHK31, RTHK31_M3U8, 'RTHK31' ],
     // [ VIDEO_TYPE_RTHK32, RTHK32_M3U8, 'RTHK32' ],
