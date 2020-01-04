@@ -1,0 +1,59 @@
+# https://docs.travis-ci.com/user/docker/
+
+#.travis.yml
+sudo: false
+
+dist: bionic
+
+language: node_js
+node_js:
+  - 8
+cache: yarn
+
+# install:
+#   - yarn build
+
+script:
+  - yarn build
+
+before_deploy:
+  - npm install -g firebase-tools firebase-functions firebase-admin
+
+after_success:
+  - cd _util
+  - id
+  - sudo apt update
+  - sudo apt install -y python3 python3-pip python3-dev python3-wheel python3-setuptools
+  - pip3 install --user pipenv
+  - pipenv sync
+  - pipenv run python3 ./merge.py
+
+# deploy:
+#   # production deploy
+#   - provider: script
+#     skip_cleanup: true
+#     script: firebase deploy --project $FIREBASE_PROJECT --only hosting:production --token $FIREBASE_TOKEN --non-interactive
+#     on:
+#       all_branches: true
+#       condition: $TRAVIS_BRANCH = "master"
+
+#   # staging deploy
+#   - provider: script
+#     skip_cleanup: true
+#     script: firebase deploy -f --project $FIREBASE_PROJECT --only hosting:staging --token $FIREBASE_TOKEN --non-interactive
+#     on:
+#       all_branches: true
+#       condition: $TRAVIS_BRANCH = "develop"
+
+notifications:
+  slack:
+    secure: "Y9TUJc3H3QHsdHFVJlGki3v0uOPyTf8IDvLX9gS37zwOsPlE40rwJyWW1jYCcXH/QQAWjVYw7OYtZTwlL232CVPhPDKZfuOlAWx5Gwwp9YXOJZ2u6t+LW8kso4RqLmkvmMOABaDFqY29Rv+OOHd7c+gdQrBkTgicsBH5+jncBgOVDCZi2vVjRJLjdQHA3dQ3eoF4U2DLIDQzfQ9Z3OMNTrdgZUd2UCipvYPMZXNEbi3wEnjpw3n9b0lczvo1Z61xaux3tbaNV8BjLXJ7RaaOK2OY/OlApWoOmNTjjaEs1TezZna4uRhlZ+sKXduQ7NBUvyg55DXlDkUtztjS+DvC3o2AhcGvBgiuT2geRUe23Vfap/nqEvNAxe8QqQcPsUFgihJXojYC515S1Blgaa7EngSVauGf1DYyyjg19AG01PtbIHAb2ixmEbmU9ZKziOWE/RS1ytSo0jxL1QSn/hhOtNA5MAyciMO91aSRMP7ND6MUwlQV5vPvUf1Iis9fTppwH9ur9pK+bcuh2j6/84ExYR8XXEgW/t9Z5vJbmUWdn+qLe3UsOfW2NvgHMnCxwKn6n02rN9ZOG/C0+Ux2aEMQ9jr6XlGh+FM9j57uyYO5Or7+ASDyAo3008AGUhCnYt6+XouN2q0ssqbbEFZjTwivbMLl2miA4Ya0PEwyPX9mqKE="
+
+
+env:
+  global:
+    # SLACK_TOKEN
+    - secure: "CBq65M3BjjDofXwOOLkuvv604oAiY0p6L88qvx8d3nlvpjdCivRah8gIvWA2dJAfx5fX+Z11Xz9NERYomcI+5OoW/3icfMlxSXn08eF72b0mheEZaj+ahPhN7WIQOE3Kf9xFFfj2wG+U2mFu0cWRAp2t3EyTg3MNei/Q96SX+BzYo9yQxM/8c76nMEmtRC8taS7SX74JACvLrOvA73L0/haniHuC0tzyqgxc73X0WnD5IYsuxrRVmPQshqlozwIPPkw4x1v8tdr/YzQVDWrZNCDHa3u4m71jj1Qw1st9uMIhVvZy9qDttlvLjrxcDtQCbMsrZ8dej/H+3g7UWkmkRf8TAPh1ZWbYRcDgVbC/yHqBvWu0pIFeGhztXYxoLY2pMw4CBHiHfLbMjTaEuvClC6eEauf9CDwWxIwyuPEJ5VwhSaltDpuFDLJtp1eUZQuYVl5w0CfgrPLHjc3E/VxMQDF1qPI4WgZWG6kRJzG62rj14R+IrdlrwmmzkW96XQ7qtklZUm5SdtysgwUYXQ6mG4639ywWKKNQ9NB+lAQFHxJCTRoHqRY1jUyi5JW8x79jhgkp5ot7TeDQ9exMcGEMJi7JmUv7G+3rosL85avZaVzUOUIf/kd2eSu6BNiJlPFo3/27YuXqKakjt9CrIoJOsPuEhDV6msNdUA43NrcvAZk="
+
+    # GITHUB_TOKEN
+    - secure: "U6AqG34ZqE4nCN+XHmbMHgi03svFHSHuwLHGIbrPTiPGFUvN8+QxXNDesnMyd62+N0o6xWk+fyN8LPLU9mWmE25lL+ccFu4ZC/Ghar1bQjWXZjn2FVtrcST+R8LDzDM8GVm617cgwRNAo4oldU4aEgOomu2vNW+gw9whDi5ChsaY0pXuZIxoS0ET0Rt58BaOOZeHzw7jxJPH8H4cZGHYHjITABiwg2sRTC0awxUQ0f2cdsv2Kfjo8YTrIpL4eDZTZQ2KnqZ2b96t7yAS7xPJw8F+jJJ5X/h+UT4UBrKX5RD1Qp+tkBSl17K39ptcfLVJ2dQsni5rD1OyvWOnfrD1a520O1eMhavBta2fl+r26JJC823RlrpFTuS7+4xr/Y04sCcn8mP2mqTkCn2L2WfLI49fdAsCY7tRPT8RuWJa7siHrfAmGjUkCgl7OnhM15tq8dGfWVYBnHt1CASVs5ohOKf1CPvqzhAkIyClSn+ZmiKUMPwcYRS9861rKyOEL2OZ3kiRa5c3iE0pOsDamWYGBUSvut97NqfK6eaXNv796aU6E6ic5CrNVCP82tG9r/DFz8YoZjcQm7EjBuOsKwmMtcsLJAQAUAwlHvLDiraxmA0diGSPJ2moUVSlwKi4TNz9ZJdGgIeAs/8iV8F0MEDZGsiJuYnxQ+j1Ugk8lwRn/kk="
