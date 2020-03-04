@@ -81,11 +81,21 @@ var FRANCE_24_English = '0fKyrdQ15gs';
 // DW News
 var DW_NEWS = 'NvqKZHpKs';
 
+var TRT_WORLD = 'CV5Fooi8YJA';
+
+var FRANCE_24 = '0fKyrdQ15gs';
+
+var ANN_NEWS = 'coYw-eVU0Ks';
+
+var FOX10_PHOENIX = '1Nfmu4XIfTM';
+
+var ABC_NEWS_AUSTRALIA = 'nu3iXDR7iXo';
+
 var video_list = [
     [ VIDEO_TYPE_RTHK31, RTHK31_M3U8, 'RTHK31' ],
     // [ VIDEO_TYPE_RTHK32, RTHK32_M3U8, 'RTHK32' ],
     [ VIDEO_TYPE_YOUTUBE, get_youtube_uri( TAIWAN_THREE_NAP_NEWS ), '三立LIVE新聞HD直播' ],
-    [ VIDEO_TYPE_YOUTUBE, get_youtube_uri( HKO_YOUTUBE_VIDEO_ID ), '香港天文台' ],
+    [ VIDEO_TYPE_YOUTUBE, get_youtube_uri( TRT_WORLD ), 'TRT_WORLD' ],
     [ VIDEO_TYPE_YOUTUBE, get_youtube_uri( TAIWAN_NEWS_CH51 ), '年代新聞CH51' ],
     [ VIDEO_TYPE_YOUTUBE, get_youtube_uri( TAIWAN_NEWS_CTI ), 'CTI中天新聞' ],
     [ VIDEO_TYPE_YOUTUBE, get_youtube_uri( NASA ), 'NASA' ],
@@ -103,7 +113,7 @@ var video_list = [
     [ VIDEO_TYPE_YOUTUBE, get_youtube_uri( BBC_NEWS ), 'BBC_NEWS' ],
     [ VIDEO_TYPE_YOUTUBE, get_youtube_uri( CNN_NEWS ), 'CNN_NEWS' ],
     [ VIDEO_TYPE_YOUTUBE, get_youtube_uri( MSNBC ), 'MSNBC' ],
-    [ VIDEO_TYPE_YOUTUBE, get_youtube_uri( ABC_NEWS ), 'ABC_NEWS Live' ],
+    [ VIDEO_TYPE_YOUTUBE, get_youtube_uri( FRANCE_24 ), 'FRANCE_24' ],
 ].map( p => {
     return {
         type: p[ 0 ],
