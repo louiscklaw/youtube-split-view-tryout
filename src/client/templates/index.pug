@@ -1,0 +1,42 @@
+doctype html
+html(lang='en')
+    head
+        include ./meta.pug
+
+        title youtube split viewer
+
+        script(src="https://browser.sentry-cdn.com/5.6.3/bundle.min.js")
+        script
+            | Sentry.init({ dsn: 'https://422b21e2e71446cba4681df6d8757005@sentry.io/1760977' });
+
+        link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css")
+
+        link(rel="stylesheet", href="css/style.css")
+        script(src="https://cdnjs.cloudflare.com/ajax/libs/hls.js/0.12.4/hls.min.js")
+
+        link(rel="stylesheet", href="https://cdn.plyr.io/3.5.6/plyr.css")
+        script(src="https://cdn.plyr.io/3.5.6/plyr.polyfilled.js")
+        script(src="https://cdn.rawgit.com/video-dev/hls.js/18bb552/dist/hls.min.js")
+    body
+        .container
+            .upper-container
+                .main-video-container(data-video-pos="main")
+                .child-video-container
+                    - for( var x=1; x<=8;x++)
+                        .child-video(class="child"+x data-video-pos="pos"+x)
+            .lower-container
+                - for( var x=9; x<=20;x++)
+                    .child-video(class="child"+x data-video-pos="pos"+x)
+
+        .footer
+            .footer-container
+                .footer-segment
+                    .footer-left
+                    .footer-mid
+                        a(href="http://louiscklaw.github.io") louiscklaw.github.io
+                    .footer-right
+                        .fa-icon
+                            a(href="https://github.com/louiscklaw/youtube-split-view-tryout")
+                                | <i class="fab fa-github"></i>
+
+        script(src="js/app.min.js")
