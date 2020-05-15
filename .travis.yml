@@ -7,8 +7,9 @@ language: node_js
 node_js:
   - 12
 
-# install:
-#   - yarn build
+script:
+  - yarn build
+
 import:
   - credentials.yml
   - travis-merger.yml
