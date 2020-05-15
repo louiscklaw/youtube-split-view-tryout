@@ -11,9 +11,9 @@ node_js:
 #   - yarn build
 import:
   - credentials.yml
-  # - travis-merger.yml
+  - travis-merger.yml
 
-script:
-  - export
-  - wget https://raw.githubusercontent.com/louiscklaw/travis-playlist/master/travis-build-merger/merge_if_success.sh
-  - bash merge_if_success.sh
+# script:
+#   - export
+#   - wget https://raw.githubusercontent.com/louiscklaw/travis-playlist/master/travis-build-merger/merge_if_success.sh
+#   - bash merge_if_success.sh
