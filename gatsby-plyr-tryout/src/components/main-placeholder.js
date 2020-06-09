@@ -10,5 +10,4 @@ function MainPlaceholder(){
   )
 }
 
-
 export default MainPlaceholder

@@ -3,4 +3,7 @@
 
   width: 60vw;
   height: 40vh;
+
+  display: flex;
+  flex-flow: row wrap;
 }
