@@ -1,0 +1,14 @@
+
+.video-container-column {
+  height: 100vh;
+
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+.video-container-row {
+  width: 100vw;
+
+  display: flex;
+  flex-flow: row nowrap;
+}
