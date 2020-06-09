@@ -1,0 +1,15 @@
+.side-channel-list {
+  background-color: black;
+  height: 100vh;
+  width: 40vw;
+
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: space-evenly;
+
+  iframe {
+    width: 20vw;
+    height: 20vh;
+  }
+
+}

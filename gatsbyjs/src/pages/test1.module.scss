@@ -1,0 +1,19 @@
+.main-canvas{
+  height: 100vh;
+  width: 100vw;
+
+  overflow: hidden;
+}
+
+// 10 channel selector at teh right
+.main-row {
+  display: flex;
+  flex-flow: row nowrap;
+
+  // main-youtube and 6 channel selector at the bottom
+  .main-column {
+    display: flex;
+    flex-flow: column nowrap;
+  }
+
+}
