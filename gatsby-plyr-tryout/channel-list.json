@@ -1,9 +1,0 @@
-{
-  "channels": [
-    { "id": 1, "video_url": "https://www.youtube.com/embed/KGBv8oT5lwk", "video_title": "test title1" },
-    { "id": 2, "video_url": "https://www.youtube.com/embed/KGBv8oT5lwk", "video_title": "test title2" },
-    { "id": 3, "video_url": "https://www.youtube.com/embed/KGBv8oT5lwk", "video_title": "test title3" },
-    { "id": 4, "video_url": "https://www.youtube.com/embed/KGBv8oT5lwk", "video_title": "test title4" },
-    { "id": 5, "video_url": "https://www.youtube.com/embed/KGBv8oT5lwk", "video_title": "test title5" }
-  ]
-}

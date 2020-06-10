@@ -1,9 +1,0 @@
-.test {
-  background-color: blue;
-
-  width: 40vw;
-  height: 100vh;
-
-  display: flex;
-  flex-flow: column wrap;
-}
