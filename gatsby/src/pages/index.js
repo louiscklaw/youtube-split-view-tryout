@@ -5,6 +5,8 @@ import SEO from "../components/seo"
 
 import style from './index.module.scss'
 
+import YoutubeCell from '../components/youtube-cell'
+
 function IndexPage() {
   let [boxA_pos, setBoxAPos] = React.useState('0')
   let [boxB_pos, setBoxBPos] = React.useState('1')
@@ -53,7 +55,6 @@ function IndexPage() {
     ele_video.style.left = `${ele_placeholder.offsetLeft}px`
     ele_video.style.height = `${ele_placeholder.clientHeight}px`
     ele_video.style.width = `${ele_placeholder.clientWidth}px`
-
   }
 
   const swapPosition = (eleA, eleB) => {
@@ -63,6 +64,8 @@ function IndexPage() {
   }
 
   const handleOnClick = (e) => {
+    console.log(e.target)
+
     let clicked_position = getPositioonFromEle(e.target)
     // getClickedSetMethod
     let clickedSetMethod = box_pos_array.filter(x => x[0] == clicked_position)[0][1]
@@ -159,13 +162,21 @@ function IndexPage() {
               previewChannel
             </div>
 
-
           </div>
         </div>
       </div>
-      <div className={style.box1} data-position={boxA_pos} onClick={(e)=>handleOnClick(e)} >box A</div>
-      <div className={style.box2} data-position={boxB_pos} onClick={(e)=>handleOnClick(e)} >box B</div>
-      <div className={style.box3} data-position={boxC_pos} onClick={(e)=>handleOnClick(e)} >box C</div>
+
+      <div className={style.box1} data-position={boxA_pos} onClick={(e)=>handleOnClick(e)} >
+        <YoutubeCell v_id={`KGBv8oT5lwk`} pos_id={boxA_pos}/>
+      </div>
+
+      {/* <div className={style.box1} data-position={boxA_pos} onClick={(e)=>handleOnClick(e)} >box A</div> */}
+      <div className={style.box2} data-position={boxB_pos} onClick={(e)=>handleOnClick(e)} >
+        <YoutubeCell v_id={`KGBv8oT5lwk`} pos_id={boxB_pos}/>
+      </div>
+      <div className={style.box3} data-position={boxC_pos} onClick={(e)=>handleOnClick(e)} >
+        <YoutubeCell v_id={`KGBv8oT5lwk`} pos_id={boxC_pos}/>
+      </div>
     </Layout>
   )
 }
