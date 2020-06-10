@@ -1,0 +1,47 @@
+
+.whole-canvas{
+  background-color: red;
+  display:flex;
+  flex-flow: row nowrap;
+
+  height: 100vh;
+  width: 100vw;
+}
+
+.left {
+  background-color: green;
+  display: flex;
+  flex-flow: column nowrap;
+  width: 60vw;
+}
+
+.bottom-preview-channel {
+  display: flex;
+  flex-flow: row wrap;
+}
+
+.right {
+  background-color: blue;
+
+}
+
+.right-preview-channel {
+  width: 40vw;
+  height:100vh;
+
+  display: flex;
+  flex-flow: row wrap;
+}
+
+.main-channel {
+  width: 60vw;
+  height: 60vh;
+
+  background-color: pink;
+}
+
+.preview-channel {
+  width: 20vw;
+  height: 20vh;
+  background-color: aqua;
+}
