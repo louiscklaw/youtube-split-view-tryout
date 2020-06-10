@@ -64,18 +64,22 @@ function IndexPage() {
   }
 
   const handleOnClick = (e) => {
-    console.log(e.target)
+    if (e.target.hasAttribute('data-position'))
+    {
+      console.log(e.target)
+      console.log(e.target.hasAttribute('data-position'))
+      let clicked_position = getPositioonFromEle(e.target)
+      // getClickedSetMethod
+      let clickedSetMethod = box_pos_array.filter(x => x[0] == clicked_position)[0][1]
 
-    let clicked_position = getPositioonFromEle(e.target)
-    // getClickedSetMethod
-    let clickedSetMethod = box_pos_array.filter(x => x[0] == clicked_position)[0][1]
-
-    // getMainSetMethod
-    let mainSetMethod = box_pos_array.filter(x => x[0] == '0')[0][1]
+      // getMainSetMethod
+      let mainSetMethod = box_pos_array.filter(x => x[0] == '0')[0][1]
 
 
-    clickedSetMethod('0')
-    mainSetMethod(clicked_position)
+      clickedSetMethod('0')
+      mainSetMethod(clicked_position)
+
+    }
 
 
     // if (box_pos_array[0][0] == '0') {
