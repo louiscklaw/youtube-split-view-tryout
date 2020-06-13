@@ -1,0 +1,55 @@
+@import "./style.scss";
+
+.hide-on-narrow-window {
+  display: none;
+}
+
+.right-preview-channel {
+  width: 100vw;
+  min-height:10vh;
+
+  display: flex;
+  flex-flow: row wrap;
+}
+
+.right {
+  background-color: $purple;
+}
+
+
+.bottom-preview-channel {
+  display: flex;
+  flex-flow: row wrap;
+}
+
+.main-channel {
+  width: 100vw;
+  min-height: 30vh;
+
+  background-color: pink;
+}
+
+.preview-channel {
+  min-width: 33vw;
+  height: 20vh;
+  background-color: aqua;
+}
+
+.left {
+  background-color: green;
+  display: flex;
+  flex-flow: column nowrap;
+  width: 100vw;
+  min-height: 30vh;
+}
+
+.test-style-haha {
+  background-color: blue;
+  display: none;
+}
+
+* {
+  padding: 0px;
+  margin: 0px;
+  box-sizing: border-box;
+}

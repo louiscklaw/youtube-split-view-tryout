@@ -1,18 +1,21 @@
 import React from "react"
 
+import _ from 'lodash'
+
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 
-import style from './index.module.scss'
+// import style from './index.module.scss'
 
 import YoutubeCell from '../components/youtube-cell'
 import MainChannel from "../components/main-channel"
 import PreviewChannel from '../components/preview-channel'
+import Footer from '../components/footer'
 
 import GlobalContext from "../contexts/global-context"
 
 function IndexPage() {
-  let {channel_list} = React.useContext(GlobalContext)
+  let {channel_list, active_style, narrow_window} = React.useContext(GlobalContext)
 
   let [boxA_pos, setBoxAPos] = React.useState('0')
   let [boxB_pos, setBoxBPos] = React.useState('1')
@@ -82,6 +85,14 @@ function IndexPage() {
   })
   console.log(box_settings)
 
+  const paveNarrowScreenRightPreview = () => {
+    return _.range(7,9+1).map(idx => (<PreviewChannel placeholder={idx} />))
+  }
+
+  const paveRightPreview = () => {
+    return _.range(7,16+1).map(idx => (<PreviewChannel placeholder={idx} />))
+  }
+
   const getBoxById = (position) => {
     return document.querySelector(`div[data-position="${position}"]`)
   }
@@ -138,45 +149,49 @@ function IndexPage() {
   return(
     <Layout>
       <SEO title="Home" />
-      <div className={style.wholeCanvas}>
-        <div className={style.left}>
+      <div className={active_style.testStyleHaha}>
+        helloworld
+      </div>
+      <div className={active_style.wholeCanvas}>
+        <div className={active_style.left}>
           <MainChannel />
-          <div className={style.bottomPreviewChannel}>
-            <PreviewChannel placeholder="1"/>
-            <PreviewChannel placeholder="2"/>
-            <PreviewChannel placeholder="3"/>
-            <PreviewChannel placeholder="4"/>
-            <PreviewChannel placeholder="5"/>
-            <PreviewChannel placeholder="6"/>
+          <div className={active_style.bottomPreviewChannel}>
+            {_.range(1,6+1).map( idx => {
+              return(
+                <PreviewChannel placeholder={idx} />
+              )
+            })}
           </div>
 
         </div>
-        <div className={style.right}>
-          <div className={style.rightPreviewChannel}>
-            <PreviewChannel placeholder="7"/>
-            <PreviewChannel placeholder="8"/>
-            <PreviewChannel placeholder="9"/>
-            <PreviewChannel placeholder="10"/>
-            <PreviewChannel placeholder="11"/>
-            <PreviewChannel placeholder="12"/>
-            <PreviewChannel placeholder="13"/>
-            <PreviewChannel placeholder="14"/>
-            <PreviewChannel placeholder="15"/>
-            <PreviewChannel placeholder="16"/>
-
+        <div className={active_style.right}>
+          <div className={active_style.rightPreviewChannel}>
+            {
+              narrow_window ? paveNarrowScreenRightPreview(): paveRightPreview()
+            }
           </div>
         </div>
+      </div>
+
+      <div className={active_style.footer}>
+        <Footer />
       </div>
 
       {
         Object.keys(box_settings).map( channel_id => {
           let box_setting = box_settings[channel_id]
           let {box_pos, v_id} = box_setting
+
           return(
-            <div className={style.box1} data-position={box_pos} onClick={(e)=>handleOnClick(e)} >
-              <YoutubeCell v_id={v_id} pos_id={box_pos}/>
+            <div
+              className={active_style.box1}
+              data-position={box_pos}
+              onClick={(e)=>handleOnClick(e)}
+            >
+              <YoutubeCell v_id={v_id} pos_id={box_pos} key={`youtube_cell_${box_pos}`}/>
             </div>
           )
+
         })
       }
 
