@@ -34,7 +34,9 @@
   "dependencies": {
     "@commitlint/cli": "^8.3.5",
     "@commitlint/config-conventional": "^8.3.4",
+    "bulma": "^0.9.0",
     "lodash": "^4.17.15",
+    "node-sass": "^4.14.1",
     "resize-observer-polyfill": "^1.5.1"
   }
 }

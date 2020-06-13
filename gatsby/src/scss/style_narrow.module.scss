@@ -1,5 +1,20 @@
 @import "./style.scss";
 
+
+.footer-custom {
+  background-color: $preview_bg_color;
+  color: $text-color;
+
+  width: 100vw;
+  height: 10vh;
+
+  display: inline-flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  text-align: center;
+}
+
+
 .hide-on-narrow-window {
   display: none;
 }
@@ -8,8 +23,9 @@
   width: 100vw;
   min-height:10vh;
 
-  display: flex;
-  flex-flow: row wrap;
+  display: none;
+  // display: flex;
+  // flex-flow: row wrap;
 }
 
 .right {
@@ -25,18 +41,17 @@
 .main-channel {
   width: 100vw;
   min-height: 30vh;
-
-  background-color: pink;
 }
 
 .preview-channel {
-  min-width: 33vw;
+  min-width: 50vw;
   height: 20vh;
-  background-color: aqua;
+  background-color: $preview_channel_bg_color;
 }
 
 .left {
-  background-color: green;
+  // background-color: green;
+  background-color: $preview_bg_color;
   display: flex;
   flex-flow: column nowrap;
   width: 100vw;

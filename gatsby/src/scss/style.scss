@@ -1,22 +1,57 @@
 @charset "utf-8";
+@import url('https://fonts.googleapis.com/css?family=Nunito:400,700');
 
+// Set your brand colors
 $purple: #8A4D76;
+$pink: #FA7C91;
+$brown: #757763;
+$beige-light: #D0D1CD;
+$beige-lighter: #EFF0EB;
+
+// https://flatuicolors.com/palette/defo
+$text-color: #EFF0EB;
+$video_bg_color: #2c3e50;
+$preview_bg_color: black;
+$preview_channel_bg_color: black;
+
+$title_height: 30px;
+
+// Update Bulma's global variables
+$family-sans-serif: "Nunito", sans-serif;
+$grey-dark: $brown;
+$grey-light: $beige-light;
+$primary: $purple;
+$link: $pink;
+$widescreen-enabled: false;
+$fullhd-enabled: false;
+
+// Update some of Bulma's component variables
+$body-background-color: $beige-lighter;
+$control-border-width: 2px;
+$input-border-color: transparent;
+$input-shadow: none;
+
+@import "../../node_modules/bulma/bulma.sass";
 
 .youtube-cell-container{
   position: relative;
-  top: -50px;
+  top: -$title_height;
 
   transition: 1s;
 }
 
 .test-button {
-  background-color: black;
+  // background-color: black;
+  cursor: pointer;
+  background-color: unset;
+  backdrop-filter: blur(25px) brightness(80%);
+
   color: white;
 
   position: relative;
-  top: 50px;
+  top: $title_height;
   width: 100%;
-  height: 50px;
+  height: $title_height;
   z-index: 1;
 
   display: inline-flex;
@@ -28,4 +63,9 @@ $purple: #8A4D76;
 .player {
   background-color: white;
 
+}
+
+* {
+  // background-color: $video_bg_color;
+  overflow: hidden;
 }

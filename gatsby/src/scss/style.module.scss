@@ -1,6 +1,6 @@
 @import "./style.scss";
 
-.footer {
+.footer-custom {
   display: none;
 }
 
@@ -41,14 +41,12 @@
 .main-channel {
   width: 60vw;
   height: 60vh;
-
-  background-color: pink;
 }
 
 .preview-channel {
   width: 20vw;
   height: 20vh;
-  background-color: aqua;
+  background-color: $preview_channel_bg_color;
 }
 
 .test-style-haha {

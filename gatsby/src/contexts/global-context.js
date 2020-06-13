@@ -3,6 +3,9 @@ import React from 'react'
 import style from '../scss/style.module.scss'
 import style_narrow from '../scss/style_narrow.module.scss'
 
+import config from '../config'
+
+const {narrow_screen_checkpoint} = config
 const GlobalContext = React.createContext()
 
 let default_state = {
@@ -25,8 +28,8 @@ class GlobalContextProvider extends React.Component {
   }
 
   checkNarrowWindow = (windowWidth) => {
-    console.log('select style', windowWidth > 500)
-    return windowWidth < 500
+    console.log('checkNarrowWindow', windowWidth < narrow_screen_checkpoint)
+    return windowWidth < narrow_screen_checkpoint
   }
 
   updateDimensions() {
@@ -53,7 +56,7 @@ class GlobalContextProvider extends React.Component {
     fetch('http://localhost:3000/channels')
       .then(res => res.json())
       .then(json => this.setState({...this.state, channel_list: json}))
-      .then( () => console.log(this.state))
+      // .then( () => console.log(this.state))
       .catch(err => {
         console.log('error found on fetching json', err)
       })

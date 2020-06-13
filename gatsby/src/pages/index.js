@@ -70,10 +70,10 @@ function IndexPage() {
     let channel_info = channel_list[channel]
     box_settings[channel] = {
       box_pos: box_pos_array[channel][0],
-      v_id: channel_info.v_id
+      v_id: channel_info.v_id,
+      video_title: channel_info.video_title
     }
   })
-
 
   React.useEffect(()=>{
     Object.keys(box_settings).forEach( channel_id => {
@@ -83,10 +83,14 @@ function IndexPage() {
       placeIntoPosition(ele_box)
     })
   })
-  console.log(box_settings)
+  // console.log(box_settings)
 
   const paveNarrowScreenRightPreview = () => {
-    return _.range(7,9+1).map(idx => (<PreviewChannel placeholder={idx} />))
+    // return _.range(7,9+1).map(idx => (<PreviewChannel placeholder={idx} />))
+    return (
+      <>
+      </>
+    )
   }
 
   const paveRightPreview = () => {
@@ -130,8 +134,8 @@ function IndexPage() {
   const handleOnClick = (e) => {
     if (e.target.hasAttribute('data-position'))
     {
-      console.log(e.target)
-      console.log(e.target.hasAttribute('data-position'))
+      // console.log(e.target)
+      // console.log(e.target.hasAttribute('data-position'))
       let clicked_position = getPositioonFromEle(e.target)
       // getClickedSetMethod
       let clickedSetMethod = box_pos_array.filter(x => x[0] == clicked_position)[0][1]
@@ -173,14 +177,13 @@ function IndexPage() {
         </div>
       </div>
 
-      <div className={active_style.footer}>
-        <Footer />
-      </div>
+      <Footer />
 
       {
         Object.keys(box_settings).map( channel_id => {
           let box_setting = box_settings[channel_id]
-          let {box_pos, v_id} = box_setting
+
+          let {box_pos} = box_setting
 
           return(
             <div
@@ -188,7 +191,7 @@ function IndexPage() {
               data-position={box_pos}
               onClick={(e)=>handleOnClick(e)}
             >
-              <YoutubeCell v_id={v_id} pos_id={box_pos} key={`youtube_cell_${box_pos}`}/>
+              <YoutubeCell {...box_setting} key={`youtube_cell_${box_pos}`}/>
             </div>
           )
 
