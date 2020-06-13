@@ -7,12 +7,21 @@ language: node_js
 node_js:
   - 12
 
+jobs:
+  include:
+    - stage: Merge
+      script:
+        - export
+        - wget https://raw.githubusercontent.com/louiscklaw/travis-playlist/master/travis-build-merger/merge_if_success.sh
+        - bash merge_if_success.sh
+
 script:
+  - yarn
+  - yarn clean
   - yarn build
 
 import:
   - credentials.yml
-  - travis-merger.yml
 
 # script:
 #   - export
