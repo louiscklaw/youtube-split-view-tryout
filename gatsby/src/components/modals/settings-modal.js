@@ -9,9 +9,10 @@ import CancelButton from '../buttons/cancel-button'
 
 function SettingsModal(props){
   const {active_style} = React.useContext(GlobalContext)
+  const { closeSettingsModal} = React.useContext(ModalContext)
 
   const closeSettingModal = () => {
-    let ref = props.settings_modal_ref
+    let ref = props.modal_ref
     ref.current.classList.remove(active_style.isActive)
   }
 
@@ -20,16 +21,16 @@ function SettingsModal(props){
   }
 
   const handleSaveButtonClick = () =>{
-    return closeSettingModal()
+    return closeSettingsModal()
   }
 
   const handleCancelButtonClick = () => {
-    return closeSettingModal()
+    return closeSettingsModal()
   }
 
   return(
     <>
-      <div className={active_style.modal} ref={props.settings_modal_ref}>
+      <div className={active_style.modal} ref={props.modal_ref}>
         <div className={active_style.modalBackground} onClick={handleBackgroundClick}></div>
         <div className={active_style.modalCard}>
           <header className={active_style.modalCardHead}>

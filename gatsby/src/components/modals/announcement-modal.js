@@ -1,9 +1,11 @@
 import React from 'react'
 import GlobalContext from '../../contexts/global-context'
 import CloseButton from '../buttons/close-button'
+import ModalContext from '../../contexts/modals-context'
 
 function AnnouncementModal(props){
   const {active_style} = React.useContext(GlobalContext)
+  const {closeAnnouncementModal} = React.useContext(ModalContext)
 
   return(
     <>
@@ -22,7 +24,7 @@ function AnnouncementModal(props){
 
           <footer className={active_style.modalCardFoot}>
 
-            <CloseButton onClick={props.closeButtonClick} />
+            <CloseButton onClick={closeAnnouncementModal} />
           </footer>
 
         </div>
