@@ -1,5 +1,7 @@
 import React from 'react'
 
+import SettingsContent from './settings-content'
+
 import GlobalContext from '../../contexts/global-context'
 import ModalContext from '../../contexts/modals-context'
 
@@ -30,7 +32,7 @@ function SettingsModal(props){
 
   return(
     <>
-      <div className={active_style.modal} ref={props.modal_ref}>
+      <div className={active_style.modal+' '+active_style.isActive} ref={props.modal_ref}>
         <div className={active_style.modalBackground} onClick={handleBackgroundClick}></div>
         <div className={active_style.modalCard}>
           <header className={active_style.modalCardHead}>
@@ -40,7 +42,10 @@ function SettingsModal(props){
           </header>
 
           <section className={active_style.modalCardBody}>
-            {props.children}
+
+            <SettingsContent />
+
+
           </section>
 
           <footer className={active_style.modalCardFoot}>
