@@ -1,20 +1,20 @@
 import React from "react"
-
 import _ from 'lodash'
 
 import Layout from "../components/layout"
 import SEO from "../components/seo"
-
-// import style from './index.module.scss'
-
 import YoutubeCell from '../components/youtube-cell'
 import MainChannel from "../components/main-channel"
 import PreviewChannel from '../components/preview-channel'
 import Footer from '../components/footer'
 
+import AnnouncementModal from '../components/modals/announcement-modal'
+
 import GlobalContext from "../contexts/global-context"
 
 function IndexPage() {
+  const announce_ref = React.useRef(null)
+
   let {channel_list, active_style, narrow_window} = React.useContext(GlobalContext)
 
   let [boxA_pos, setBoxAPos] = React.useState('0')
@@ -150,12 +150,27 @@ function IndexPage() {
 
   }
 
+  const handleBackgroundClick = () => {
+
+  }
+
+  const handleCloseButtonOnClick = () => {
+    announce_ref.current.classList.remove(active_style.isActive)
+  }
+
   return(
     <Layout>
       <SEO title="Home" />
-      <div className={active_style.testStyleHaha}>
-        helloworld
-      </div>
+
+      <AnnouncementModal
+        modal_ref={announce_ref}
+        title="Announcement title"
+        backgroundClick={handleBackgroundClick}
+        closeButtonClick={handleCloseButtonOnClick}
+      >
+        <p>hello announcement</p>
+      </AnnouncementModal>
+
       <div className={active_style.wholeCanvas}>
         <div className={active_style.left}>
           <MainChannel />
