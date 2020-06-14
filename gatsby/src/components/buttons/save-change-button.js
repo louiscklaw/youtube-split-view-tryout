@@ -5,7 +5,10 @@ function SaveChangesButton(props){
   const {active_style} = React.useContext(GlobalContext)
 
   return(
-    <button className={active_style.button +' '+ active_style.isSuccess} {...props}>
+    <button
+      className={active_style.button +' '+ active_style.isSuccess}
+      {...props}
+    >
       Save changes
     </button>
   )

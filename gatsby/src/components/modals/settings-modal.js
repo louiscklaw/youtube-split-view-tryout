@@ -10,13 +10,8 @@ import CancelButton from '../buttons/cancel-button'
 
 
 function SettingsModal(props){
-  const {active_style} = React.useContext(GlobalContext)
+  const {active_style, combineStyle} = React.useContext(GlobalContext)
   const { closeSettingsModal} = React.useContext(ModalContext)
-
-  const closeSettingModal = () => {
-    let ref = props.modal_ref
-    ref.current.classList.remove(active_style.isActive)
-  }
 
   const handleBackgroundClick = () => {
 
@@ -30,9 +25,14 @@ function SettingsModal(props){
     return closeSettingsModal()
   }
 
+  const handleSaveSetting = (e) => {
+    e.preventDefault();
+    console.log('calling me ? ')
+  }
+
   return(
     <>
-      <div className={active_style.modal+' '+active_style.isActive} ref={props.modal_ref}>
+      <div className={active_style.modal} ref={props.modal_ref}>
         <div className={active_style.modalBackground} onClick={handleBackgroundClick}></div>
         <div className={active_style.modalCard}>
           <header className={active_style.modalCardHead}>
@@ -41,17 +41,32 @@ function SettingsModal(props){
             </p>
           </header>
 
-          <section className={active_style.modalCardBody}>
 
-            <SettingsContent />
+          <form onSubmit={handleSaveSetting}>
+            <section className={active_style.modalCardBody}>
+              <SettingsContent />
+            </section>
+
+            <footer className={active_style.modalCardFoot}>
 
 
-          </section>
 
-          <footer className={active_style.modalCardFoot}>
-            <SaveChangeButton onClick={handleSaveButtonClick} />
-            <CancelButton onClick={handleCancelButtonClick} />
-          </footer>
+
+              <div className={combineStyle([active_style.field, active_style.isGrouped])} >
+                <div className={active_style.control}>
+                  <SaveChangeButton onClick={handleSaveButtonClick} />
+                </div>
+
+                <div className={active_style.control}>
+                  <CancelButton onClick={handleCancelButtonClick} />
+                </div>
+              </div>
+
+
+
+            </footer>
+
+          </form>
 
         </div>
       </div>

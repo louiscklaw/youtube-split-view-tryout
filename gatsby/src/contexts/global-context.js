@@ -26,6 +26,10 @@ class GlobalContextProvider extends React.Component {
     this.updateDimensions = this.updateDimensions.bind(this);
   }
 
+  combineStyle = (in_style) =>{
+    return in_style.join(' ')
+  }
+
   checkNarrowWindow = (windowWidth) => {
     console.log('checkNarrowWindow', windowWidth < narrow_screen_checkpoint)
     return windowWidth < narrow_screen_checkpoint
@@ -74,7 +78,8 @@ class GlobalContextProvider extends React.Component {
       <GlobalContext.Provider value={{
         ...this.state,
         helloworld: this.helloworld,
-        loadChannelList: this.loadChannelList
+        loadChannelList: this.loadChannelList,
+        combineStyle: this.combineStyle
       }}>
         {this.props.children}
       </GlobalContext.Provider>
