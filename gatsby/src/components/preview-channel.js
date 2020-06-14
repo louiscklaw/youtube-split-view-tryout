@@ -4,9 +4,8 @@ import React from 'react'
 import GlobalContext from '../contexts/global-context'
 
 function PreviewChannel(props){
-  let {placeholder} = props
-
   let {active_style} = React.useContext(GlobalContext)
+  let {placeholder} = props
 
   return(
     <div className={active_style.previewChannel} data-placeholder={placeholder} >

@@ -33,6 +33,12 @@ $input-shadow: none;
 
 @import "../../node_modules/bulma/bulma.sass";
 
+.preview-channel {
+  width: 20vw;
+  height: 20vh;
+  background-color: aqua;
+}
+
 .youtube-cell-container{
   position: relative;
   top: -$title_height;

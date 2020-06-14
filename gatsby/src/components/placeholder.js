@@ -1,11 +1,12 @@
 import React from 'react'
 
-import style from './placeholder.module.scss'
+import GlobalContext from '../contexts/global-context'
 
 function TestBox(props){
+  let {active_style} = React.useContext(GlobalContext)
   return(
     <>
-      <div className={style.previewChannel} ref={props.placeholder_ref}>
+      <div className={active_style.previewChannel} ref={props.placeholder_ref}>
         previewChannel
         {props.place_num}
       </div>
