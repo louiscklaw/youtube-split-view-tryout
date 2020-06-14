@@ -23,7 +23,6 @@ class GlobalContextProvider extends React.Component {
   constructor(props){
     super(props)
     this.state = default_state
-
     this.updateDimensions = this.updateDimensions.bind(this);
   }
 

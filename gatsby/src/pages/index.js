@@ -9,11 +9,13 @@ import PreviewChannel from '../components/preview-channel'
 import Footer from '../components/footer'
 
 import AnnouncementModal from '../components/modals/announcement-modal'
+import SettingsModal from '../components/modals/settings-modal'
 
 import GlobalContext from "../contexts/global-context"
 
 function IndexPage() {
   const announce_ref = React.useRef(null)
+  const settings_ref = React.useRef(null)
 
   let {channel_list, active_style, narrow_window} = React.useContext(GlobalContext)
 
@@ -162,6 +164,7 @@ function IndexPage() {
     <Layout>
       <SEO title="Home" />
 
+
       <AnnouncementModal
         modal_ref={announce_ref}
         title="Announcement title"
@@ -170,6 +173,9 @@ function IndexPage() {
       >
         <p>hello announcement</p>
       </AnnouncementModal>
+
+
+      <SettingsModal />
 
       <div className={active_style.wholeCanvas}>
         <div className={active_style.left}>

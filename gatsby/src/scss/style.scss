@@ -17,7 +17,8 @@ $preview_channel_bg_color: black;
 $title_height: 30px;
 
 // Update Bulma's global variables
-$family-sans-serif: "Nunito", sans-serif;
+$family-sans-serif: "Nunito",
+sans-serif;
 $grey-dark: $brown;
 $grey-light: $beige-light;
 $primary: $purple;
@@ -43,7 +44,7 @@ $input-shadow: none;
   background-color: aqua;
 }
 
-.youtube-cell-container{
+.youtube-cell-container {
   position: relative;
   top: -$title_height;
 

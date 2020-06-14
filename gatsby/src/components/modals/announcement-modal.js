@@ -7,7 +7,7 @@ function AnnouncementModal(props){
 
   return(
     <>
-      <div className={active_style.modal+" "+active_style.isActive} ref={props.modal_ref}>
+      <div className={active_style.modal} ref={props.modal_ref}>
         <div className={active_style.modalBackground} onClick={props.handleBackgroundClick}></div>
         <div className={active_style.modalCard}>
           <header className={active_style.modalCardHead}>

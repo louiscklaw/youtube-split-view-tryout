@@ -8,10 +8,22 @@
   width: 100vw;
   height: 10vh;
 
-  display: inline-flex;
+  display: flex;
   flex-flow: column nowrap;
   justify-content: center;
   text-align: center;
+
+  ul {
+    list-style: none;
+    display: inline-flex;
+    flex-flow: row nowrap;
+    justify-content: space-evenly;
+
+    li{
+      text-align: center;
+      width: 120px;
+    }
+  }
 }
 
 
