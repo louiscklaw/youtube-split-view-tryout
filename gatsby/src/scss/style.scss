@@ -76,6 +76,10 @@ $input-shadow: none;
 
 }
 
+tr:nth-child(1){
+  text-align:center;
+}
+
 * {
   // background-color: $video_bg_color;
   overflow: hidden;

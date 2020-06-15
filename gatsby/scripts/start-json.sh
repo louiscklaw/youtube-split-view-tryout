@@ -2,8 +2,9 @@
 
 set -ex
 
-json-server ./channel_list.json  &
-json-server ./2_channel_list.json  &
-json-server ./full_channel_list.json  &
+nodemon -e 'json' --exec json-server ./channel_list.json
 
-wait
+# json-server ./2_channel_list.json  &
+# json-server ./full_channel_list.json  &
+
+# done

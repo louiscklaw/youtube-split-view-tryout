@@ -56,7 +56,7 @@ class GlobalContextProvider extends React.Component {
     window.addEventListener("resize", this.updateDimensions);
 
     console.log("global context did mount")
-    fetch('http://localhost:3000/channels')
+    fetch(config.API_ENDPOINT)
       .then(res => res.json())
       .then(json => this.setState({...this.state, channel_list: json}))
       // .then( () => console.log(this.state))
