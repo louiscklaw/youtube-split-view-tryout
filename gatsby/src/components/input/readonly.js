@@ -22,7 +22,9 @@ function InputReadOnly(props){
             className={active_style.input}
             type="text"
             placeholder="username email"
-            disabled />
+            disabled
+            {...props}
+            />
         </div>
       </div>
     </div>

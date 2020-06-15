@@ -8,10 +8,8 @@ function SettingsContent(){
 
   return(
     <>
-          <InputReadOnly label="username" value={'louiscklaw'} />
-          <InputChannelTableSeven />
-
-
+      <InputReadOnly {...{name:"username",value:'louiscklaw'}} />
+      <InputChannelTableSeven />
     </>
   )
 }

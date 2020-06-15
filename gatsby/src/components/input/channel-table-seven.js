@@ -42,7 +42,7 @@ function ChannelTypeInput(props){
     return(
       <>
         <select>
-          <option selected>select channel type</option>
+          <option selected disabled>select channel type</option>
           <ChannelTypeOptionList {...props} />
         </select>
       </>

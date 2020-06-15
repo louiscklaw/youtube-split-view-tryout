@@ -27,8 +27,12 @@ function SettingsModal(props){
 
   const handleSaveSetting = (e) => {
     e.preventDefault();
-    console.log('calling me ? ')
+    let form = e.target
+    console.log(form.username.value)
+
   }
+
+
 
   return(
     <>
@@ -44,17 +48,12 @@ function SettingsModal(props){
             </p>
           </header>
 
-
-          <form onSubmit={handleSaveSetting}>
+          <form onSubmit={handleSaveSetting} id="#save-settings">
             <section className={active_style.modalCardBody}>
               <SettingsContent />
             </section>
 
             <footer className={active_style.modalCardFoot}>
-
-
-
-
               <div className={combineStyle([active_style.field, active_style.isGrouped])} >
                 <div className={active_style.control}>
                   <SaveChangeButton onClick={handleSaveButtonClick} />
@@ -64,11 +63,7 @@ function SettingsModal(props){
                   <CancelButton onClick={handleCancelButtonClick} />
                 </div>
               </div>
-
-
-
             </footer>
-
           </form>
 
         </div>
