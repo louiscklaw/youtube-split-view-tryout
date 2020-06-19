@@ -1,0 +1,106 @@
+
+.whole-canvas{
+  background-color: red;
+  display:flex;
+  flex-flow: row nowrap;
+
+  height: 100vh;
+  width: 100vw;
+}
+
+.left {
+  background-color: green;
+  display: flex;
+  flex-flow: column nowrap;
+  width: 60vw;
+}
+
+.bottom-preview-channel {
+  display: flex;
+  flex-flow: row wrap;
+}
+
+.right {
+  background-color: blue;
+
+}
+
+.right-preview-channel {
+  width: 40vw;
+  height:100vh;
+
+  display: flex;
+  flex-flow: row wrap;
+}
+
+.main-channel {
+  width: 60vw;
+  height: 60vh;
+
+  background-color: pink;
+}
+
+.preview-channel {
+  width: 20vw;
+  height: 20vh;
+  background-color: aqua;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.boxes {
+  display: flex;
+  flex-flow: row nowrap;
+
+}
+
+.box1 {
+  background-color: gold;
+  width: 100px;
+  height: 100px;
+  transition: 0.3s;
+}
+
+.box1-placeholder {
+  background-color: pink;
+  width: 100px;
+  height: 100px;
+}
+
+.box2 {
+  background-color: green;
+  width: 100px;
+  height: 100px;
+  transition: 0.3s;
+}
+
+.box2-placeholder {
+  background-color: aqua;
+  width: 100px;
+  height: 100px;
+}
+
+.box3 {
+  background-color: red;
+  width: 100px;
+  height: 100px;
+  transition: 0.3s;
+}
+
+.box3-placeholder {
+  background-color: blue;
+  width: 100px;
+  height: 100px;
+}

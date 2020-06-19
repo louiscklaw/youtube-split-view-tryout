@@ -1,0 +1,82 @@
+@import "./style.scss";
+
+
+.footer-custom {
+  background-color: $preview_bg_color;
+  color: $text-color;
+
+  width: 100vw;
+  height: 10vh;
+
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  text-align: center;
+
+  ul {
+    list-style: none;
+    display: inline-flex;
+    flex-flow: row nowrap;
+    justify-content: space-evenly;
+
+    li{
+      text-align: center;
+      width: 120px;
+    }
+  }
+}
+
+
+.hide-on-narrow-window {
+  display: none;
+}
+
+.right-preview-channel {
+  width: 100vw;
+  min-height:10vh;
+
+  display: none;
+  // display: flex;
+  // flex-flow: row wrap;
+}
+
+.right {
+  background-color: $purple;
+}
+
+
+.bottom-preview-channel {
+  display: flex;
+  flex-flow: row wrap;
+}
+
+.main-channel {
+  width: 100vw;
+  min-height: 30vh;
+}
+
+.preview-channel {
+  min-width: 50vw;
+  height: 20vh;
+  background-color: $preview_channel_bg_color;
+}
+
+.left {
+  // background-color: green;
+  background-color: $preview_bg_color;
+  display: flex;
+  flex-flow: column nowrap;
+  width: 100vw;
+  min-height: 30vh;
+}
+
+.test-style-haha {
+  background-color: blue;
+  display: none;
+}
+
+* {
+  padding: 0px;
+  margin: 0px;
+  box-sizing: border-box;
+}
