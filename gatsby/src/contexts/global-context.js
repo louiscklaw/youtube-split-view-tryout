@@ -56,7 +56,7 @@ class GlobalContextProvider extends React.Component {
     window.addEventListener("resize", this.updateDimensions);
 
     console.log("global context did mount")
-    fetch(config.API_ENDPOINT)
+    fetch(config.CHANNELS_API_ENDPOINT)
       .then(res => res.json())
       .then(json => this.setState({...this.state, channel_list: json}))
       // .then( () => console.log(this.state))
@@ -73,13 +73,28 @@ class GlobalContextProvider extends React.Component {
     this.setState({...this.state, channel_list:{hello: 'world'}})
   }
 
+  saveChannels = (payload) => {
+    console.log('savechannels')
+
+    fetch(config.CHANNELS_API_ENDPOINT,
+      {
+        method: 'POST',
+        body: JSON.stringify(payload,{completed: true}),
+        headers: {"Content-type": "application/json; charset=UTF-8"}
+      })
+      .then(response => response.json())
+      .then(json => console.log(json))
+
+  }
+
   render(){
     return(
       <GlobalContext.Provider value={{
         ...this.state,
         helloworld: this.helloworld,
         loadChannelList: this.loadChannelList,
-        combineStyle: this.combineStyle
+        combineStyle: this.combineStyle,
+        saveChannels: this.saveChannels
       }}>
         {this.props.children}
       </GlobalContext.Provider>

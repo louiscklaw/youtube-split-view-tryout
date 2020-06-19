@@ -15,11 +15,11 @@ function ChannelTypeOptionList(props){
         available_opt.map(x => {
           if (x == selected_opt){
             return (
-              <option selected>{x}</option>
+              <option value={x} selected>{x}</option>
             )
           }else{
             return (
-              <option >{x}</option>
+              <option value={x}>{x}</option>
             )
           }
         })
@@ -33,18 +33,14 @@ function ChannelTypeInput(props){
   if (available_opt.indexOf(selected_opt) > -1){
     return(
       <>
-        <select>
-          <ChannelTypeOptionList {...props} />
-        </select>
+        <ChannelTypeOptionList {...props} />
       </>
     )
   }else{
     return(
       <>
-        <select>
-          <option selected disabled>select channel type</option>
-          <ChannelTypeOptionList {...props} />
-        </select>
+        <option value="not_selected" selected disabled>select channel type</option>
+        <ChannelTypeOptionList {...props} />
       </>
     )
   }
@@ -65,10 +61,12 @@ function ChannelInput(props){
         {/* {ch_type} */}
         <p className={combineStyle([active_style.control])}>
           <span className={combineStyle([active_style.select, active_style.isSmall])}>
-            <ChannelTypeInput
-              available_opt={config.CHANNEL_TYPE_OPT}
-              selected_opt={channel_type}
-            />
+            <select name="channel_type">
+              <ChannelTypeInput
+                available_opt={config.CHANNEL_TYPE_OPT}
+                selected_opt={channel_type}
+              />
+            </select>
           </span>
           {/* <span className={combineStyle([active_style.icon, active_style.isSmall, active_style.isLeft])}>
             <i className="fas fa-globe" />
@@ -79,14 +77,24 @@ function ChannelInput(props){
         <div className={active_style.control}>
           <input className={combineStyle([
             active_style.input, active_style.isSmall
-          ])} type="text" placeholder="Loading input" value={video_id}/>
+          ])}
+          type="text"
+          placeholder="Loading input"
+          value={video_id}
+          name="video_id"
+          />
         </div>
       </td>
       <td>
         <div className={active_style.control}>
           <input className={combineStyle([
             active_style.input, active_style.isSmall
-          ])} type="text" placeholder="Loading input" value={video_title}/>
+          ])}
+          type="text"
+          placeholder="Loading input"
+          value={video_title}
+          name="video_title"
+          />
         </div>
       </td>
     </>
@@ -105,7 +113,10 @@ function InputChannelTableSeven(){
         ])}>
           <table className={combineStyle([
             active_style.table, active_style.isFullWidth
-          ])} style={{width:'100%'}}>
+            ])}
+            style={{width:'100%'}}
+            name="channels"
+          >
             <tbody>
               <tr>
                 <th>#</th>
@@ -120,7 +131,6 @@ function InputChannelTableSeven(){
                   return(
                     <tr>
                       <ChannelInput
-                        num={translateChannelName(channel_id)}
                         channel_type={channel_info.channel_type}
                         video_id={channel_info.video_id}
                         video_title={channel_info.video_title}
