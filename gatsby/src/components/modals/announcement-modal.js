@@ -8,6 +8,11 @@ function AnnouncementModal(props){
   const [announcement_canva, setAnnouncementCanva] = React.useState('')
   const {closeAnnouncementModal} = React.useContext(ModalContext)
 
+
+  const handleCloseButtonOnClick = () => {
+    alert('handleCloseButtonOnClick')
+  }
+
   React.useEffect(()=>{
     if (checkDataReady(props.active_style)){
       let {active_style} = props
@@ -15,7 +20,7 @@ function AnnouncementModal(props){
       setAnnouncementCanva((
         <>
           <div className={active_style.modal} ref={props.modal_ref}>
-            <div className={active_style.modalBackground} onClick={props.handleBackgroundClick}></div>
+            <div className={active_style.modalBackground} onClick={handleCloseButtonOnClick}></div>
 
             <div className={active_style.modalCard}>
               <header className={active_style.modalCardHead}>
@@ -29,7 +34,7 @@ function AnnouncementModal(props){
               </section>
 
               <footer className={active_style.modalCardFoot}>
-                <CloseButton onClick={closeAnnouncementModal} />
+                <CloseButton onClick={handleCloseButtonOnClick} />
               </footer>
 
             </div>
@@ -43,7 +48,7 @@ function AnnouncementModal(props){
       //   </div>
       // ))
     }
-  },[props.active_style])
+  },[props])
 
   return(
     <>
