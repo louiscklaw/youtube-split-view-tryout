@@ -3,7 +3,8 @@ import firebase from 'firebase/app'
 import firebaseConfig from '../firebase-config'
 
 import { FirebaseAuthContextProvider } from './firebase-auth-context'
-
+import { FirebaseDbContextProvider } from './firebase-db-context'
+import { FirebaseFunctionContextProvider } from './firebase-functions-context'
 import { FirebaseMixinsContextProvider } from './firebase-mixins'
 
 let init_context = {
@@ -19,11 +20,13 @@ function FirebaseContextProvider(props){
   return(
     <FirebaseContext.Provider value={{ firebase_app }}>
       <FirebaseAuthContextProvider>
-        <FirebaseMixinsContextProvider>
-
-          {props.children}
-
-        </FirebaseMixinsContextProvider>
+        <FirebaseDbContextProvider>
+          <FirebaseFunctionContextProvider>
+            <FirebaseMixinsContextProvider>
+              {props.children}
+            </FirebaseMixinsContextProvider>
+          </FirebaseFunctionContextProvider>
+        </FirebaseDbContextProvider>
       </FirebaseAuthContextProvider>
     </FirebaseContext.Provider>
   )
