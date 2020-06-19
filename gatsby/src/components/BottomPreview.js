@@ -1,4 +1,5 @@
 import React from 'react'
+import _ from 'lodash'
 import PreviewChannel from '../components/preview-channel'
 
 function BottomPreview(props){

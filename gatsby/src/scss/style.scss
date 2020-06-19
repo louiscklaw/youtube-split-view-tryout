@@ -34,6 +34,14 @@ $input-shadow: none;
 
 @import "../../node_modules/bulma/bulma.sass";
 
+.login-chooser{
+  background-color: gold;
+
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+}
+
 .modal-card-body {
   color: $video_bg_color;
 }

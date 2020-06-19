@@ -1,6 +1,13 @@
 @import "./style.scss";
 
 
+.login-chooser{
+  background-color: red;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+}
+
 .footer-custom {
   background-color: $preview_bg_color;
   color: $text-color;

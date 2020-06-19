@@ -19,6 +19,7 @@ import VideoChannels from '../components/video-channels'
 import GlobalContext from "../contexts/global-context"
 import FirebaseMixinsContext from '../contexts/firebase-mixins'
 import { resetWarningCache } from "prop-types"
+import LoginModal from "../components/modals/login-modal"
 
 const trueIfUndefinedOrNull = (obj_in) => {
   return (typeof(obj_in) == 'undefined' || obj_in==null)
@@ -122,6 +123,8 @@ function IndexPage() {
 
       setMainCanvas((
         <>
+          <LoginModal active_style={active_style} />
+
           <div className={active_style.wholeCanvas}>
             <div className={active_style.left}>
               <MainChannel />
