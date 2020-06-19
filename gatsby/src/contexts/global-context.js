@@ -22,7 +22,7 @@ let default_state = {
 class GlobalContextProvider extends React.Component {
   constructor(props){
     super(props)
-    this.state = default_state
+    // this.state = default_state
     this.updateDimensions = this.updateDimensions.bind(this);
   }
 
@@ -62,6 +62,20 @@ class GlobalContextProvider extends React.Component {
       // .then( () => console.log(this.state))
       .catch(err => {
         console.log('error found on fetching json', err)
+        this.setState({...this.state, channel_list: {
+          channels: {
+            0: {
+              video_id: "W7wTdvu_0dQ",
+              video_title: "title1",
+              channel_type: "youtube"
+            },
+            1: {
+              video_id: "W7wTdvu_0dQ",
+              video_title: "title1",
+              channel_type: "youtube"
+            }
+          }
+        }})
       })
   }
 
@@ -87,6 +101,10 @@ class GlobalContextProvider extends React.Component {
 
   }
 
+  checkDataReady = (obj_in) => {
+    return (typeof(obj_in) != 'undefined' && obj_in != null)
+  }
+
   render(){
     return(
       <GlobalContext.Provider value={{
@@ -94,7 +112,9 @@ class GlobalContextProvider extends React.Component {
         helloworld: this.helloworld,
         loadChannelList: this.loadChannelList,
         combineStyle: this.combineStyle,
-        saveChannels: this.saveChannels
+        saveChannels: this.saveChannels,
+        hello: 'world',
+        checkDataReady: this.checkDataReady
       }}>
         {this.props.children}
       </GlobalContext.Provider>

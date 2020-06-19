@@ -51,6 +51,10 @@ $input-shadow: none;
   transition: 1s;
 }
 
+.modal {}
+
+.modal-background {}
+
 .test-button {
   // background-color: black;
   cursor: pointer;
@@ -76,8 +80,8 @@ $input-shadow: none;
 
 }
 
-tr:nth-child(1){
-  text-align:center;
+tr:nth-child(1) {
+  text-align: center;
 }
 
 * {

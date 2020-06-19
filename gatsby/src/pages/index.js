@@ -3,7 +3,7 @@ import _ from 'lodash'
 
 import Layout from "../components/layout"
 import SEO from "../components/seo"
-import YoutubeCell from '../components/youtube-cell'
+
 import MainChannel from "../components/main-channel"
 import PreviewChannel from '../components/preview-channel'
 import Footer from '../components/footer'
@@ -11,13 +11,18 @@ import Footer from '../components/footer'
 import AnnouncementModal from '../components/modals/announcement-modal'
 import SettingsModal from '../components/modals/settings-modal'
 
+import YoutubeCell from '../components/youtube-cell'
+
 import GlobalContext from "../contexts/global-context"
 
 function IndexPage() {
   const announce_ref = React.useRef(null)
   const settings_ref = React.useRef(null)
 
-  let {channel_list, active_style, narrow_window} = React.useContext(GlobalContext)
+  let global_context = React.useContext(GlobalContext)
+
+
+  let [main_canvas, setMainCanvas] = React.useState('')
 
   let [boxA_pos, setBoxAPos] = React.useState('0')
   let [boxB_pos, setBoxBPos] = React.useState('1')
@@ -58,15 +63,19 @@ function IndexPage() {
   ]
 
   let i = 0
-  // let box_settings = {}
-  // box_pos_array.forEach( box_pos => {
-  //   box_settings[i++] = {
-  //     box_pos: box_pos[0],
-  //     v_id: `KGBv8oT5lwk`
-  //   }
-  // })
-
   let box_settings = {}
+
+
+  let channel_list = {
+    0:{
+      v_id: '2GBPLmm0-kQ',
+      video_title: 'title 0'
+    },
+    1:{
+      v_id: '2GBPLmm0-kQ',
+      video_title: 'title 1'
+    }
+  }
 
   Object.keys(channel_list).forEach(channel =>{
     let channel_info = channel_list[channel]
@@ -77,148 +86,183 @@ function IndexPage() {
     }
   })
 
+
   React.useEffect(()=>{
-    Object.keys(box_settings).forEach( channel_id => {
-      let box_setting = box_settings[channel_id]
-      let {box_pos} = box_setting
-      let ele_box = getBoxById(box_pos)
-      placeIntoPosition(ele_box)
-    })
-  })
-  // console.log(box_settings)
+    if (typeof(global_context) == 'undefined' || global_context == null){
 
-  const paveNarrowScreenRightPreview = () => {
-    // return _.range(7,9+1).map(idx => (<PreviewChannel placeholder={idx} />))
-    return (
-      <>
-      </>
-    )
-  }
+    }else{
+      let {checkDataReady} = global_context
+      console.log('useEffect test')
 
-  const paveRightPreview = () => {
-    return _.range(7,16+1).map(idx => (<PreviewChannel placeholder={idx} />))
-  }
+      const getBoxById = (position) => {
+        console.log('getBoxById calling, ', position)
+        return document.querySelector(`div[data-position="${position}"]`)
+      }
 
-  const getBoxById = (position) => {
-    return document.querySelector(`div[data-position="${position}"]`)
-  }
+      const getPlaceholderById = (placeholder) => {
+        console.log('getPlaceholderById calling, ', placeholder)
+        return document.querySelector(`div[data-placeholder="${placeholder}"]`)
+      }
 
-  const setBoxPositionId = (ele, pos_id) => {
-    console.log(ele, `to ${pos_id}`)
-    ele.dataset.position = pos_id
-  }
+      const placeIntoPosition = (ele_video) => {
+        console.log('placeinto position', ele_video)
+        let position_of_ele_video = ele_video.getAttribute('data-position')
+        let ele_placeholder = getPlaceholderById(position_of_ele_video)
 
-  const getPositioonFromEle = (ele) => {
-    return ele.getAttribute('data-position')
-  }
+        ele_video.style.position = "fixed"
+        ele_video.style.top = `${ele_placeholder.offsetTop}px`
+        ele_video.style.left = `${ele_placeholder.offsetLeft}px`
+        ele_video.style.height = `${ele_placeholder.clientHeight}px`
+        ele_video.style.width = `${ele_placeholder.clientWidth}px`
+      }
 
-  const getPlaceholderById = (placeholder) => {
-    return document.querySelector(`div[data-placeholder="${placeholder}"]`)
-  }
+      Object.keys(box_settings).forEach( channel_id => {
+        let box_setting = box_settings[channel_id]
+        let {box_pos} = box_setting
+        let ele_box = getBoxById(box_pos)
+        console.log('ele_box', ele_box)
+        if (checkDataReady(ele_box)){
+          placeIntoPosition(ele_box)
+        }
+      })
+    }
+  },[global_context])
 
-  const placeIntoPosition = (ele_video) => {
-    let position_of_ele_video = ele_video.getAttribute('data-position')
-    let ele_placeholder = getPlaceholderById(position_of_ele_video)
+  React.useEffect(() => {
+    if (typeof(global_context) == 'undefined' || global_context == null){
+      setMainCanvas((
+        <div style={{backgroundColor:'gold'}}>
+          main canvas loading
+        </div>
+      ))
+    }else{
+      let { active_style, narrow_window} = global_context
+      let {checkDataReady} = global_context
 
-    ele_video.style.position = "fixed"
-    ele_video.style.top = `${ele_placeholder.offsetTop}px`
-    ele_video.style.left = `${ele_placeholder.offsetLeft}px`
-    ele_video.style.height = `${ele_placeholder.clientHeight}px`
-    ele_video.style.width = `${ele_placeholder.clientWidth}px`
-  }
 
-  const swapPosition = (eleA, eleB) => {
-    let origional_pos_A = getPositioonFromEle(eleA)
-    let origional_pos_B = getPositioonFromEle(eleB)
+      const paveNarrowScreenRightPreview = () => {
+        // return _.range(7,9+1).map(idx => (<PreviewChannel placeholder={idx} />))
+        return (
+          <>
+          </>
+        )
+      }
 
-  }
+      const paveRightPreview = () => {
+        return _.range(7,16+1).map(idx => (<PreviewChannel placeholder={idx} />))
+      }
 
-  const handleOnClick = (e) => {
-    if (e.target.hasAttribute('data-position'))
-    {
-      // console.log(e.target)
-      // console.log(e.target.hasAttribute('data-position'))
-      let clicked_position = getPositioonFromEle(e.target)
-      // getClickedSetMethod
-      let clickedSetMethod = box_pos_array.filter(x => x[0] == clicked_position)[0][1]
+      const setBoxPositionId = (ele, pos_id) => {
+        console.log(ele, `to ${pos_id}`)
+        ele.dataset.position = pos_id
+      }
 
-      // getMainSetMethod
-      let mainSetMethod = box_pos_array.filter(x => x[0] == '0')[0][1]
+      const getPositioonFromEle = (ele) => {
+        return ele.getAttribute('data-position')
+      }
 
-      clickedSetMethod('0')
-      mainSetMethod(clicked_position)
+      const swapPosition = (eleA, eleB) => {
+        let origional_pos_A = getPositioonFromEle(eleA)
+        let origional_pos_B = getPositioonFromEle(eleB)
+
+      }
+
+      const handleOnClick = (e) => {
+        if (e.target.hasAttribute('data-position'))
+        {
+          // console.log(e.target)
+          // console.log(e.target.hasAttribute('data-position'))
+          let clicked_position = getPositioonFromEle(e.target)
+          // getClickedSetMethod
+          let clickedSetMethod = box_pos_array.filter(x => x[0] == clicked_position)[0][1]
+
+          // getMainSetMethod
+          let mainSetMethod = box_pos_array.filter(x => x[0] == '0')[0][1]
+
+          clickedSetMethod('0')
+          mainSetMethod(clicked_position)
+        }
+      }
+
+      const handleCloseButtonOnClick = () => {
+        announce_ref.current.classList.remove(active_style.isActive)
+      }
+
+      const handleBackgroundClick = () => {
+
+      }
+
+      if (checkDataReady(global_context.active_style)){
+        setMainCanvas((
+          <>
+            <AnnouncementModal
+              modal_ref={announce_ref}
+              title="Announcement title"
+              backgroundClick={handleBackgroundClick}
+              closeButtonClick={handleCloseButtonOnClick}
+              hello={{modal:"helloworld"}}
+              active_style={active_style}
+            >
+              <p>hello announcement</p>
+            </AnnouncementModal>
+
+            <SettingsModal />
+
+            <div className={active_style.wholeCanvas}>
+              <div className={active_style.left}>
+                <MainChannel />
+                <div className={active_style.bottomPreviewChannel}>
+                  {
+                    _.range(1,6+1).map( idx => {
+                      return(
+                        <PreviewChannel placeholder={idx} />
+                      )
+                    })
+                  }
+                </div>
+                <div className={active_style.right}>
+                  <div className={active_style.rightPreviewChannel}>
+                    {narrow_window ? paveNarrowScreenRightPreview(): paveRightPreview()}
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <Footer />
+
+            {
+              Object.keys(box_settings).map( channel_id => {
+                let box_setting = box_settings[channel_id]
+                let {box_pos} = box_setting
+
+                return(
+                  <div
+                    className={active_style.box1}
+                    data-position={box_pos}
+                  >
+                    <YoutubeCell
+                      {...box_setting}
+                      key={`youtube_cell_${box_pos}`}
+                      active_style={active_style}
+                    />
+                  </div>
+                )
+
+              })
+            }
+          </>
+        ))
+      }
 
     }
 
-  }
-
-  const handleBackgroundClick = () => {
-
-  }
-
-  const handleCloseButtonOnClick = () => {
-    announce_ref.current.classList.remove(active_style.isActive)
-  }
+  },[global_context])
 
   return(
     <Layout>
       <SEO title="Home" />
-
-
-      <AnnouncementModal
-        modal_ref={announce_ref}
-        title="Announcement title"
-        backgroundClick={handleBackgroundClick}
-        closeButtonClick={handleCloseButtonOnClick}
-      >
-        <p>hello announcement</p>
-      </AnnouncementModal>
-
-
-      <SettingsModal />
-
-      <div className={active_style.wholeCanvas}>
-        <div className={active_style.left}>
-          <MainChannel />
-          <div className={active_style.bottomPreviewChannel}>
-            {_.range(1,6+1).map( idx => {
-              return(
-                <PreviewChannel placeholder={idx} />
-              )
-            })}
-          </div>
-
-        </div>
-        <div className={active_style.right}>
-          <div className={active_style.rightPreviewChannel}>
-            {
-              narrow_window ? paveNarrowScreenRightPreview(): paveRightPreview()
-            }
-          </div>
-        </div>
-      </div>
-
-      <Footer />
-
-      {
-        Object.keys(box_settings).map( channel_id => {
-          let box_setting = box_settings[channel_id]
-
-          let {box_pos} = box_setting
-
-          return(
-            <div
-              className={active_style.box1}
-              data-position={box_pos}
-              onClick={(e)=>handleOnClick(e)}
-            >
-              <YoutubeCell {...box_setting} key={`youtube_cell_${box_pos}`}/>
-            </div>
-          )
-
-        })
-      }
-
+      {main_canvas}
     </Layout>
   )
 }

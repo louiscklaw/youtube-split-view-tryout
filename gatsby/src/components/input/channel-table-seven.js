@@ -44,109 +44,135 @@ function ChannelTypeInput(props){
       </>
     )
   }
-
 }
-
 
 function ChannelInput(props){
   const {num, channel_type, video_id, video_title} = props
-  const {active_style, combineStyle} = React.useContext(GlobalContext)
+  let global_context = React.useContext(GlobalContext)
+  let {combineStyle, checkDataReady} = global_context
+  let [canvas, setCanvas] = React.useState((
+    <LoadingCanvas />
+  ))
+
+  React.useEffect(()=>{
+    if(checkDataReady(global_context.active_style)){
+      let {active_style} = global_context
+
+      setCanvas((
+        <>
+          <td>{num}</td>
+          <td>
+            <p className={combineStyle([active_style.control])}>
+              <span className={combineStyle([active_style.select, active_style.isSmall])}>
+                <select name="channel_type">
+                  <ChannelTypeInput
+                    available_opt={config.CHANNEL_TYPE_OPT}
+                    selected_opt={channel_type}
+                  />
+                </select>
+              </span>
+            </p>
+          </td>
+          <td>
+            <div className={active_style.control}>
+              <input className={combineStyle([
+                active_style.input, active_style.isSmall
+              ])}
+              type="text"
+              placeholder="Loading input"
+              value={video_id}
+              name="video_id"
+              />
+            </div>
+          </td>
+          <td>
+            <div className={active_style.control}>
+              <input className={combineStyle([
+                active_style.input, active_style.isSmall
+              ])}
+              type="text"
+              placeholder="Loading input"
+              value={video_title}
+              name="video_title"
+              />
+            </div>
+          </td>
+        </>
+      ))
+    }else{
+
+    }
+  })
+
 
   return(
     <>
-      <td>
-        {num}
-      </td>
-      <td>
-        {/* {ch_type} */}
-        <p className={combineStyle([active_style.control])}>
-          <span className={combineStyle([active_style.select, active_style.isSmall])}>
-            <select name="channel_type">
-              <ChannelTypeInput
-                available_opt={config.CHANNEL_TYPE_OPT}
-                selected_opt={channel_type}
-              />
-            </select>
-          </span>
-          {/* <span className={combineStyle([active_style.icon, active_style.isSmall, active_style.isLeft])}>
-            <i className="fas fa-globe" />
-          </span> */}
-        </p>
-      </td>
-      <td>
-        <div className={active_style.control}>
-          <input className={combineStyle([
-            active_style.input, active_style.isSmall
-          ])}
-          type="text"
-          placeholder="Loading input"
-          value={video_id}
-          name="video_id"
-          />
-        </div>
-      </td>
-      <td>
-        <div className={active_style.control}>
-          <input className={combineStyle([
-            active_style.input, active_style.isSmall
-          ])}
-          type="text"
-          placeholder="Loading input"
-          value={video_title}
-          name="video_title"
-          />
-        </div>
-      </td>
+      {canvas}
+    </>
+  )
+}
+
+function LoadingCanvas() {
+  return(
+    <>
+      loading
     </>
   )
 }
 
 function InputChannelTableSeven(){
-  const {active_style, combineStyle, channel_list} = React.useContext(GlobalContext)
+  let [canvas, setCanvas] = React.useState((<LoadingCanvas />))
+  let global_context = React.useContext(GlobalContext)
+  let {checkDataReady, combineStyle} = global_context
+
+  React.useEffect(()=>{
+    if(checkDataReady(global_context.active_style) && checkDataReady(global_context.channel_list)){
+      let {active_style, channel_list} = global_context
+      setCanvas((
+        <>
+          <div className={combineStyle([active_style.field, active_style.isHorizontal])}>
+            <div className={combineStyle([active_style.fieldLabel, active_style.isSmall])}>
+              <table
+                className={combineStyle([active_style.table, active_style.isFullWidth])}
+                style={{width:'100%'}}
+                name="channels"
+              >
+                <tbody>
+                  <tr>
+                    <th>#</th>
+                    <th>type</th>
+                    <th>id</th>
+                    <th>title</th>
+                  </tr>
+
+                  {
+                    Object.keys(channel_list).map( channel_id => {
+                      let channel_info = channel_list[channel_id]
+                      return(
+                        <tr>
+                          <ChannelInput
+                            channel_type={channel_info.channel_type}
+                            video_id={channel_info.video_id}
+                            video_title={channel_info.video_title}
+                          ></ChannelInput>
+                        </tr>
+                      )
+                    })
+                  }
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </>
+      ))
+    }else{
+
+    }
+  },[global_context])
+
   return(
     <>
-      <div className={combineStyle([
-        active_style.field, active_style.isHorizontal
-      ])}>
-        <div className={combineStyle([
-          active_style.fieldLabel, active_style.isSmall
-        ])}>
-          <table className={combineStyle([
-            active_style.table, active_style.isFullWidth
-            ])}
-            style={{width:'100%'}}
-            name="channels"
-          >
-            <tbody>
-              <tr>
-                <th>#</th>
-                <th>type</th>
-                <th>id</th>
-                <th>title</th>
-              </tr>
-
-              {
-                Object.keys(channel_list).map( channel_id => {
-                  let channel_info = channel_list[channel_id]
-                  return(
-                    <tr>
-                      <ChannelInput
-                        channel_type={channel_info.channel_type}
-                        video_id={channel_info.video_id}
-                        video_title={channel_info.video_title}
-                        />
-                    </tr>
-                  )
-                } )
-              }
-
-            </tbody>
-
-
-
-          </table>
-        </div>
-      </div>
+      {canvas}
     </>
   )
 }
