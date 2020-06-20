@@ -33,6 +33,11 @@ $input-border-color: transparent;
 $input-shadow: none;
 
 @import "../../node_modules/bulma/bulma.sass";
+@import "../../node_modules/@creativebulma/bulma-divider/src/sass/index.sass";
+
+.login-status {
+  text-align: center;
+}
 
 .login-chooser{
   background-color: gold;

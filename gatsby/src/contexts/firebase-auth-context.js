@@ -3,13 +3,15 @@ import React from 'react'
 import firebase from 'firebase/app'
 import 'firebase/auth'
 
+import {LOGGED_IN,LOGGED_OUT} from '../constants/login'
 import FirebaseContext from './firebase-context'
 
 let FirebaseAuthContext = React.createContext()
 
 let init_user_info = {
   email: '',
-  is_admin: false
+  is_admin: false,
+  status:LOGGED_OUT
 }
 
 function FirebaseAuthContextProvider(props){
@@ -37,7 +39,8 @@ function FirebaseAuthContextProvider(props){
           .then(idTokenResult => {
             setUserInfo({
               email: user.email,
-              is_admin: idTokenResult.claims.admin
+              is_admin: idTokenResult.claims.admin,
+              status: LOGGED_IN
             })
           })
       }else{
@@ -50,7 +53,7 @@ function FirebaseAuthContextProvider(props){
     // alert('calling firebase auth context logout')
     console.log('calling firebaseLogout')
     firebase_auth.signOut()
-    setUserInfo(init_user_info)
+    // setUserInfo(init_user_info)
   }
 
   const firebaseLogin = (email, password) => {

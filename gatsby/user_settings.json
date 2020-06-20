@@ -1,0 +1,53 @@
+{
+  "user_settings": [ {
+      "id": "user1",
+      "channels": {
+        "0": {
+          "video_id": "W7wTdvu_0dQ",
+          "video_title": "title1",
+          "channel_type": "youtube"
+        },
+        "1": {
+          "video_id": "W7wTdvu_0dQ",
+          "video_title": "title1",
+          "channel_type": "rthk"
+        },
+        "2": {
+          "video_id": "W7wTdvu_0dQ",
+          "video_title": "title1",
+          "channel_type": "123"
+        },
+        "3": {
+          "video_id": "W7wTdvu_0dQ",
+          "video_title": "title1",
+          "channel_type": "rthk"
+        },
+        "4": {
+          "video_id": "W7wTdvu_0dQ",
+          "video_title": "title1",
+          "channel_type": "321"
+        },
+        "5": {
+          "video_id": "W7wTdvu_0dQ",
+          "video_title": "title1",
+          "channel_type": "aaa"
+        },
+        "6": {
+          "video_id": "W7wTdvu_0dQ",
+          "video_title": "title1",
+          "channel_type": "AAAA"
+        }
+      }
+    },
+    {
+      "id": "user2",
+      "channels": {
+        "0": {
+          "video_id": "W7wTdvu_0dQ",
+          "video_title": "title1",
+          "channel_type": "youtube"
+        }
+      }
+    }
+  ]
+}
