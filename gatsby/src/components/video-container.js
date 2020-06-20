@@ -1,11 +1,15 @@
 import React from 'react'
 import YoutubeCell from './youtube-cell'
 
-function YoutubeCellContainer(props){
+function VideoContainer(props){
+  let {active_style,box_pos, box_setting} = props
+
   React.useEffect(()=>{
     console.log('youtubecellcontaienr logging test')
+    console.log(props)
   })
-  let {active_style,box_pos, box_setting} = props
+
+
   return(
     <div
       className={active_style.box1}
@@ -16,4 +20,4 @@ function YoutubeCellContainer(props){
   )
 }
 
-export default YoutubeCellContainer
+export default VideoContainer

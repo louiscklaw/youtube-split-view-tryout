@@ -1,13 +1,42 @@
 import React from 'react'
 
+import GlobalContext from '../contexts/global-context'
+
 function YoutubeCell(props){
+  let {box_setting} = props
+
+  let [video_url, setVideoUrl] = React.useState('')
+  let [youtube_cell_canvas, setYoutubeCellCanvas] = React.useState("loading")
+
+  let {checkDataReady} = React.useContext(GlobalContext)
+
   React.useEffect(()=>{
-    console.log('youtube cell logging test')
-  })
+    if (checkDataReady(box_setting)){
+      let {v_id} = box_setting
+
+      setYoutubeCellCanvas((
+        <iframe
+          width="560" height="315"
+          src="https://www.youtube.com/embed/sx4GK8XYeZE"
+          frameborder="0"
+          allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+        />
+      ))
+    }else{
+      console.log('box_setting',box_setting)
+      setYoutubeCellCanvas((
+        <>
+          loading
+        </>
+      ))
+    }
+  },[box_setting])
+
   return(
-    <pre>
-      {JSON.stringify(props, null, 2)}
-    </pre>
+    <>
+      {youtube_cell_canvas}
+    </>
   )
 }
 

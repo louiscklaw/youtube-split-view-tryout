@@ -1,5 +1,6 @@
 import React from 'react'
-import YoutubeCellContainer from './youtube-cell-container'
+
+import VideoContainer from './video-container'
 
 
 function VideoChannels(props){
@@ -16,7 +17,7 @@ function VideoChannels(props){
             let {box_pos} = box_setting
 
             return(
-              <YoutubeCellContainer
+              <VideoContainer
                 active_style={active_style}
                 box_pos={box_pos}
                 box_setting={box_setting}

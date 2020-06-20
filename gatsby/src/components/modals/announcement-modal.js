@@ -9,6 +9,7 @@ function AnnouncementModal(props){
 
   let {
     announcement_modal_ref,
+    showAnnouncementModal,
     closeAnnouncementModal
   } = React.useContext(ModalContext)
 
@@ -16,11 +17,13 @@ function AnnouncementModal(props){
     closeAnnouncementModal()
   }
 
-
+  React.useEffect(() => {
+    showAnnouncementModal()
+  },[])
 
   return(
 
-      <div className={combineStyle([active_style.modal, active_style.isActive])} ref={announcement_modal_ref}>
+      <div className={combineStyle([active_style.modal])} ref={announcement_modal_ref}>
         <div className={active_style.modalBackground} onClick={handleCloseButtonOnClick}></div>
 
         <div className={active_style.modalCard}>
