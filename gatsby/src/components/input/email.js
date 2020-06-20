@@ -6,6 +6,7 @@ function InputEmail(){
       <input
         type="email"
         placeholder="admin@example.com"
+        name="email"
         />
     </>
   )

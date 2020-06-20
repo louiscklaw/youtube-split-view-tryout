@@ -2,23 +2,28 @@ import React from 'react'
 
 import GlobalContext from '../contexts/global-context'
 import ModalContext from '../contexts/modals-context'
+import FirebaseMixinsContext from '../contexts/firebase-mixins'
 
-function Footer(){
-  const {active_style} = React.useContext(GlobalContext)
+function Footer(props){
+  let {active_style} = props
   const {
     showSettingsModal,
     showAnnouncementModal
   } = React.useContext(ModalContext)
 
+  const {firebaseLogout} = React.useContext(FirebaseMixinsContext)
+
   return(
     <div className={active_style.footerCustom}>
-      <div>this is footer</div>
-
       <ul>
-        <li><div onClick={()=>{showSettingsModal()}}>settings</div></li>
-        <li>login</li>
-        <li><div onClick={()=>{showAnnouncementModal()}}>announcement</div></li>
+        <li><button onClick={showSettingsModal}>settings</button></li>
+        <li><button onClick={firebaseLogout}>logout</button></li>
+        <li><button onClick={showAnnouncementModal}>announcement</button></li>
       </ul>
+
+      <div>
+        logged in as blablabla
+      </div>
 
     </div>
   )

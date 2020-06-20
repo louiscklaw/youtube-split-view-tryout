@@ -2,9 +2,6 @@ import React from 'react'
 
 import GlobalContext from './global-context'
 
-import SettingsModal from '../components/modals/settings-modal'
-import AnnouncementModal from '../components/modals/announcement-modal'
-
 const ModalContext = React.createContext()
 
 function ModalContextProvider(props){
@@ -13,7 +10,9 @@ function ModalContextProvider(props){
   const announcement_modal_ref = React.useRef(null)
 
   let default_state = {
-    hello:"world"
+    hello:"world",
+    settings_modal_ref,
+    announcement_modal_ref
   }
 
   const helloworld = () => {
@@ -28,19 +27,21 @@ function ModalContextProvider(props){
     target_modal_ref.current.classList.remove(active_style.isActive)
   }
 
+  // announcements
   const showAnnouncementModal = () => {
     // alert("show settings modal")
     showModal(announcement_modal_ref)
   }
 
-  const showSettingsModal = () => {
-    // alert("show settings modal")
-    showModal(settings_modal_ref)
-  }
-
   const closeAnnouncementModal = () => {
     // alert("show settings modal")
     closeModal(announcement_modal_ref)
+  }
+
+  // settings
+  const showSettingsModal = () => {
+    // alert("show settings modal")
+    showModal(settings_modal_ref)
   }
 
   const closeSettingsModal = () => {
@@ -56,8 +57,6 @@ function ModalContextProvider(props){
       closeSettingsModal,
       closeAnnouncementModal
     }}>
-      <SettingsModal modal_ref={settings_modal_ref}/>
-      <AnnouncementModal modal_ref={announcement_modal_ref} />
       {props.children}
     </ModalContext.Provider>
   )

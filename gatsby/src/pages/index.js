@@ -21,6 +21,13 @@ import FirebaseMixinsContext from '../contexts/firebase-mixins'
 import { resetWarningCache } from "prop-types"
 import LoginModal from "../components/modals/login-modal"
 
+import LoginButton from '../components/buttons/login-button'
+import ResetButton from '../components/buttons/reset-button'
+import InputEmail from '../components/input/email'
+import InputPassword from '../components/input/password'
+
+import LoginForm from '../components/forms/login_form'
+
 const trueIfUndefinedOrNull = (obj_in) => {
   return (typeof(obj_in) == 'undefined' || obj_in==null)
 }
@@ -114,6 +121,8 @@ function IndexPage() {
     }
   })
 
+  let ref_email_password_login_form = React.useRef()
+
   React.useEffect(()=>{
     // prepare video placdholder and boxes
     if (trueIfUndefinedOrNull(global_context.active_style)){
@@ -121,12 +130,20 @@ function IndexPage() {
     }else{
       let {active_style, narrow_window} = global_context
 
+
+
       setMainCanvas((
         <>
           <LoginModal active_style={active_style} />
+          <SettingsModal active_style={active_style} />
+          <AnnouncementModal active_style={active_style} />
 
           <div className={active_style.wholeCanvas}>
+
+
             <div className={active_style.left}>
+
+
               <MainChannel />
               <BottomPreview active_style={active_style} />
               <RightPreview
@@ -136,7 +153,7 @@ function IndexPage() {
             </div>
           </div>
 
-          <Footer />
+          <Footer active_style={active_style} />
 
           <VideoChannels
             box_settings={box_settings}

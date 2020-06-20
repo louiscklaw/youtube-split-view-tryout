@@ -53,14 +53,10 @@ function FirebaseAuthContextProvider(props){
     // alert('calling firebase auth context logout')
     console.log('calling firebaseLogout')
     firebase_auth.signOut()
-    // setUserInfo(init_user_info)
   }
 
   const firebaseLogin = (email, password) => {
     return firebase_auth.signInWithEmailAndPassword( email, password )
-      .then( ( cred ) => {
-        console.log(cred)
-      } )
   }
 
   const googleLogin = () => {

@@ -6,6 +6,7 @@ function InputPassword(){
       <input
         type="password"
         placeholder="123456"
+        name="password"
         />
     </>
   )

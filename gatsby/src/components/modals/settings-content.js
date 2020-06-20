@@ -7,7 +7,7 @@ function SettingsContent(){
   return(
     <>
       {/* <InputReadOnly {...{name:"username",value:'louiscklaw'}} /> */}
-      <InputChannelTableSeven />
+      {/* <InputChannelTableSeven /> */}
       settings content
     </>
   )
