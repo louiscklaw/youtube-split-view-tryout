@@ -1,29 +1,29 @@
-import React from 'react'
+import React from "react"
 
-import GlobalContext from './global-context'
+import GlobalContext from "./global-context"
 
 const ModalContext = React.createContext()
 
-function ModalContextProvider(props){
-  const {active_style} = React.useContext(GlobalContext)
+function ModalContextProvider(props) {
+  const { active_style } = React.useContext(GlobalContext)
   const settings_modal_ref = React.useRef(null)
   const announcement_modal_ref = React.useRef(null)
 
   let default_state = {
-    hello:"world",
+    hello: "world",
     settings_modal_ref,
-    announcement_modal_ref
+    announcement_modal_ref,
   }
 
   const helloworld = () => {
     alert("helloworld from modal context")
   }
 
-  const showModal = ( target_modal_ref ) =>{
+  const showModal = target_modal_ref => {
     target_modal_ref.current.classList.add(active_style.isActive)
   }
 
-  const closeModal = (target_modal_ref) => {
+  const closeModal = target_modal_ref => {
     target_modal_ref.current.classList.remove(active_style.isActive)
   }
 
@@ -49,19 +49,21 @@ function ModalContextProvider(props){
     closeModal(settings_modal_ref)
   }
 
-  return(
-    <ModalContext.Provider value={{
-      ...default_state, helloworld,
-      showSettingsModal,
-      showAnnouncementModal,
-      closeSettingsModal,
-      closeAnnouncementModal
-    }}>
+  return (
+    <ModalContext.Provider
+      value={{
+        ...default_state,
+        helloworld,
+        showSettingsModal,
+        showAnnouncementModal,
+        closeSettingsModal,
+        closeAnnouncementModal,
+      }}
+    >
       {props.children}
     </ModalContext.Provider>
   )
 }
 
-
 export default ModalContext
-export {ModalContextProvider}
+export { ModalContextProvider }

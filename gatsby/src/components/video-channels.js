@@ -1,51 +1,51 @@
-import React from 'react'
-import GlobalContext from '../contexts/global-context'
-import VideoContainer from './video-container'
+import React from "react"
+import GlobalContext from "../contexts/global-context"
+import VideoContainer from "./video-container"
 
-function Loading(){
-  return(
-    <>
-      loading
-    </>
-  )
+function Loading() {
+  return <>loading</>
 }
 
-function MainCanvas(props){
-  let {box_settings,active_style, update_pos} = props
+function MainCanvas(props) {
+  let { box_settings, active_style, update_pos } = props
   let [video_containers, setVideoContainers] = React.useState()
 
-  React.useEffect(()=>{
-    setVideoContainers(Object.keys(box_settings).map(idx => {
-      return(
-        <VideoContainer active_style={active_style} box_pos={idx}  box_setting={box_settings[idx]} />
-      )
-    }))
+  React.useEffect(() => {
+    setVideoContainers(
+      Object.keys(box_settings).map(idx => {
+        return (
+          <VideoContainer
+            active_style={active_style}
+            box_pos={idx}
+            box_setting={box_settings[idx]}
+          />
+        )
+      })
+    )
   }, [box_settings])
 
-  React.useEffect(()=>{
+  React.useEffect(() => {}, [video_containers])
 
-  },[video_containers])
-
-  return(
+  return (
     <>
-      { box_settings }
-      { video_containers }
+      {box_settings}
+      {video_containers}
     </>
   )
 }
 
-function VideoChannels(props){
+function VideoChannels(props) {
   let [is_loading, setIsLoading] = React.useState(true)
-  let {box_settings, active_style} = props
+  let { box_settings, active_style } = props
   let global_context = React.useContext(GlobalContext)
-  let {checkDataReady} = global_context
-  let [canvas, setCanvas] = React.useState('')
+  let { checkDataReady } = global_context
+  let [canvas, setCanvas] = React.useState("")
 
   const callingUpdatePosition = () => {
-    console.log('calling update position')
+    console.log("calling update position")
   }
 
-  React.useEffect(()=>{
+  React.useEffect(() => {
     // console.log('box_settings',box_settings)
 
     // const getBoxById = (position) => {
@@ -69,7 +69,7 @@ function VideoChannels(props){
     //   ele_video.style.width = `${ele_placeholder.clientWidth}px`
     // }
 
-    if (false){
+    if (false) {
       setIsLoading(false)
 
       // console.log('findme',box_settings)
@@ -86,16 +86,10 @@ function VideoChannels(props){
       //     console.log('findme', 'ele_box is empty')
       //   }
       // })
-
     }
+  }, [box_settings])
 
-  },[box_settings])
-
-  return(
-    <>
-      video_channels
-    </>
-  )
+  return <>video_channels</>
 }
 
 export default VideoChannels

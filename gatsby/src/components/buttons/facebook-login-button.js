@@ -1,22 +1,21 @@
-import React from 'react'
-import FirebaseMixinsContext from '../../contexts/firebase-mixins'
+import React from "react"
+import FirebaseMixinsContext from "../../contexts/firebase-mixins"
 
-function FacebookLoginButton(){
+function FacebookLoginButton() {
   let firebase_mixins_context = React.useContext(FirebaseMixinsContext)
 
-  let {facebookLogin} = firebase_mixins_context
+  let { facebookLogin } = firebase_mixins_context
 
   const handleFacebookLoginOnClick = () => {
-    console.log('github login onClick')
+    console.log("github login onClick")
     facebookLogin()
   }
 
-  return(
+  return (
     <>
       <button onClick={handleFacebookLoginOnClick}>facebook login</button>
     </>
   )
 }
-
 
 export default FacebookLoginButton

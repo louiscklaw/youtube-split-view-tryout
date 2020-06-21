@@ -1,10 +1,10 @@
-import React from 'react'
-import GlobalContext from '../../contexts/global-context'
+import React from "react"
+import GlobalContext from "../../contexts/global-context"
 
-function CancelButton(props){
-  const {active_style} = React.useContext(GlobalContext)
+function CancelButton(props) {
+  const { active_style } = React.useContext(GlobalContext)
 
-  return(
+  return (
     <button className={active_style.button} {...props}>
       Cancel
     </button>

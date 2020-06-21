@@ -1,14 +1,14 @@
-import React from 'react'
+import React from "react"
 
-import GlobalContext from '../../contexts/global-context'
-import CancelButton from '../buttons/cancel-button'
-import SaveChangesButton from '../buttons/save-change-button'
+import GlobalContext from "../../contexts/global-context"
+import CancelButton from "../buttons/cancel-button"
+import SaveChangesButton from "../buttons/save-change-button"
 
-function BulmaModalCard(props){
-  let {modal_ref}=props
-  const {active_style} = React.useContext(GlobalContext)
+function BulmaModalCard(props) {
+  let { modal_ref } = props
+  const { active_style } = React.useContext(GlobalContext)
 
-  const handleOnCloseButtonClick = () =>{
+  const handleOnCloseButtonClick = () => {
     modal_ref.current.classList.remove(active_style.isActive)
   }
 
@@ -21,16 +21,19 @@ function BulmaModalCard(props){
   }
 
   const handleCancelButtonOnClick = () => {
-    alert('handleCancelButtonOnClick')
+    alert("handleCancelButtonOnClick")
   }
 
   const handleSaveChangesButtonOnClick = () => {
-    alert('handlesavechangesbutton on click')
+    alert("handlesavechangesbutton on click")
   }
 
-  return(
+  return (
     <div className={active_style.modal} ref={modal_ref}>
-      <div className={active_style.modalBackground} onClick={handleBackgroundClick}></div>
+      <div
+        className={active_style.modalBackground}
+        onClick={handleBackgroundClick}
+      ></div>
       <div className={active_style.modalCard}>
         <header className={active_style.modalCardHead}>
           <p className={active_style.modalCardTitle}>Modal title</p>
@@ -40,12 +43,16 @@ function BulmaModalCard(props){
           {props.children}
         </section>
         <footer className={active_style.modalCardFoot}>
-          <SaveChangesButton onClick={handleSaveChangesButtonOnClick}/>
+          <SaveChangesButton onClick={handleSaveChangesButtonOnClick} />
           <CancelButton onClick={handleCancelButtonOnClick} />
         </footer>
       </div>
 
-      <button className={active_style.modalClose +' ' + active_style.isLarge} aria-label="close" onClick={handleOnCloseButtonClick} />
+      <button
+        className={active_style.modalClose + " " + active_style.isLarge}
+        aria-label="close"
+        onClick={handleOnCloseButtonClick}
+      />
     </div>
   )
 }

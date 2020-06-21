@@ -1,83 +1,85 @@
-import React from 'react'
+import React from "react"
 
-import style from '../scss/style.module.scss'
-import style_narrow from '../scss/style_narrow.module.scss'
+import style from "../scss/style.module.scss"
+import style_narrow from "../scss/style_narrow.module.scss"
 
-import config from '../config'
+import config from "../config"
 
-const {narrow_screen_checkpoint} = config
+const { narrow_screen_checkpoint } = config
 const GlobalContext = React.createContext()
 
 let default_state = {
-  user_settings:{
-    hello: 'world'
-  }
+  user_settings: {
+    hello: "world",
+  },
 }
 
 class GlobalContextProvider extends React.Component {
-  constructor(props){
+  constructor(props) {
     super(props)
     this.state = default_state
-    this.updateDimensions = this.updateDimensions.bind(this);
+    this.updateDimensions = this.updateDimensions.bind(this)
   }
 
-  helloGlobalContext = () => {
+  helloGlobalContext = () => {}
 
+  setUserSettings = settings_in => {
+    this.setState({ ...this.state, user_settings: settings_in })
   }
 
-  setUserSettings = (settings_in) => {
-    this.setState({...this.state, user_settings: settings_in})
+  combineStyle = in_style => {
+    return in_style.join(" ")
   }
 
-  combineStyle = (in_style) =>{
-    return in_style.join(' ')
-  }
-
-  checkNarrowWindow = (windowWidth) => {
-    console.log('checkNarrowWindow', windowWidth < narrow_screen_checkpoint)
+  checkNarrowWindow = windowWidth => {
+    console.log("checkNarrowWindow", windowWidth < narrow_screen_checkpoint)
     return windowWidth < narrow_screen_checkpoint
   }
 
   updateDimensions() {
-    let windowWidth = typeof window !== "undefined" ? window.innerWidth : 0;
-    let windowHeight = typeof window !== "undefined" ? window.innerHeight : 0;
+    let windowWidth = typeof window !== "undefined" ? window.innerWidth : 0
+    let windowHeight = typeof window !== "undefined" ? window.innerHeight : 0
 
     let narrow_window = this.checkNarrowWindow(windowWidth)
-    let active_style = narrow_window ? style_narrow: style
+    let active_style = narrow_window ? style_narrow : style
 
-    this.setState({ ...this.state,
+    this.setState({
+      ...this.state,
       windowWidth,
       windowHeight,
       narrow_window,
-      active_style
-    });
+      active_style,
+    })
   }
 
   componentDidMount = () => {
-    this.updateDimensions();
-    window.addEventListener("resize", this.updateDimensions);
+    this.updateDimensions()
+    window.addEventListener("resize", this.updateDimensions)
 
     console.log("global context did mount")
     fetch(config.CHANNELS_API_ENDPOINT)
       .then(res => res.json())
-      .then(json => this.setState({...this.state, channel_list: json}))
+      .then(json => this.setState({ ...this.state, channel_list: json }))
       // .then( () => console.log(this.state))
       .catch(err => {
-        console.log('error found on fetching json', err)
-        this.setState({...this.state, channel_list: {
-          channels: {
-            0: {
-              video_id: "W7wTdvu_0dQ",
-              video_title: "title1",
-              channel_type: "youtube"
+        console.log("error found on fetching json", err)
+        this.setState({
+          ...this.state,
+          channel_list: {
+            channels: {
+              0: {
+                video_id: "W7wTdvu_0dQ",
+                video_title: "title1",
+                channel_type: "youtube",
+              },
+              1: {
+                video_id: "W7wTdvu_0dQ",
+                video_title: "title1",
+                channel_type: "youtube",
+              },
             },
-            1: {
-              video_id: "W7wTdvu_0dQ",
-              video_title: "title1",
-              channel_type: "youtube"
-            }
-          }
-        }})
+          },
+        })
       })
   }
 
@@ -85,25 +87,32 @@ class GlobalContextProvider extends React.Component {
     console.log("helloworld from global context")
   }
 
-  checkDataReady = (obj_in) => {
-    return (typeof(obj_in) != 'undefined' && obj_in != null)
+  checkKeyExist = (d_in, key_wanted) => {
+    return Object.keys(d_in).indexOf(key_wanted) > -1
   }
 
-  render(){
-    return(
-      <GlobalContext.Provider value={{
-        ...this.state,
-        helloworld: this.helloworld,
-        loadChannelList: this.loadChannelList,
-        combineStyle: this.combineStyle,
-        saveChannels: this.saveChannels,
-        hello: 'world',
-        checkDataReady: this.checkDataReady,
-        update_user_settings: this.update_user_settings,
-        get_user_settings: this.get_user_settings,
-        helloGlobalContext:this.helloGlobalContext,
-        setUserSettings: this.setUserSettings
-      }}>
+  checkDataReady = obj_in => {
+    return typeof obj_in != "undefined" && obj_in != null
+  }
+
+  render() {
+    return (
+      <GlobalContext.Provider
+        value={{
+          ...this.state,
+          helloworld: this.helloworld,
+          loadChannelList: this.loadChannelList,
+          combineStyle: this.combineStyle,
+          saveChannels: this.saveChannels,
+          hello: "world",
+          checkDataReady: this.checkDataReady,
+          update_user_settings: this.update_user_settings,
+          get_user_settings: this.get_user_settings,
+          helloGlobalContext: this.helloGlobalContext,
+          setUserSettings: this.setUserSettings,
+          checkKeyExist: this.checkKeyExist,
+        }}
+      >
         {this.props.children}
       </GlobalContext.Provider>
     )
@@ -111,4 +120,4 @@ class GlobalContextProvider extends React.Component {
 }
 
 export default GlobalContext
-export {GlobalContextProvider}
+export { GlobalContextProvider }

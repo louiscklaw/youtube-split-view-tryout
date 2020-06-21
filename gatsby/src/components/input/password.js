@@ -1,13 +1,9 @@
-import React from 'react'
+import React from "react"
 
-function InputPassword(){
-  return(
+function InputPassword() {
+  return (
     <>
-      <input
-        type="password"
-        placeholder="123456"
-        name="password"
-        />
+      <input type="password" placeholder="123456" name="password" />
     </>
   )
 }

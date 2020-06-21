@@ -1,40 +1,33 @@
-import React from 'react'
+import React from "react"
 
-import GlobalContext from '../contexts/global-context'
+import GlobalContext from "../contexts/global-context"
 
-function YoutubeCell(props){
-  let {box_setting} = props
+function YoutubeCell(props) {
+  let { box_setting } = props
   let [youtube_cell_canvas, setYoutubeCellCanvas] = React.useState("loading")
 
-  let {checkDataReady} = React.useContext(GlobalContext)
+  let { checkDataReady } = React.useContext(GlobalContext)
 
-  React.useEffect(()=>{
-    if (checkDataReady(box_setting)){
-      setYoutubeCellCanvas((
+  React.useEffect(() => {
+    if (checkDataReady(box_setting)) {
+      setYoutubeCellCanvas(
         <iframe
           title="youtube play box"
-          width="560" height="315"
+          width="560"
+          height="315"
           src="https://www.youtube.com/embed/sx4GK8XYeZE"
           frameborder="0"
           allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
           allowfullscreen
         />
-      ))
-    }else{
-      console.log('box_setting',box_setting)
-      setYoutubeCellCanvas((
-        <>
-          loading
-        </>
-      ))
+      )
+    } else {
+      console.log("box_setting", box_setting)
+      setYoutubeCellCanvas(<>loading</>)
     }
-  },[box_setting])
+  }, [box_setting])
 
-  return(
-    <>
-      {youtube_cell_canvas}
-    </>
-  )
+  return <>{youtube_cell_canvas}</>
 }
 
 export default YoutubeCell

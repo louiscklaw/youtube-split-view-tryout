@@ -1,13 +1,9 @@
-import React from 'react'
+import React from "react"
 
-function InputEmail(){
-  return(
+function InputEmail() {
+  return (
     <>
-      <input
-        type="email"
-        placeholder="admin@example.com"
-        name="email"
-        />
+      <input type="email" placeholder="admin@example.com" name="email" />
     </>
   )
 }

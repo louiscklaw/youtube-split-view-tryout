@@ -6,7 +6,7 @@ let firebaseConfig = {
   storageBucket: "fir-tryout-f4e7a.appspot.com",
   messagingSenderId: "859668436628",
   appId: "1:859668436628:web:32fcc829845132db900681",
-  measurementId: "G-Z001Y7HBM2"
-};
+  measurementId: "G-Z001Y7HBM2",
+}
 
 export default firebaseConfig

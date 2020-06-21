@@ -1,18 +1,18 @@
-import React from 'react'
+import React from "react"
 
-import FirebaseMixinsContext from '../../contexts/firebase-mixins'
+import FirebaseMixinsContext from "../../contexts/firebase-mixins"
 
-function GoogleLoginButton(){
+function GoogleLoginButton() {
   let firebase_mixins_context = React.useContext(FirebaseMixinsContext)
 
-  let {googleLogin} = firebase_mixins_context
+  let { googleLogin } = firebase_mixins_context
 
   const handleGoogleLoginOnClick = () => {
-    console.log('handlegoogle login onClick')
+    console.log("handlegoogle login onClick")
     googleLogin()
   }
 
-  return(
+  return (
     <>
       <button onClick={handleGoogleLoginOnClick}>google login</button>
     </>
