@@ -6,7 +6,6 @@ function VideoContainer(props){
 
   React.useEffect(()=>{
     console.log('youtubecellcontaienr logging test')
-    console.log(props)
   })
 
 

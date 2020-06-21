@@ -23,10 +23,15 @@ function FirebaseFunctionContextProvider(props){
       })
   }
 
+  const firebaseFunctionHelloworld = () => {
+    console.log('firebaseFunctionHelloworld')
+  }
+
   return(
     <FirebaseFunctionContext.Provider value={{
       firebase_functions,
-      testAddAdminRole
+      testAddAdminRole,
+      firebaseFunctionHelloworld
     }}>
       {props.children}
     </FirebaseFunctionContext.Provider>

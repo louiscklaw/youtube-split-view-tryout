@@ -4,18 +4,15 @@ import GlobalContext from '../contexts/global-context'
 
 function YoutubeCell(props){
   let {box_setting} = props
-
-  let [video_url, setVideoUrl] = React.useState('')
   let [youtube_cell_canvas, setYoutubeCellCanvas] = React.useState("loading")
 
   let {checkDataReady} = React.useContext(GlobalContext)
 
   React.useEffect(()=>{
     if (checkDataReady(box_setting)){
-      let {v_id} = box_setting
-
       setYoutubeCellCanvas((
         <iframe
+          title="youtube play box"
           width="560" height="315"
           src="https://www.youtube.com/embed/sx4GK8XYeZE"
           frameborder="0"

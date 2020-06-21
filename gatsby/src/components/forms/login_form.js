@@ -1,7 +1,5 @@
 import React from 'react'
 
-import InputEmail from '../input/email'
-import InputPassword from '../input/password'
 import LoginButton from '../buttons/login-button'
 import ResetButton from '../buttons/reset-button'
 

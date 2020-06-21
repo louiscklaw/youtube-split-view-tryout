@@ -40,7 +40,9 @@ function FirebaseAuthContextProvider(props){
             setUserInfo({
               email: user.email,
               is_admin: idTokenResult.claims.admin,
-              status: LOGGED_IN
+              status: LOGGED_IN,
+              raw_user: user,
+              uid: user.uid
             })
           })
       }else{

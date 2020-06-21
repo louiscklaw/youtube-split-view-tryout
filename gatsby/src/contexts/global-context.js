@@ -9,21 +9,24 @@ const {narrow_screen_checkpoint} = config
 const GlobalContext = React.createContext()
 
 let default_state = {
-  hello: 'world',
-  style,
-  style_narrow,
-  active_style: style,
-  channel_list:{},
-  windowWdith: 0,
-  windowHeight: 0,
-  narrow_window: false
+  user_settings:{
+    hello: 'world'
+  }
 }
 
 class GlobalContextProvider extends React.Component {
   constructor(props){
     super(props)
-    // this.state = default_state
+    this.state = default_state
     this.updateDimensions = this.updateDimensions.bind(this);
+  }
+
+  helloGlobalContext = () => {
+
+  }
+
+  setUserSettings = (settings_in) => {
+    this.setState({...this.state, user_settings: settings_in})
   }
 
   combineStyle = (in_style) =>{
@@ -48,7 +51,6 @@ class GlobalContextProvider extends React.Component {
       narrow_window,
       active_style
     });
-
   }
 
   componentDidMount = () => {
@@ -83,24 +85,6 @@ class GlobalContextProvider extends React.Component {
     console.log("helloworld from global context")
   }
 
-  loadChannelList = () => {
-    this.setState({...this.state, channel_list:{hello: 'world'}})
-  }
-
-  saveChannels = (payload) => {
-    console.log('savechannels')
-
-    fetch(config.CHANNELS_API_ENDPOINT,
-      {
-        method: 'POST',
-        body: JSON.stringify(payload,{completed: true}),
-        headers: {"Content-type": "application/json; charset=UTF-8"}
-      })
-      .then(response => response.json())
-      .then(json => console.log(json))
-
-  }
-
   checkDataReady = (obj_in) => {
     return (typeof(obj_in) != 'undefined' && obj_in != null)
   }
@@ -114,7 +98,11 @@ class GlobalContextProvider extends React.Component {
         combineStyle: this.combineStyle,
         saveChannels: this.saveChannels,
         hello: 'world',
-        checkDataReady: this.checkDataReady
+        checkDataReady: this.checkDataReady,
+        update_user_settings: this.update_user_settings,
+        get_user_settings: this.get_user_settings,
+        helloGlobalContext:this.helloGlobalContext,
+        setUserSettings: this.setUserSettings
       }}>
         {this.props.children}
       </GlobalContext.Provider>

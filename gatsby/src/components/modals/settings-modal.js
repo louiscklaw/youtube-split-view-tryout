@@ -4,7 +4,6 @@ import _ from 'lodash'
 import ModalsContext from '../../contexts/modals-context'
 import GlobalContext from '../../contexts/global-context'
 
-import SettingsForm from '../forms/settings_form'
 import SaveChangeButton from '../buttons/save-change-button'
 import CancelButton from '../buttons/cancel-button'
 
