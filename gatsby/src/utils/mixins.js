@@ -15,7 +15,7 @@ const checkIsNotNull = obj_in => {
 }
 
 const checkIsNotUndefined = obj_in => {
-  console.log("calling check is not Undefined")
+  // console.log("calling check is not Undefined")
   return typeof obj_in !== "undefined"
 }
 

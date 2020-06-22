@@ -2,12 +2,17 @@ import React from "react"
 
 import style from "../../scss/style.module.scss"
 import ThemeContext from "../../contexts/theme-context"
-import { combineStyle, checkIsNotUndefined } from "../../utils/mixins"
+import { combineStyle, checkIsNotUndefined, checkContextReady } from "../../utils/mixins"
 
 import SettingsContent from "./settings-content"
 
 import SaveChangeButton from "../buttons/save-change-button"
 import CancelButton from "../buttons/cancel-button"
+
+
+import ProfileContext from '../../contexts/profile-context'
+import FirebaseMixinsContext from "../../contexts/firebase-mixins"
+
 
 function SettingsModal(props) {
   let theme_context = React.useContext(ThemeContext)
@@ -25,7 +30,14 @@ function SettingsModal(props) {
 
   const handleCancelButtonClick = () => {}
 
-  const handleSaveButtonClick = () => {}
+
+  let profile_context = React.useContext(ProfileContext)
+  const handleSaveButtonClick = () => {
+    if (checkContextReady(profile_context)){
+      let {saveProfile} = profile_context
+      saveProfile(test_input)
+    }
+  }
 
   React.useEffect(() => {
     if (show) {
@@ -33,7 +45,30 @@ function SettingsModal(props) {
     } else {
       setModalStyle([active_style.modal])
     }
+
+
   }, [show])
+
+  let firebase_mixins_context = React.useContext(FirebaseMixinsContext)
+  React.useEffect(()=>{
+    if (checkContextReady(profile_context)){
+      let {loadProfile} = profile_context
+      loadProfile()
+
+
+    }
+
+  },[firebase_mixins_context])
+
+  let [test_input, setTestInput] = React.useState('helloworld')
+  const inputOnChange = (e) => {
+    let name = e.target.name
+    let value = e.target.value
+    console.log(e.target.name, e.target.value)
+    setTestInput({
+      [name]: value
+    })
+  }
 
   return (
     <div className={combineStyle(modal_style)}>
@@ -48,6 +83,8 @@ function SettingsModal(props) {
           <section className={active_style.modalCardBody}>
             <SettingsContent />
           </section>
+
+          <input name="test_input" onChange={inputOnChange} type="text" value={test_input.test_input} />
 
           <footer className={active_style.modalCardFoot}>
             <div

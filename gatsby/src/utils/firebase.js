@@ -63,10 +63,26 @@ const firebaseLogin = (email, password) => {
   return firebase.auth().signInWithEmailAndPassword(email, password)
 }
 
+
+const getDoc = (collection_name, doc_id) => {
+  return firebase.firestore().collection(collection_name).doc(doc_id)
+}
+
+const saveSettingsToFirebase = (uid, settings_in) => {
+  return getDoc("user_settings", uid).set(settings_in)
+}
+
+
+const loadProfileFromFirebase = (uid) =>{
+  return getDoc('user_settings', uid).get()
+}
+
 export {
   googleLogin,
   githubLogin,
   facebookLogin,
   firebaseLogin,
   firebaseLogout,
+  saveSettingsToFirebase,
+  loadProfileFromFirebase
 }
