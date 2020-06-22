@@ -1,12 +1,13 @@
 import React from "react"
 
 import style from "../../scss/style.module.scss"
-
+import ThemeContext from "../../contexts/theme-context"
 import { combineStyle, checkIsNotUndefined } from "../../utils/mixins"
 
-import ThemeContext from "../../contexts/theme-context"
+import SettingsContent from './settings-content'
 
-import CloseButton from "../buttons/close-button"
+import SaveChangeButton from '../buttons/save-change-button'
+import CancelButton from '../buttons/cancel-button'
 
 
 function SettingsModal(props){
@@ -16,6 +17,17 @@ function SettingsModal(props){
   let {show, onClose} = props
 
   let [modal_style, setModalStyle] = React.useState([active_style.modal])
+
+
+  const handleSaveSetting = (e) => {
+    e.preventDefault();
+  }
+
+  const handleCancelButtonClick = () => {
+  }
+
+  const handleSaveButtonClick = () =>{
+  }
 
   React.useEffect(()=>{
     if(show){
@@ -27,7 +39,36 @@ function SettingsModal(props){
 
   return(
     <div className={combineStyle(modal_style)}>
-      settings modal
+      <div className={active_style.modalBackground} onClick={onClose}></div>
+
+      <div className={active_style.modalCard}>
+        <header className={active_style.modalCardHead}>
+          <p className={active_style.modalCardTitle}>
+            settings
+          </p>
+        </header>
+
+        <form onSubmit={handleSaveSetting} id="#save-settings">
+          <section className={active_style.modalCardBody}>
+            <SettingsContent />
+          </section>
+
+
+          <footer className={active_style.modalCardFoot}>
+
+            <div className={combineStyle([active_style.field, active_style.isGrouped])} >
+              <div className={active_style.control}>
+                <SaveChangeButton onClick={handleSaveButtonClick} />
+              </div>
+
+              <div className={active_style.control}>
+                <CancelButton onClick={handleCancelButtonClick} />
+              </div>
+            </div>
+
+          </footer>
+        </form>
+      </div>
     </div>
   )
 }

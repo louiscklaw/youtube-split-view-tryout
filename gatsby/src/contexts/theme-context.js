@@ -10,6 +10,7 @@ let ThemeContext = React.createContext()
 
 function ThemeContextProvider(props) {
   let [active_style, setActiveStyle] = React.useState(style)
+  let [narrow_window, setNarrowWindow] = React.useState(false)
 
   const checkNarrowWindow = windowWidth => {
     return windowWidth < narrow_screen_checkpoint
@@ -21,7 +22,8 @@ function ThemeContextProvider(props) {
 
     let narrow_window = checkNarrowWindow(windowWidth)
     let result_style = narrow_window ? style_narrow : style
-    // console.log('result_style', result_style)
+
+    setNarrowWindow(narrow_window)
     setActiveStyle(result_style)
   }
 
@@ -34,6 +36,7 @@ function ThemeContextProvider(props) {
     <ThemeContext.Provider
       value={{
         active_style,
+        narrow_window
       }}
     >
       {props.children}

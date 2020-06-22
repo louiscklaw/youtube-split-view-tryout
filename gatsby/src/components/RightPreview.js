@@ -25,6 +25,7 @@ function RightPreview(props) {
   let theme_context = React.useContext(ThemeContext)
   let active_style = checkIsNotUndefined(theme_context)? theme_context.active_style : style
 
+  let {narrow_window } = props
   let [right_preview_canvas, setRightPreviewCanvas] = React.useState("")
 
   React.useEffect(()=>{

@@ -34,6 +34,7 @@ function Loading(props){
 function MainCanvas(props){
   let theme_context = React.useContext(ThemeContext)
   let active_style = checkIsNotUndefined(theme_context)? theme_context.active_style : style
+  let narrow_window = checkIsNotUndefined(theme_context)? theme_context.narrow_window : false
 
   let [announce_show, setAnnouncementShow] = React.useState(true)
   let [settings_show, setSettingsShow] = React.useState(false)
@@ -43,7 +44,7 @@ function MainCanvas(props){
   const closeAnnounce = (e) => { setAnnouncementShow(false) }
 
   // handle settings modal
-  const showSettings = (e) => {setAnnouncementShow(true)}
+  const showSettings = (e) => {setSettingsShow(true)}
   const closeSettings = (e) => {setSettingsShow(false)}
 
   return(
@@ -57,7 +58,7 @@ function MainCanvas(props){
         <div className={active_style.left}>
           <MainChannel />
           <BottomPreview />
-          {/* <RightPreview narrow_window={narrow_window} /> */}
+          <RightPreview narrow_window={narrow_window} />
         </div>
       </div>
 
