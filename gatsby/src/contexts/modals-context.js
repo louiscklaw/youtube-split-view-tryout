@@ -6,14 +6,17 @@ const ModalContext = React.createContext()
 
 function ModalContextProvider(props) {
   const { active_style } = React.useContext(GlobalContext)
-  const settings_modal_ref = React.useRef(null)
-  const announcement_modal_ref = React.useRef(null)
+
+  const settings_modal_ref = React.useRef()
+  const announcement_modal_ref = React.useRef()
 
   let default_state = {
     hello: "world",
     settings_modal_ref,
     announcement_modal_ref,
   }
+
+  let [announcement_modal_style, setAnnouncementModalStyle] = React.useState()
 
   const helloworld = () => {
     alert("helloworld from modal context")

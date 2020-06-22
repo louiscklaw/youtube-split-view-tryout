@@ -1,8 +1,5 @@
 import React from "react"
 
-import style from "../scss/style.module.scss"
-import style_narrow from "../scss/style_narrow.module.scss"
-
 import config from "../config"
 
 const { narrow_screen_checkpoint } = config
@@ -18,7 +15,6 @@ class GlobalContextProvider extends React.Component {
   constructor(props) {
     super(props)
     this.state = default_state
-    this.updateDimensions = this.updateDimensions.bind(this)
   }
 
   helloGlobalContext = () => {}
@@ -36,26 +32,7 @@ class GlobalContextProvider extends React.Component {
     return windowWidth < narrow_screen_checkpoint
   }
 
-  updateDimensions() {
-    let windowWidth = typeof window !== "undefined" ? window.innerWidth : 0
-    let windowHeight = typeof window !== "undefined" ? window.innerHeight : 0
-
-    let narrow_window = this.checkNarrowWindow(windowWidth)
-    let active_style = narrow_window ? style_narrow : style
-
-    this.setState({
-      ...this.state,
-      windowWidth,
-      windowHeight,
-      narrow_window,
-      active_style,
-    })
-  }
-
   componentDidMount = () => {
-    this.updateDimensions()
-    window.addEventListener("resize", this.updateDimensions)
-
     console.log("global context did mount")
     fetch(config.CHANNELS_API_ENDPOINT)
       .then(res => res.json())

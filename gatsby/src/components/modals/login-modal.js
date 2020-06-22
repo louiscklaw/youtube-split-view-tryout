@@ -1,31 +1,28 @@
 import React from "react"
-import _ from "lodash"
 
-import ModalCloseButton from "../buttons/modal-close-button"
+import style from "../../scss/style.module.scss"
 
-import LoginForm from "../forms/login_form"
+import { combineStyle, checkIsNotUndefined } from "../../utils/mixins"
 
+import ThemeContext from "../../contexts/theme-context"
 import FirebaseMixinsContext from "../../contexts/firebase-mixins"
-import GlobalContext from "../../contexts/global-context"
-import { LOGGED_IN } from "../../constants/login"
+import { LOGGED_IN, LOGGED_OUT } from "../../constants/login"
 
-function LoginModal(props) {
-  let { active_style } = props
+import LoginForm from '../forms/login_form'
 
-  let { combineStyle } = React.useContext(GlobalContext)
+function LoginModal(props){
+  let theme_context = React.useContext(ThemeContext)
+  let active_style = checkIsNotUndefined(theme_context)? theme_context.active_style : style
+
   let firebase_mixins_context = React.useContext(FirebaseMixinsContext)
-
-  let ref_login_status = React.useRef()
-  let ref_email_password_login_form = React.useRef()
+  let {user_info} = checkIsNotUndefined(firebase_mixins_context) ? firebase_mixins_context: {status: LOGGED_OUT}
 
   let [login_modal_classnames, setLoginModalClassnames] = React.useState([
     active_style.modal,
     active_style.isActive,
   ])
 
-  let { user_info, firebaseLogout, firebaseLogin } = firebase_mixins_context
-
-  React.useEffect(() => {
+  React.useEffect(()=>{
     if (user_info.status == LOGGED_IN) {
       setLoginModalClassnames([active_style.modal])
       console.log("logged in catched")
@@ -33,21 +30,22 @@ function LoginModal(props) {
       setLoginModalClassnames([active_style.modal, active_style.isActive])
       console.log("login required")
     }
-  }, [user_info])
+  },[user_info])
 
-  return (
+
+  return(
     <div className={combineStyle(login_modal_classnames)}>
       <div className={active_style.modalBackground}></div>
-
       <div className={active_style.modalCard}>
         <section className={active_style.modalCardBody}>
           <div className={active_style.container}>
-            <LoginForm active_style={active_style} />
+            <LoginForm />
           </div>
         </section>
       </div>
     </div>
   )
 }
+
 
 export default LoginModal

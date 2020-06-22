@@ -1,10 +1,7 @@
 import React from "react"
-import FirebaseMixinsContext from "../../contexts/firebase-mixins"
+import {githubLogin} from '../../utils/firebase'
 
 function GithubLoginButton() {
-  let firebase_mixins_context = React.useContext(FirebaseMixinsContext)
-
-  let { githubLogin } = firebase_mixins_context
 
   const handleGithubLoginOnClick = () => {
     console.log("github login onClick")

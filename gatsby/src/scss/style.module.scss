@@ -4,9 +4,9 @@
   display: none;
 }
 
-.whole-canvas{
+.whole-canvas {
   // background-color: red;
-  display:flex;
+  display: flex;
   flex-flow: row nowrap;
 
   height: 100vh;
@@ -32,7 +32,7 @@
 
 .right-preview-channel {
   width: 40vw;
-  height:100vh;
+  height: 100vh;
 
   display: flex;
   flex-flow: row wrap;
@@ -52,6 +52,10 @@
 .test-style-haha {
   background-color: $purple;
   display: none;
+}
+
+.test {
+  color: red;
 }
 
 * {

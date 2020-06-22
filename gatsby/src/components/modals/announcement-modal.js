@@ -1,34 +1,37 @@
 import React from "react"
-import GlobalContext from "../../contexts/global-context"
+
+import style from "../../scss/style.module.scss"
+
+import { combineStyle, checkIsNotUndefined } from "../../utils/mixins"
+
+import ThemeContext from "../../contexts/theme-context"
+
 import CloseButton from "../buttons/close-button"
-import ModalContext from "../../contexts/modals-context"
+
 
 function AnnouncementModal(props) {
-  let { active_style } = props
-  let { combineStyle } = React.useContext(GlobalContext)
+  let theme_context = React.useContext(ThemeContext)
+  let active_style = checkIsNotUndefined(theme_context)? theme_context.active_style : style
 
-  let {
-    announcement_modal_ref,
-    showAnnouncementModal,
-    closeAnnouncementModal,
-  } = React.useContext(ModalContext)
+  let {show, onClose} = props
 
-  const handleCloseButtonOnClick = () => {
-    closeAnnouncementModal()
-  }
+  let [modal_style, setModalStyle] = React.useState([active_style.modal])
 
-  React.useEffect(() => {
-    showAnnouncementModal()
-  }, [])
+
+  React.useEffect(()=>{
+    if(show){
+      setModalStyle([active_style.modal, active_style.isActive])
+    }else{
+      setModalStyle([active_style.modal])
+    }
+  },[show])
 
   return (
-    <div
-      className={combineStyle([active_style.modal])}
-      ref={announcement_modal_ref}
-    >
+    <>
+      <div className={combineStyle(modal_style)}>
       <div
         className={active_style.modalBackground}
-        onClick={handleCloseButtonOnClick}
+        onClick={onClose}
       ></div>
 
       <div className={active_style.modalCard}>
@@ -44,10 +47,12 @@ function AnnouncementModal(props) {
         </section>
 
         <footer className={active_style.modalCardFoot}>
-          <CloseButton onClick={handleCloseButtonOnClick} />
+          <CloseButton onClick={onClose} />
         </footer>
       </div>
-    </div>
+      </div>
+    </>
+
   )
 }
 

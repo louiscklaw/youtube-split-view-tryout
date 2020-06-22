@@ -1,7 +1,7 @@
 @import "./style.scss";
 
 
-.login-chooser{
+.login-chooser {
   background-color: red;
   display: flex;
   flex-flow: column nowrap;
@@ -26,7 +26,7 @@
     flex-flow: row nowrap;
     justify-content: space-evenly;
 
-    li{
+    li {
       text-align: center;
       width: 120px;
     }
@@ -40,7 +40,7 @@
 
 .right-preview-channel {
   width: 100vw;
-  min-height:10vh;
+  min-height: 10vh;
 
   display: none;
   // display: flex;
@@ -80,6 +80,10 @@
 .test-style-haha {
   background-color: blue;
   display: none;
+}
+
+.test {
+  color: gold;
 }
 
 * {

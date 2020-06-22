@@ -14,10 +14,6 @@ let init_user_info = {
   status: LOGGED_OUT,
 }
 
-const dictKeyExist = (d_in, key_wanted) => {
-  return Object.keys(d_in).indexOf(key_wanted) > -1
-}
-
 function FirebaseAuthContextProvider(props) {
   let { firebase_app } = React.useContext(FirebaseContext)
   let firebase_auth = firebase_app.auth()
