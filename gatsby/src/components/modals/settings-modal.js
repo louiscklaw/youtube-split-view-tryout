@@ -13,6 +13,8 @@ import CancelButton from "../buttons/cancel-button"
 import ProfileContext from '../../contexts/profile-context'
 import FirebaseMixinsContext from "../../contexts/firebase-mixins"
 
+import SevenChannelSelect from '../seven-channel-select'
+
 
 function SettingsModal(props) {
   let theme_context = React.useContext(ThemeContext)
@@ -30,15 +32,6 @@ function SettingsModal(props) {
 
   const handleCancelButtonClick = () => {}
 
-
-  let profile_context = React.useContext(ProfileContext)
-  const handleSaveButtonClick = () => {
-    if (checkContextReady(profile_context)){
-      let {saveProfile} = profile_context
-      saveProfile(test_input)
-    }
-  }
-
   React.useEffect(() => {
     if (show) {
       setModalStyle([active_style.modal, active_style.isActive])
@@ -50,15 +43,6 @@ function SettingsModal(props) {
   }, [show])
 
   let firebase_mixins_context = React.useContext(FirebaseMixinsContext)
-  React.useEffect(()=>{
-    if (checkContextReady(profile_context)){
-      let {loadProfile} = profile_context
-      loadProfile()
-
-
-    }
-
-  },[firebase_mixins_context])
 
   let [test_input, setTestInput] = React.useState('helloworld')
   const inputOnChange = (e) => {
@@ -79,30 +63,8 @@ function SettingsModal(props) {
           <p className={active_style.modalCardTitle}>settings</p>
         </header>
 
-        <form onSubmit={handleSaveSetting} id="#save-settings">
-          <section className={active_style.modalCardBody}>
-            <SettingsContent />
-          </section>
+        <SevenChannelSelect />
 
-          <input name="test_input" onChange={inputOnChange} type="text" value={test_input.test_input} />
-
-          <footer className={active_style.modalCardFoot}>
-            <div
-              className={combineStyle([
-                active_style.field,
-                active_style.isGrouped,
-              ])}
-            >
-              <div className={active_style.control}>
-                <SaveChangeButton onClick={handleSaveButtonClick} />
-              </div>
-
-              <div className={active_style.control}>
-                <CancelButton onClick={handleCancelButtonClick} />
-              </div>
-            </div>
-          </footer>
-        </form>
       </div>
     </div>
   )

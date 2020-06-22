@@ -31,6 +31,10 @@ const combineStyle = in_style => {
   return in_style.join(" ")
 }
 
+const isDefined = obj_in =>{
+  return typeof obj_in !== "undefined"
+}
+
 export {
   checkContextReady,
   checkIsNotNull,
@@ -40,4 +44,5 @@ export {
   helloworldMixins,
   trueIfUndefinedOrNull,
   checkDataReady,
+  isDefined
 }

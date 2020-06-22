@@ -1,7 +1,7 @@
 import React from "react"
 
 import FirebaseMixinsContext from './firebase-mixins'
-import {checkIsNotUndefined} from '../utils/mixins'
+import {isDefined} from '../utils/mixins'
 import {saveSettingsToFirebase, loadProfileFromFirebase} from '../utils/firebase'
 
 import {LOGGED_IN, LOGGED_OUT} from '../constants/login'
@@ -12,7 +12,7 @@ function ProfileContextProvider(props) {
   let [current_profile, setCurrentProfile] = React.useState()
 
   let firebase_mixins_context = React.useContext(FirebaseMixinsContext)
-  let { user_info } = checkIsNotUndefined(firebase_mixins_context)
+  let { user_info } = isDefined(firebase_mixins_context)
   ? firebase_mixins_context
   : { status: LOGGED_OUT }
 
@@ -33,11 +33,11 @@ function ProfileContextProvider(props) {
   },[firebase_mixins_context])
 
   const loadProfile = () => {
-    if (checkIsNotUndefined(user_info)){
-      return {}
-    }else{
-
+    if (isDefined(user_info.uid)){
+      // console.log('findme',user_info)
       return loadProfileFromFirebase(user_info.uid)
+    }else{
+      return {}
     }
   }
 

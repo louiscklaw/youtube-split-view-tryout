@@ -11,12 +11,11 @@ function SaveChangesButton(props) {
     : style
 
   return (
-    <button
+    <input
+      type="submit"
       className={combineStyle([active_style.button, active_style.isSuccess])}
       {...props}
-    >
-      Save changes
-    </button>
+     />
   )
 }
 
