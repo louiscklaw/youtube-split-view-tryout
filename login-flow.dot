@@ -1,0 +1,17 @@
+digraph D {
+  rankdir="LR"
+
+  A [label="login"]
+  B [label="create account"]
+  C [label="create profile"]
+  D [label="load settings"]
+  E [label="main screen"]
+  F [label="logout"]
+
+  A -> B
+  A -> D
+  B -> C
+  C -> A
+  D -> E
+  E -> F
+}
