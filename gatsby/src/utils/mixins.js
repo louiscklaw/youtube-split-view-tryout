@@ -6,6 +6,10 @@ const checkContextReady = context_in => {
   return typeof(context_in) !== "undefined"
 }
 
+const checkDataReady = obj_in => {
+  return typeof obj_in != "undefined" && obj_in != null
+}
+
 const checkIsNotNull = obj_in => {
   return obj_in != null
 }
@@ -35,4 +39,5 @@ export {
   dictKeyExist,
   helloworldMixins,
   trueIfUndefinedOrNull,
+  checkDataReady
 }
