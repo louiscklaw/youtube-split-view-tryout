@@ -8,21 +8,25 @@ import ThemeContext from "../../contexts/theme-context"
 import FirebaseMixinsContext from "../../contexts/firebase-mixins"
 import { LOGGED_IN, LOGGED_OUT } from "../../constants/login"
 
-import LoginForm from '../forms/login_form'
+import LoginForm from "../forms/login_form"
 
-function LoginModal(props){
+function LoginModal(props) {
   let theme_context = React.useContext(ThemeContext)
-  let active_style = checkIsNotUndefined(theme_context)? theme_context.active_style : style
+  let active_style = checkIsNotUndefined(theme_context)
+    ? theme_context.active_style
+    : style
 
   let firebase_mixins_context = React.useContext(FirebaseMixinsContext)
-  let {user_info} = checkIsNotUndefined(firebase_mixins_context) ? firebase_mixins_context: {status: LOGGED_OUT}
+  let { user_info } = checkIsNotUndefined(firebase_mixins_context)
+    ? firebase_mixins_context
+    : { status: LOGGED_OUT }
 
   let [login_modal_classnames, setLoginModalClassnames] = React.useState([
     active_style.modal,
     active_style.isActive,
   ])
 
-  React.useEffect(()=>{
+  React.useEffect(() => {
     if (user_info.status == LOGGED_IN) {
       setLoginModalClassnames([active_style.modal])
       console.log("logged in catched")
@@ -30,10 +34,9 @@ function LoginModal(props){
       setLoginModalClassnames([active_style.modal, active_style.isActive])
       console.log("login required")
     }
-  },[user_info])
+  }, [user_info])
 
-
-  return(
+  return (
     <div className={combineStyle(login_modal_classnames)}>
       <div className={active_style.modalBackground}></div>
       <div className={active_style.modalCard}>
@@ -46,6 +49,5 @@ function LoginModal(props){
     </div>
   )
 }
-
 
 export default LoginModal

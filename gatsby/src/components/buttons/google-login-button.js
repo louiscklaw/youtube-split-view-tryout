@@ -1,9 +1,8 @@
 import React from "react"
 
-import {googleLogin} from '../../utils/firebase'
+import { googleLogin } from "../../utils/firebase"
 
 function GoogleLoginButton() {
-
   const handleGoogleLoginOnClick = () => {
     googleLogin()
   }

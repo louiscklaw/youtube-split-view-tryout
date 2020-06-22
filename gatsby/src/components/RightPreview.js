@@ -3,9 +3,9 @@ import _ from "lodash"
 
 import PreviewChannel from "../components/preview-channel"
 
-import style from '../scss/style.module.scss'
-import ThemeContext from '../contexts/theme-context'
-import {checkIsNotUndefined} from '../utils/mixins'
+import style from "../scss/style.module.scss"
+import ThemeContext from "../contexts/theme-context"
+import { checkIsNotUndefined } from "../utils/mixins"
 
 function NarrowScreenRightPreview() {
   return <></>
@@ -23,25 +23,22 @@ function NormalScreenRightPreview() {
 
 function RightPreview(props) {
   let theme_context = React.useContext(ThemeContext)
-  let active_style = checkIsNotUndefined(theme_context)? theme_context.active_style : style
+  let active_style = checkIsNotUndefined(theme_context)
+    ? theme_context.active_style
+    : style
 
-  let {narrow_window } = props
+  let { narrow_window } = props
   let [right_preview_canvas, setRightPreviewCanvas] = React.useState("")
 
-  React.useEffect(()=>{
+  React.useEffect(() => {
     if (narrow_window) {
       setRightPreviewCanvas(<NarrowScreenRightPreview />)
     } else {
       setRightPreviewCanvas(<NormalScreenRightPreview />)
     }
-  },[narrow_window])
+  }, [narrow_window])
 
-  return(
-    <>
-      right preview
-    </>
-  )
+  return <>right preview</>
 }
-
 
 export default RightPreview

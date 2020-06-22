@@ -1,13 +1,12 @@
 import React from "react"
 
-import {checkDataReady} from "../utils/mixins"
+import { checkDataReady } from "../utils/mixins"
 
 function YoutubeCell(props) {
   let { box_setting } = props
   let [youtube_cell_canvas, setYoutubeCellCanvas] = React.useState("loading")
 
-  React.useEffect(()=>{
-
+  React.useEffect(() => {
     if (checkDataReady(box_setting)) {
       setYoutubeCellCanvas(
         <iframe
@@ -20,12 +19,11 @@ function YoutubeCell(props) {
           allowfullscreen
         />
       )
-    }else{
+    } else {
       console.log("box_setting", box_setting)
       setYoutubeCellCanvas(<>loading</>)
     }
-
-  },[box_setting])
+  }, [box_setting])
 
   return <>{youtube_cell_canvas}</>
 }

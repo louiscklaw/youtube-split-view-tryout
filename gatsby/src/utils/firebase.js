@@ -3,61 +3,64 @@ import firebase from "firebase/app"
 
 const googleLogin = () => {
   var provider = new firebase.auth.GoogleAuthProvider()
-  provider.setCustomParameters( {
-    login_hint: "user@example.com"
-  } )
-  firebase.auth()
-    .signInWithPopup( provider )
-    .then( userdata => {
-      console.log( "google login ok" )
-    } )
-    .catch( err => {
-      console.log( "google login failed, ", err.message )
-    } )
+  provider.setCustomParameters({
+    login_hint: "user@example.com",
+  })
+  firebase
+    .auth()
+    .signInWithPopup(provider)
+    .then(userdata => {
+      console.log("google login ok")
+    })
+    .catch(err => {
+      console.log("google login failed, ", err.message)
+    })
 }
 
 const githubLogin = () => {
   var provider = new firebase.auth.GithubAuthProvider()
 
-  provider.setCustomParameters( {
+  provider.setCustomParameters({
     login_hint: "user@example.com",
-  } )
+  })
 
-  firebase.auth()
-    .signInWithPopup( provider )
-    .then( userdata => {
-      console.log( "github login ok" )
-    } )
-    .catch( err => {
-      console.log( "github login fail,", err.message )
-    } )
+  firebase
+    .auth()
+    .signInWithPopup(provider)
+    .then(userdata => {
+      console.log("github login ok")
+    })
+    .catch(err => {
+      console.log("github login fail,", err.message)
+    })
 }
 
 const facebookLogin = () => {
   var provider = new firebase.auth.FacebookAuthProvider()
 
-  provider.setCustomParameters( {
+  provider.setCustomParameters({
     login_hint: "user@example.com",
-  } )
+  })
 
-  firebase.auth()
-    .signInWithPopup( provider )
-    .then( userdata => {
-      console.log( "facebook login ok" )
-    } )
-    .catch( err => {
-      console.log( "facebook login fail,", err.message )
-    } )
+  firebase
+    .auth()
+    .signInWithPopup(provider)
+    .then(userdata => {
+      console.log("facebook login ok")
+    })
+    .catch(err => {
+      console.log("facebook login fail,", err.message)
+    })
 }
 
 const firebaseLogout = () => {
   // alert('calling firebase auth context logout')
-  console.log( "calling firebaseLogout" )
+  console.log("calling firebaseLogout")
   firebase.auth().signOut()
 }
 
-const firebaseLogin = ( email, password ) => {
-  return firebase.auth().signInWithEmailAndPassword( email, password )
+const firebaseLogin = (email, password) => {
+  return firebase.auth().signInWithEmailAndPassword(email, password)
 }
 
 export {
@@ -65,5 +68,5 @@ export {
   githubLogin,
   facebookLogin,
   firebaseLogin,
-  firebaseLogout
+  firebaseLogout,
 }

@@ -16,7 +16,7 @@ function ThemeContextProvider(props) {
     return windowWidth < narrow_screen_checkpoint
   }
 
-  const updateDimensions =() => {
+  const updateDimensions = () => {
     let windowWidth = typeof window !== "undefined" ? window.innerWidth : 0
     let windowHeight = typeof window !== "undefined" ? window.innerHeight : 0
 
@@ -27,7 +27,7 @@ function ThemeContextProvider(props) {
     setActiveStyle(result_style)
   }
 
-  React.useEffect(()=>{
+  React.useEffect(() => {
     updateDimensions()
     window.addEventListener("resize", updateDimensions)
   })
@@ -36,7 +36,7 @@ function ThemeContextProvider(props) {
     <ThemeContext.Provider
       value={{
         active_style,
-        narrow_window
+        narrow_window,
       }}
     >
       {props.children}

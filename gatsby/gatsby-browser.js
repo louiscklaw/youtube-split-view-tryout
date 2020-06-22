@@ -11,9 +11,7 @@ export const wrapRootElement = ({ element }) => {
     <GlobalContextProvider>
       <ThemeContextProvider>
         <ModalContextProvider>
-        <FirebaseContextProvider>
-          {element}
-        </FirebaseContextProvider>
+          <FirebaseContextProvider>{element}</FirebaseContextProvider>
         </ModalContextProvider>
       </ThemeContextProvider>
     </GlobalContextProvider>

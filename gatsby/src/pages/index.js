@@ -1,57 +1,61 @@
 import React from "react"
 import _ from "lodash"
 
-import style from '../scss/style.module.scss'
-import ThemeContext from '../contexts/theme-context'
-import {checkIsNotUndefined} from '../utils/mixins'
-
+import style from "../scss/style.module.scss"
+import ThemeContext from "../contexts/theme-context"
+import { checkIsNotUndefined } from "../utils/mixins"
 
 import Layout from "../components/layout"
 import Footer from "../components/footer"
 
-import {firebaseLogout} from '../utils/firebase'
+import { firebaseLogout } from "../utils/firebase"
 import { HelloworldPage } from "../utils/pages"
 
-import LoginModal from '../components/modals/login-modal'
+import LoginModal from "../components/modals/login-modal"
 import AnnouncementModal from "../components/modals/announcement-modal"
-import SettingsModal from '../components/modals/settings-modal'
-import LogoutButton from '../components/buttons/logout-button'
+import SettingsModal from "../components/modals/settings-modal"
+import LogoutButton from "../components/buttons/logout-button"
 
-import MainChannel from '../components/main-channel'
-import BottomPreview from '../components/BottomPreview'
-import RightPreview from '../components/RightPreview'
+import MainChannel from "../components/main-channel"
+import BottomPreview from "../components/BottomPreview"
+import RightPreview from "../components/RightPreview"
 
-
-
-function Loading(props){
-  return(
-    <>
-      loading
-    </>
-  )
+function Loading(props) {
+  return <>loading</>
 }
 
-function MainCanvas(props){
+function MainCanvas(props) {
   let theme_context = React.useContext(ThemeContext)
-  let active_style = checkIsNotUndefined(theme_context)? theme_context.active_style : style
-  let narrow_window = checkIsNotUndefined(theme_context)? theme_context.narrow_window : false
+  let active_style = checkIsNotUndefined(theme_context)
+    ? theme_context.active_style
+    : style
+  let narrow_window = checkIsNotUndefined(theme_context)
+    ? theme_context.narrow_window
+    : false
 
   let [announce_show, setAnnouncementShow] = React.useState(true)
   let [settings_show, setSettingsShow] = React.useState(false)
 
   // handle announcement modal
-  const showAnnounce = (e) => {setAnnouncementShow(true)}
-  const closeAnnounce = (e) => { setAnnouncementShow(false) }
+  const showAnnounce = e => {
+    setAnnouncementShow(true)
+  }
+  const closeAnnounce = e => {
+    setAnnouncementShow(false)
+  }
 
   // handle settings modal
-  const showSettings = (e) => {setSettingsShow(true)}
-  const closeSettings = (e) => {setSettingsShow(false)}
+  const showSettings = e => {
+    setSettingsShow(true)
+  }
+  const closeSettings = e => {
+    setSettingsShow(false)
+  }
 
-  return(
+  return (
     <>
-
-      <AnnouncementModal show={announce_show} onClose={closeAnnounce}/>
-      <SettingsModal show={settings_show} onClose={closeSettings}/>
+      <AnnouncementModal show={announce_show} onClose={closeAnnounce} />
+      <SettingsModal show={settings_show} onClose={closeSettings} />
       <LoginModal />
 
       <div className={active_style.wholeCanvas}>
@@ -62,7 +66,7 @@ function MainCanvas(props){
         </div>
       </div>
 
-      <Footer >
+      <Footer>
         <ul>
           <li>
             <button onClick={showSettings}>settings</button>
@@ -75,9 +79,6 @@ function MainCanvas(props){
           </li>
         </ul>
       </Footer>
-
-
-
     </>
   )
 }
@@ -95,7 +96,6 @@ function IndexPage() {
     [boxB_pos, setBoxBPos],
     [boxC_pos, setBoxCPos],
   ]
-
 
   return (
     <Layout>

@@ -3,7 +3,7 @@ const helloworldMixins = () => {
 }
 
 const checkContextReady = context_in => {
-  return typeof(context_in) !== "undefined"
+  return typeof context_in !== "undefined"
 }
 
 const checkDataReady = obj_in => {
@@ -15,8 +15,8 @@ const checkIsNotNull = obj_in => {
 }
 
 const checkIsNotUndefined = obj_in => {
-  console.log('calling check is not Undefined')
-  return typeof(obj_in) !== "undefined"
+  console.log("calling check is not Undefined")
+  return typeof obj_in !== "undefined"
 }
 
 const trueIfUndefinedOrNull = obj_in => {
@@ -39,5 +39,5 @@ export {
   dictKeyExist,
   helloworldMixins,
   trueIfUndefinedOrNull,
-  checkDataReady
+  checkDataReady,
 }

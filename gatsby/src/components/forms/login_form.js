@@ -1,8 +1,8 @@
 import React from "react"
 
-import style from '../../scss/style.module.scss'
-import ThemeContext from '../../contexts/theme-context'
-import {checkIsNotUndefined} from '../../utils/mixins'
+import style from "../../scss/style.module.scss"
+import ThemeContext from "../../contexts/theme-context"
+import { checkIsNotUndefined } from "../../utils/mixins"
 
 import LoginButton from "../buttons/login-button"
 import ResetButton from "../buttons/reset-button"
@@ -15,11 +15,13 @@ import firebase_mixins_context from "../../contexts/firebase-mixins"
 import { LOGGED_OUT } from "../../constants/login"
 import { firebaseLogin, firebaseLogout } from "../../utils/firebase"
 
-function LoginForm(props){
+function LoginForm(props) {
   let theme_context = React.useContext(ThemeContext)
-  let active_style = checkIsNotUndefined(theme_context)? theme_context.active_style : style
+  let active_style = checkIsNotUndefined(theme_context)
+    ? theme_context.active_style
+    : style
 
-  let {user_info} = {user_info: {status: LOGGED_OUT}}
+  let { user_info } = { user_info: { status: LOGGED_OUT } }
 
   let ref_login_status = React.useRef(null)
 
@@ -29,15 +31,14 @@ function LoginForm(props){
     firebaseLogout()
   }
 
-  const handleLoginFormSubmit = (e) =>{
+  const handleLoginFormSubmit = e => {
     e.preventDefault()
     let email = e.target.email.value
     let password = e.target.password.value
     firebaseLogin(email, password)
   }
 
-
-  return(
+  return (
     <>
       <h3>successful login test</h3>
       <form
@@ -79,10 +80,8 @@ function LoginForm(props){
       <div ref={ref_login_status} className={active_style.loginStatus}>
         {user_info.status}
       </div>
-
     </>
   )
 }
-
 
 export default LoginForm

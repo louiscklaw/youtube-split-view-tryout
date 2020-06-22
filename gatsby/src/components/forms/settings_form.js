@@ -1,12 +1,7 @@
-import React from 'react'
+import React from "react"
 
-
-function SettingsForm(props){
-  return(
-    <>
-      settings form
-    </>
-  )
+function SettingsForm(props) {
+  return <>settings form</>
 }
 
 export default SettingsForm

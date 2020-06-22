@@ -1,5 +1,5 @@
 import React from "react"
-import {facebookLogin} from '../../utils/mixins'
+import { facebookLogin } from "../../utils/mixins"
 
 function FacebookLoginButton() {
   const handleFacebookLoginOnClick = () => {

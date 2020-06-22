@@ -1,8 +1,7 @@
 import React from "react"
-import {githubLogin} from '../../utils/firebase'
+import { githubLogin } from "../../utils/firebase"
 
 function GithubLoginButton() {
-
   const handleGithubLoginOnClick = () => {
     console.log("github login onClick")
     githubLogin()

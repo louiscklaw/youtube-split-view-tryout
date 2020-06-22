@@ -1,12 +1,7 @@
-import React from 'react'
+import React from "react"
 
-function InputReadOnly(props){
-
-  return(
-    <>
-      Input read only
-    </>
-  )
+function InputReadOnly(props) {
+  return <>Input read only</>
 }
 
 export default InputReadOnly
