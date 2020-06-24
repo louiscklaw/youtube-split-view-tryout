@@ -9,8 +9,6 @@ import {LOGGED_IN, LOGGED_OUT} from '../constants/login'
 let ProfileContext = React.createContext()
 
 function ProfileContextProvider(props) {
-  let [current_profile, setCurrentProfile] = React.useState()
-
   let firebase_mixins_context = React.useContext(FirebaseMixinsContext)
   let { user_info } = isDefined(firebase_mixins_context)
   ? firebase_mixins_context
@@ -32,28 +30,52 @@ function ProfileContextProvider(props) {
 
   },[firebase_mixins_context])
 
+
+
   const loadProfile = () => {
-    if (isDefined(user_info.uid)){
-      // console.log('findme',user_info)
-      return loadProfileFromFirebase(user_info.uid)
-    }else{
-      return {}
-    }
+    return loadProfileFromFirebase(user_info.uid)
   }
 
   const saveProfile = (profile_in) => {
     console.log('findme', user_info)
     console.log('findme', 'saveProfile called')
-    saveSettingsToFirebase(user_info.uid, profile_in)
+    return saveSettingsToFirebase(user_info.uid, profile_in)
   }
+
+  const updateCurrentProfile = (profile_in) =>{
+    setCurrentProfile(profile_in)
+  }
+
+  const clearCurrentProfile = () => {
+    // for testing
+    console.log('profile-context.js', 'clearCurrentProfile')
+    setCurrentProfile({})
+  }
+
+  let [current_profile, setCurrentProfile] = React.useState({})
+  React.useEffect(()=>{
+    if (isDefined(user_info.uid)){
+      loadProfile()
+        .then(ss => {
+          updateCurrentProfile(ss.data())
+          console.log('profile_context','profile loading done')
+          console.log('profile_context', ss.data())
+        })
+    }else{
+      console.log('profile_context','skipping loading profile')
+      console.log('profile_context', user_info.uid)
+    }
+  },[user_info])
 
   return (
     <ProfileContext.Provider
       value={{
         profileHelloworld,
         current_profile,
+        updateCurrentProfile,
         loadProfile,
         saveProfile,
+        clearCurrentProfile
       }}
     >
       {props.children}

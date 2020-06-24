@@ -15,6 +15,7 @@ import FirebaseMixinsContext from "../../contexts/firebase-mixins"
 
 import SevenChannelSelect from '../seven-channel-select'
 
+import TestForm from '../forms/test-form'
 
 function SettingsModal(props) {
   let theme_context = React.useContext(ThemeContext)
@@ -26,44 +27,35 @@ function SettingsModal(props) {
 
   let [modal_style, setModalStyle] = React.useState([active_style.modal])
 
-  const handleSaveSetting = e => {
-    e.preventDefault()
-  }
-
-  const handleCancelButtonClick = () => {}
-
   React.useEffect(() => {
     if (show) {
       setModalStyle([active_style.modal, active_style.isActive])
     } else {
       setModalStyle([active_style.modal])
     }
-
-
   }, [show])
+
+  let profile_context = React.useContext(ProfileContext)
+  let current_profile = checkIsNotUndefined(profile_context)
+    ? profile_context.current_profile
+    : {}
+
+  console.log('settings-modal.js', current_profile)
 
   let firebase_mixins_context = React.useContext(FirebaseMixinsContext)
 
   let [test_input, setTestInput] = React.useState('helloworld')
-  const inputOnChange = (e) => {
-    let name = e.target.name
-    let value = e.target.value
-    console.log(e.target.name, e.target.value)
-    setTestInput({
-      [name]: value
-    })
-  }
 
   return (
     <div className={combineStyle(modal_style)}>
-      <div className={active_style.modalBackground} onClick={onClose}></div>
+      <div className={active_style.modalBackground} ></div>
 
       <div className={active_style.modalCard}>
         <header className={active_style.modalCardHead}>
           <p className={active_style.modalCardTitle}>settings</p>
         </header>
-
-        <SevenChannelSelect />
+        <SevenChannelSelect test_default_value={current_profile} close_modal={onClose}/>
+        {/* <TestForm test_default_value={current_profile} /> */}
 
       </div>
     </div>

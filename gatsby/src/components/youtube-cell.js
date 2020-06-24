@@ -3,29 +3,26 @@ import React from "react"
 import { checkDataReady } from "../utils/mixins"
 
 function YoutubeCell(props) {
-  let { box_setting } = props
-  let [youtube_cell_canvas, setYoutubeCellCanvas] = React.useState("loading")
+  let [vid, setVid] = React.useState()
+  let {v_width, v_height} = props
 
-  React.useEffect(() => {
-    if (checkDataReady(box_setting)) {
-      setYoutubeCellCanvas(
-        <iframe
-          title="youtube play box"
-          width="560"
-          height="315"
-          src="https://www.youtube.com/embed/sx4GK8XYeZE"
-          frameborder="0"
-          allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-          allowfullscreen
-        />
-      )
-    } else {
-      console.log("box_setting", box_setting)
-      setYoutubeCellCanvas(<>loading</>)
-    }
-  }, [box_setting])
+  React.useEffect(()=>{
+    setVid(props.vid)
+  }, props)
 
-  return <>{youtube_cell_canvas}</>
+  return(
+    <iframe
+    // width={v_width}
+    // height={v_height}
+    src={`https://www.youtube.com/embed/${vid}`}
+    frameborder="0"
+    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+    allowfullscreen
+    ref={props.pass_ref}
+    >
+
+    </iframe>
+  )
 }
 
 export default YoutubeCell
