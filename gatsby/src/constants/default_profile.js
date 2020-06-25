@@ -1,0 +1,182 @@
+const channel_settings_default = `
+[ {
+  "channel_type": "youtube",
+  "channel_vid": "KGBv8oT5lwk",
+  "channel_title": "ttttt"
+}, {
+  "channel_type": "rthk",
+  "channel_vid": "KGBv8oT5lwk",
+  "channel_title": ""
+}, {
+  "channel_type": "rthk",
+  "channel_vid": "",
+  "channel_title": ""
+}, {
+  "channel_type": "rthk",
+  "channel_vid": "",
+  "channel_title": ""
+}, {
+  "channel_type": "rthk",
+  "channel_vid": "",
+  "channel_title": ""
+}, {
+  "channel_type": "rthk",
+  "channel_vid": "",
+  "channel_title": ""
+}, {
+  "channel_type": "rthk",
+  "channel_vid": "",
+  "channel_title": ""
+} ]
+`.trim()
+
+const layout_default = `
+[ {
+  "w": 2,
+  "h": 2,
+  "x": 0,
+  "y": 1,
+  "i": "view_0",
+  "moved": false,
+  "static": false
+}, {
+  "w": 1,
+  "h": 1,
+  "x": 0,
+  "y": 0,
+  "i": "view_1",
+  "moved": false,
+  "static": false
+}, {
+  "w": 1,
+  "h": 1,
+  "x": 1,
+  "y": 0,
+  "i": "view_2",
+  "moved": false,
+  "static": false
+}, {
+  "w": 1,
+  "h": 1,
+  "x": 0,
+  "y": 3,
+  "i": "view_3",
+  "moved": false,
+  "static": false
+}, {
+  "w": 1,
+  "h": 1,
+  "x": 1,
+  "y": 3,
+  "i": "view_4",
+  "moved": false,
+  "static": false
+}, {
+  "w": 1,
+  "h": 1,
+  "x": 0,
+  "y": 4,
+  "i": "view_5",
+  "moved": false,
+  "static": false
+}, {
+  "w": 1,
+  "h": 1,
+  "x": 1,
+  "y": 4,
+  "i": "view_6",
+  "moved": false,
+  "static": false
+}, {
+  "w": 1,
+  "h": 1,
+  "x": 0,
+  "y": 5,
+  "i": "view_7",
+  "moved": false,
+  "static": false
+}, {
+  "w": 1,
+  "h": 1,
+  "x": 0,
+  "y": 6,
+  "i": "view_8",
+  "moved": false,
+  "static": false
+}, {
+  "w": 1,
+  "h": 1,
+  "x": 0,
+  "y": 7,
+  "i": "view_9",
+  "moved": false,
+  "static": false
+}, {
+  "w": 1,
+  "h": 1,
+  "x": 0,
+  "y": 8,
+  "i": "view_10",
+  "moved": false,
+  "static": false
+}, {
+  "w": 1,
+  "h": 1,
+  "x": 0,
+  "y": 9,
+  "i": "view_11",
+  "moved": false,
+  "static": false
+}, {
+  "w": 1,
+  "h": 1,
+  "x": 0,
+  "y": 10,
+  "i": "view_12",
+  "moved": false,
+  "static": false
+}, {
+  "w": 1,
+  "h": 1,
+  "x": 0,
+  "y": 11,
+  "i": "view_13",
+  "moved": false,
+  "static": false
+}, {
+  "w": 1,
+  "h": 1,
+  "x": 0,
+  "y": 12,
+  "i": "view_14",
+  "moved": false,
+  "static": false
+}, {
+  "w": 1,
+  "h": 1,
+  "x": 0,
+  "y": 13,
+  "i": "view_15",
+  "moved": false,
+  "static": false
+} ]
+`.trim()
+
+// let default_profile = {
+//   channel_setting: [{
+//     channel_vid:'aaaaa',
+//     channel_title: 'ttttt',
+//     channel_type:"youtube"
+//   }],
+//   layout: [{
+//     a:1,
+//     b:2
+//   }]
+// }
+
+const default_profile = {
+  channel_setting:JSON.parse(channel_settings_default),
+  layout: JSON.parse(layout_default)
+}
+
+export {default_profile}

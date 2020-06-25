@@ -66,6 +66,7 @@ function MainCanvas(props){
 
 function IndexPage(props){
   let [is_loading, setIsLoading] = React.useState(false)
+  let [debug_text, setDebugText] = React.useState('')
 
   let [test_profile, setTestProfile] = React.useState({})
   let profile_context = React.useContext(ProfileContext)
@@ -74,6 +75,7 @@ function IndexPage(props){
       let {current_profile} = profile_context
       setTestProfile(current_profile)
       setIsLoading(false)
+      setDebugText(JSON.stringify(current_profile))
     }else{
       console.log('index.js', 'profile_context not ready')
     }
@@ -82,6 +84,7 @@ function IndexPage(props){
 
   return(
     <Layout>
+      {/* { debug_text } */}
       {is_loading ? <Loading /> : <MainCanvas profile={test_profile} />}
     </Layout>
   )

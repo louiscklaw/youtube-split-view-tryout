@@ -1,12 +1,33 @@
 import React from "react"
+import _ from 'lodash'
+
+import FirebaseAuthContext from "./firebase-auth-context"
 
 import FirebaseMixinsContext from './firebase-mixins'
 import {isDefined} from '../utils/mixins'
 import {saveSettingsToFirebase, loadProfileFromFirebase} from '../utils/firebase'
 
 import {LOGGED_IN, LOGGED_OUT} from '../constants/login'
+import {default_profile} from '../constants/default_profile'
 
 let ProfileContext = React.createContext()
+
+// let default_profile = {
+//   channel_setting: [{
+//     channel_vid:'aaaaa',
+//     channel_title: 'ttttt',
+//     channel_type:"youtube"
+//   }],
+//   layout: [{
+//     a:1,
+//     b:2
+//   }]
+// }
+
+console.log('profile-contextType.js','default_profile', default_profile)
+
+const PROFILE_HEALTHY = 1
+const PROFILE_NOT_HEALTHY = 2
 
 function ProfileContextProvider(props) {
   let firebase_mixins_context = React.useContext(FirebaseMixinsContext)
@@ -21,24 +42,68 @@ function ProfileContextProvider(props) {
   React.useEffect(()=>{
     // user_logged_in
     if (user_info.status == LOGGED_IN){
-      console.log('findme','user logged in, load profile')
+      console.log('profile-context.js','user logged in, load profile')
+      // getSettings()
     }else{
-      console.log('findme','user not logged in, skipping')
+      console.log('profile-context.js','user not logged in, skipping')
+      resetSettings()
     }
 
-    console.log('findme','profile',user_info.status)
+    console.log('profile-context.js','profile',user_info.status)
 
   },[firebase_mixins_context])
 
+  // const getSettings = () => {
+  //   loadProfile()
+  //     .then(ss => {
+  //       let result_from_fb = ss.data()
+  //       console.log()
+  //       if (checkProfileHealthy(result_from_fb) == PROFILE_HEALTHY){
+  //         let result_from_fb = ss.data()
+  //         let unpacked_profile = unpackProfile(result_from_fb)
+  //         console.log('profile-context.js','unpacked_profile', unpacked_profile)
+  //         updateCurrentProfile(unpacked_profile)
+  //       }else{
+  //         updateCurrentProfile(default_profile)
+  //         console.log('profile-context.js','data is missing required key, loading default profile')
 
+  //       }
+
+  //     })
+  // }
+  const resetSettings = () =>{
+    setCurrentProfile({})
+  }
+
+  const checkKeyExist = (o,k) =>{
+    return Object.keys(o).indexOf(k) > -1
+  }
+
+  const checkProfileHealthy = (p_in) =>{
+    // true healthy, false not healthy
+    console.log('profile-context.js','checkProfileHealthy',p_in)
+
+    if (isDefined(p_in)){
+      if ([ checkKeyExist(p_in, 'channel_setting'), checkKeyExist(p_in, 'layout') ].every( test => test == true )){
+        return PROFILE_HEALTHY
+      }
+    }else{
+      return PROFILE_NOT_HEALTHY
+    }
+
+  }
 
   const loadProfile = () => {
     return loadProfileFromFirebase(user_info.uid)
   }
 
   const saveProfile = (profile_in) => {
-    console.log('profile-context.js', 'profile_in', profile_in)
-    return saveSettingsToFirebase(user_info.uid, profile_in)
+    console.log('profile-context.js', 'saveProfile', profile_in)
+
+    return saveSettingsToFirebase(user_info.uid, {
+      channel_setting: JSON.stringify(profile_in.channel_setting),
+      layout: JSON.stringify(profile_in.layout)
+    })
   }
 
   const updateCurrentProfile = (profile_in) =>{
@@ -65,22 +130,41 @@ function ProfileContextProvider(props) {
     if (isDefined(user_info.uid)){
       loadProfile()
         .then(ss => {
-          updateCurrentProfile(ss.data())
-          console.log('profile_context','profile loading done')
-          console.log('profile_context', ss.data())
+          let result_from_fb = ss.data()
+          // console.log('result_from_fb', result_from_fb)
+          if (checkProfileHealthy(result_from_fb) == PROFILE_HEALTHY){
+            console.log('findme', unpackProfile(result_from_fb))
+            let unpacked_profile = unpackProfile(result_from_fb)
+            updateCurrentProfile(unpacked_profile)
+            console.log('profile-context.js','profile loading done')
+            console.log('profile-context.js','unpacked_profile', unpacked_profile)
+
+          }else{
+            // data is missing key
+            updateCurrentProfile(default_profile)
+            console.log('profile-context.js','data is missing required key')
+          }
         })
+
     }else{
-      console.log('profile_context','skipping loading profile')
-      console.log('profile_context', user_info.uid)
+      console.log('profile-context.js','skipping loading profile')
+      console.log('profile-context.js', user_info.uid)
     }
   },[user_info])
 
   const packProfile = (profile_in, key, value) => {
     console.log('profile-context.js','profile_in', profile_in)
-    return {...profile_in, [key]: JSON.stringify(value)}
+    return {...profile_in, [key]: value}
   }
 
-  const unpackProfile = (profile_in, key_wanted) => {
+  const unpackProfile = (profile_in) =>{
+    return {
+      channel_setting: JSON.parse(profile_in.channel_setting),
+      layout: JSON.parse(profile_in.layout)
+    }
+  }
+
+  const unpackProfileByKey = (profile_in, key_wanted) => {
     return JSON.parse(profile_in[key_wanted])
   }
 
@@ -94,7 +178,8 @@ function ProfileContextProvider(props) {
         saveProfile,
         clearCurrentProfile,
         updateCurrentProfileAndSaveToFirebase,
-        packProfile, unpackProfile
+        packProfile, unpackProfileByKey, unpackProfile,
+        checkProfileHealthy
       }}
     >
       {props.children}

@@ -63,6 +63,28 @@ function LoginForm(props) {
         <ResetButton />
       </form>
 
+      <form
+        className={active_style.emailPasswordLogin}
+        onSubmit={handleLoginFormSubmit}
+      >
+        <input
+          type="email"
+          placeHolder="user@example.com"
+          defaultValue="user@example.com"
+          name="email"
+        />
+
+        <input
+          type="password"
+          placeHolder="123456"
+          defaultValue="123456"
+          name="password"
+        />
+
+        <LoginButton />
+        <ResetButton />
+      </form>
+
       <div className={active_style.divider} data-content="OR"></div>
 
       <div className={active_style.socialLogin}>

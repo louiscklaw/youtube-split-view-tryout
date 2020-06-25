@@ -67,7 +67,8 @@ function MainForm(props){
       let {updateCurrentProfileAndSaveToFirebase, packProfile} = profile_context
       updateCurrentProfileAndSaveToFirebase(packProfile(
         current_profile,
-        "channel_setting", data.channel_setting))
+        "channel_setting", data.channel_setting)
+        )
         .then(() => {
           close_modal()
         })

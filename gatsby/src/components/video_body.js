@@ -1,5 +1,5 @@
 import React from 'react'
-import _ from "lodash"
+import _, { set } from "lodash"
 import { Responsive, WidthProvider } from 'react-grid-layout'
 
 import Loading from './loading'
@@ -66,9 +66,8 @@ let layout_cols = reformBySubKey(layout_settings, 'cols')
 
 function VideoBody(props){
 
-
   let profile_context = React.useContext(ProfileContext)
-  let {current_profile, updateCurrentProfile, unpackProfile} = checkIsNotUndefined(profile_context)
+  let {current_profile, updateCurrentProfile, unpackProfileByKey} = checkIsNotUndefined(profile_context)
     ? profile_context
     : { current_profile:{}, updateCurrentProfile: () => {}}
 
@@ -98,6 +97,8 @@ function VideoBody(props){
     channel_type: '',
     channel_vid: ''
   }
+
+
   let video_cell_settings = [
     React.useState(init_video_cell_setting),
     React.useState(init_video_cell_setting),
@@ -126,30 +127,32 @@ function VideoBody(props){
 
       return (
         <div ref={preview_ref} className="box" key={view_idx} >
+          {/* {JSON.stringify(video_cell_setting)} */}
           <YoutubeTestCell vid={video_cell_setting.channel_vid}/>
         </div>
       )
     });
   }
+
   let preview_panel = getPreviewBox(16)
   let [test_preview_panel, setTestPreviewPanel] = React.useState(preview_panel)
 
   React.useEffect(()=>{
     if (checkIsNotUndefined(current_profile)){
-      if (getKeys(current_profile).length>0)
-      {
-        let channel_setting = unpackProfile(current_profile, 'channel_setting')
-        console.log('findme', channel_setting)
-        // _.mapKeys(channel_setting, (v,k)=>{
-        //   let [video_cell_setting, setVideoCellSetting] = video_cell_settings[k]
-        //   setVideoCellSetting({
-        //     ...video_cell_setting,
-        //     channel_vid: v.channel_vid
-        //   })
-        // })
+      if (getKeys(current_profile).length>0){
+        let {channel_setting} = current_profile
+        _.mapKeys(channel_setting, (v,k)=>{
+          let [video_cell_setting, setVideoCellSetting] = video_cell_settings[k]
+          setVideoCellSetting({
+            ...video_cell_setting,
+            channel_vid: v.channel_vid
+          })
+         })
       }
     }
+
   },[current_profile])
+
   React.useEffect(()=>{
     setTestPreviewPanel(preview_panel)
   }, video_cell_settings.map(x => x[0]))
@@ -205,7 +208,7 @@ function VideoBody(props){
   }
 
   }
-  return(
+  return (
     <>
 
       <ResponsiveGridLayout
@@ -229,7 +232,6 @@ function VideoBody(props){
 
         >
 
-
         { test_preview_panel }
 
       </ResponsiveGridLayout>
@@ -249,12 +251,14 @@ function VideoBodyLoading(props){
 function VideoBodyIndex(props){
   let [is_loading, setIsLoading] = React.useState(false)
   let [test_profile, setTestProfile] = React.useState({})
+  let [debug_text, setDebugText] = React.useState()
 
   let profile_context = React.useContext(ProfileContext)
   React.useEffect(()=>{
     if (checkIsNotUndefined(profile_context)){
       let {current_profile} = profile_context
       setTestProfile(current_profile)
+
       setIsLoading(false)
     }else{
       console.log('index.js', 'profile_context not ready')
