@@ -69,6 +69,8 @@ const getDoc = (collection_name, doc_id) => {
 }
 
 const saveSettingsToFirebase = (uid, settings_in) => {
+  console.log('firebase.js','saveSettingsToFirebase', settings_in)
+  console.log('firebase.js','uid', uid)
   return getDoc("user_settings", uid).set(settings_in)
 }
 

@@ -37,13 +37,21 @@ function ProfileContextProvider(props) {
   }
 
   const saveProfile = (profile_in) => {
-    console.log('findme', user_info)
-    console.log('findme', 'saveProfile called')
+    console.log('profile-context.js', 'profile_in', profile_in)
     return saveSettingsToFirebase(user_info.uid, profile_in)
   }
 
   const updateCurrentProfile = (profile_in) =>{
+    // update current profile and save
     setCurrentProfile(profile_in)
+  }
+
+  const updateCurrentProfileAndSaveToFirebase = (profile_in) =>{
+    console.log('profile-context.js','updateCurrentProfileAndSaveToFirebase')
+    console.log('profile-context.js','profile_in',profile_in)
+
+    updateCurrentProfile(profile_in)
+    return saveProfile(profile_in)
   }
 
   const clearCurrentProfile = () => {
@@ -67,6 +75,15 @@ function ProfileContextProvider(props) {
     }
   },[user_info])
 
+  const packProfile = (profile_in, key, value) => {
+    console.log('profile-context.js','profile_in', profile_in)
+    return {...profile_in, [key]: JSON.stringify(value)}
+  }
+
+  const unpackProfile = (profile_in, key_wanted) => {
+    return JSON.parse(profile_in[key_wanted])
+  }
+
   return (
     <ProfileContext.Provider
       value={{
@@ -75,7 +92,9 @@ function ProfileContextProvider(props) {
         updateCurrentProfile,
         loadProfile,
         saveProfile,
-        clearCurrentProfile
+        clearCurrentProfile,
+        updateCurrentProfileAndSaveToFirebase,
+        packProfile, unpackProfile
       }}
     >
       {props.children}

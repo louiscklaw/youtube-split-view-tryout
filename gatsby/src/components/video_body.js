@@ -4,7 +4,7 @@ import { Responsive, WidthProvider } from 'react-grid-layout'
 
 import Loading from './loading'
 
-import {checkIsNotUndefined, getKeys} from '../utils/mixins'
+import {checkIsNotUndefined, getKeys, checkContextReady} from '../utils/mixins'
 
 import style from '../scss/style.module.scss'
 import 'react-grid-layout/css/styles.css'
@@ -68,9 +68,9 @@ function VideoBody(props){
 
 
   let profile_context = React.useContext(ProfileContext)
-  let {current_profile} = checkIsNotUndefined(profile_context)
+  let {current_profile, updateCurrentProfile, unpackProfile} = checkIsNotUndefined(profile_context)
     ? profile_context
-    : {current_profile:{}}
+    : { current_profile:{}, updateCurrentProfile: () => {}}
 
   // 0 => preview refs, 1 => video_ref
   let preview_and_video_refs = [
@@ -138,13 +138,15 @@ function VideoBody(props){
     if (checkIsNotUndefined(current_profile)){
       if (getKeys(current_profile).length>0)
       {
-        _.mapKeys(current_profile, (v,k)=>{
-          let [video_cell_setting, setVideoCellSetting] = video_cell_settings[k]
-          setVideoCellSetting({
-            ...video_cell_setting,
-            channel_vid: v.channel_vid
-          })
-        })
+        let channel_setting = unpackProfile(current_profile, 'channel_setting')
+        console.log('findme', channel_setting)
+        // _.mapKeys(channel_setting, (v,k)=>{
+        //   let [video_cell_setting, setVideoCellSetting] = video_cell_settings[k]
+        //   setVideoCellSetting({
+        //     ...video_cell_setting,
+        //     channel_vid: v.channel_vid
+        //   })
+        // })
       }
     }
   },[current_profile])
@@ -168,7 +170,15 @@ function VideoBody(props){
 
   // grid-layout handlers start
   const onLayoutChange = (layout, layouts) => {
-    console.log(layout)
+    if (checkContextReady(profile_context)){
+      let {updateCurrentProfileAndSaveToFirebase, packProfile} = profile_context
+
+      console.log('video_body.js','layout', layout)
+
+      if (getKeys(current_profile).length > 0){
+        testOnClick1(current_profile, layout)
+      }
+    }
   }
 
   const onBreakpointChange = (breakpoint_name, num_cols) => {
@@ -184,9 +194,20 @@ function VideoBody(props){
   const onWidthChange = () => {}
   // grid-layout handlers end
 
+  const testOnClick1 = (profile_in, layout) =>{
+    if (checkContextReady(profile_context)){{
+      let {updateCurrentProfileAndSaveToFirebase, packProfile} = profile_context
 
+      updateCurrentProfileAndSaveToFirebase(
+        packProfile(profile_in,'layout', layout)
+      )
+    }
+  }
+
+  }
   return(
     <>
+
       <ResponsiveGridLayout
         className="layout"
         breakpoints={layout_breakpoints}

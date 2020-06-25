@@ -31,9 +31,9 @@ function PerChannelInput(props){
   return(
     <>
       <td>{idx}</td>
-      <td><ChannelTypeSelectList name={`${idx}.channel_type`} reg={reg}/></td>
-      <td><input name={`${idx}.channel_vid`} ref={reg} /></td>
-      <td><input name={`${idx}.channel_title`} ref={reg} /></td>
+      <td><ChannelTypeSelectList name={`channel_setting.${idx}.channel_type`} reg={reg}/></td>
+      <td><input name={`channel_setting.${idx}.channel_vid`} ref={reg} /></td>
+      <td><input name={`channel_setting.${idx}.channel_title`} ref={reg} /></td>
     </>
   )
 }
@@ -53,7 +53,6 @@ function MainForm(props){
     : style
 
   let profile_context = React.useContext(ProfileContext)
-  let {updateCurrentProfile} = profile_context
   let current_profile = checkIsNotUndefined(profile_context)
     ? profile_context.current_profile
     : {}
@@ -65,15 +64,25 @@ function MainForm(props){
 
   const onSubmit = (data) => {
     if (checkContextReady(profile_context)){
-      let {saveProfile} = profile_context
-      saveProfile(data)
+      let {updateCurrentProfileAndSaveToFirebase, packProfile} = profile_context
+      updateCurrentProfileAndSaveToFirebase(packProfile(
+        current_profile,
+        "channel_setting", data.channel_setting))
         .then(() => {
-          updateCurrentProfile(data)
           close_modal()
         })
         .catch(err =>{
           console.log('seven-channel-select.js', 'error found during submit profile', data)
         })
+
+      // saveProfile(data)
+      //   .then(() => {
+      //     updateCurrentProfile(data)
+      //     close_modal()
+      //   })
+      //   .catch(err =>{
+      //     console.log('seven-channel-select.js', 'error found during submit profile', data)
+      //   })
 
 
     }

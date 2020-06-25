@@ -9,9 +9,9 @@ function YoutubeTestCell(props){
     <div>
       <iframe
         src={`//www.youtube.com/embed/${vid}`}
-        frameborder="0"
-        allowfullscreen
-        class="video"
+        frameBorder="0"
+        allowFullScreen
+        className="video"
         />
 
       <div className="handler-drag">
