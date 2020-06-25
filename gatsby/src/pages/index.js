@@ -5,6 +5,8 @@ import style from "../scss/style.module.scss"
 import ThemeContext from "../contexts/theme-context"
 import { checkIsNotUndefined } from "../utils/mixins"
 
+import Loading from '../components/loading'
+
 import ProfileContext from '../contexts/profile-context'
 
 import Layout from "../components/layout"
@@ -93,14 +95,14 @@ let getNameByWidth = (width) => reverse_layout_breakpoints[width]
 let min_width_layout_name = _.last(widths_from_max_to_min)
 let default_layout_name = min_width_layout_name
 
-
-function Loading(props) {
-  return <>loading</>
-}
-
-function MainCanvas(props) {
+function MainCanvas(props){
+  const test_constants = 0
   let {profile} = props
 
+  let profile_context = React.useContext(ProfileContext)
+  let {current_profile} = checkIsNotUndefined(profile_context)
+    ? profile_context
+    : {current_profile:{}}
 
   // react-grid-layout code start
   let [debug_text, setDebugText] = React.useState()
@@ -147,32 +149,61 @@ function MainCanvas(props) {
     React.useState('testing_vid')
   ]
 
+  let preview_test_contexts = [
+    React.useState('init context'),
+    React.useState('init context'),
+    React.useState('init context'),
+    React.useState('init context'),
+    React.useState('init context'),
+    React.useState('init context'),
+    React.useState('init context'),
+    React.useState('init context'),
+    React.useState('init context'),
+    React.useState('init context'),
+    React.useState('init context'),
+    React.useState('init context'),
+    React.useState('init context'),
+    React.useState('init context'),
+    React.useState('init context'),
+    React.useState('init context'),
+    React.useState('init context')
+  ]
+
   const getPreviewBox = (number_of_box) => {
     return new Array(number_of_box).fill(undefined).map((val, idx) => {
       let view_idx = `view_${idx+1}`
       let preview_ref = preview_and_video_refs[idx][0]
-      let video_ref = preview_and_video_refs[idx][1]
-      let video_vid_value = video_vids[idx][0]
+      let [test_context, setTestContext] = preview_test_contexts[idx]
 
       return (
-        // preview_refs
         <div ref={preview_ref} className="box" key={view_idx} >
-          {view_idx}
-          <div ref={video_ref} vid={video_vid_value}>
-            {video_vid_value}
-          </div>
+          {test_context}
         </div>
       )
     });
   }
 
+  let [test_context, setTestContext] = preview_test_contexts[1]
+  React.useEffect(()=>{
+
+    if (Object.keys(current_profile).length>0)
+    {
+      console.log('findme','current_profile',current_profile[0].channel_vid)
+      setTestContext(current_profile[0].channel_vid)
+
+    }else{
+      console.log('findme','current_profile', current_profile)
+    }
+  },[current_profile])
+
+  React.useEffect(()=>{
+    setTestPreviewPanel(preview_panel)
+  },[test_context])
 
   let [num_of_preview, setNumOfPreview] = React.useState(16)
-  const preview_panel = React.useMemo(()=> getPreviewBox(num_of_preview),[num_of_preview])
 
-  const preview_panel_lg = getPreviewBox(16)
-  const preview_panel_sm = getPreviewBox(6)
-  let [test_preview_panel, setTestPreviewPanel] = React.useState(preview_panel_lg)
+  let preview_panel = getPreviewBox(16)
+  let [test_preview_panel, setTestPreviewPanel] = React.useState(preview_panel)
 
   let checkLayoutNames = (screen_width) => {
     let layout_name =  widths_from_max_to_min.filter( width => screen_width > width )
@@ -219,16 +250,19 @@ function MainCanvas(props) {
     // let num_of_preview_cell = layout_seatingplan[breakpoint_name].length
     // setNumOfPreview(num_of_preview_cell)
     // setRenderTest(1)
-    if (breakpoint_name == 'sm'){
-      setTestPreviewPanel(preview_panel_lg)
-      hideRightSidePreview()
-    }else{
-      setTestPreviewPanel(preview_panel_lg)
-      showRightSidePreview()
-    }
-  }
-  const onWidthChange = () => {}
+    //
 
+    // if (breakpoint_name == 'sm'){
+    //   setTestPreviewPanel(preview_panel)
+    //   hideRightSidePreview()
+    // }else{
+    //   setTestPreviewPanel(preview_panel)
+    //   showRightSidePreview()
+    // }
+  }
+  const onWidthChange = () => {
+    setTestPreviewPanel(preview_panel)
+  }
 
   // react-grid-layout code end
 
@@ -247,18 +281,13 @@ function MainCanvas(props) {
   let [announce_show, setAnnouncementShow] = React.useState(true)
   let [settings_show, setSettingsShow] = React.useState(false)
 
-  let profile_context = React.useContext(ProfileContext)
-  let current_profile = checkIsNotUndefined(profile_context)
-    ? profile_context.current_profile
-    : {}
-
 
   React.useEffect(()=>{
     let setFuncVideoVid = video_vids[1][1]
 
     if (checkIsNotUndefined(current_profile)){
       // setFuncVideoVid(current_profile.0.channel_vid)
-      setFuncVideoVid(`current_profile[0].channel_vid`)
+      // setFuncVideoVid(`current_profile[0].channel_vid`)
 
       console.log('findme',Object.keys(current_profile).length)
       if (Object.keys(current_profile).length>0)
@@ -268,8 +297,6 @@ function MainCanvas(props) {
       }
     }
   })
-
-
 
   // handle announcement modal
   const showAnnounce = e => {
@@ -323,7 +350,8 @@ function MainCanvas(props) {
     console.log('index.js', video_main_ref)
   })
 
-  return (
+
+  return(
     <>
       <AnnouncementModal show={announce_show} onClose={closeAnnounce} />
       <SettingsModal show={settings_show} onClose={closeSettings} />
@@ -387,13 +415,12 @@ function MainCanvas(props) {
   )
 }
 
-function IndexPage() {
+function IndexPage(props){
   let [is_loading, setIsLoading] = React.useState(false)
 
   let [boxA_pos, setBoxAPos] = React.useState("0")
   let [boxB_pos, setBoxBPos] = React.useState("1")
   let [boxC_pos, setBoxCPos] = React.useState("2")
-
 
   let box_pos_array = [
     [boxA_pos, setBoxAPos],
@@ -414,11 +441,12 @@ function IndexPage() {
 
   },[profile_context])
 
-  return (
+  return(
     <Layout>
       {is_loading ? <Loading /> : <MainCanvas profile={test_profile} />}
     </Layout>
   )
 }
+
 
 export default IndexPage
