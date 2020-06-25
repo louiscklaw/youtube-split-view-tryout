@@ -35,6 +35,8 @@ const isDefined = obj_in =>{
   return typeof obj_in !== "undefined"
 }
 
+const getKeys = (o) => Object.keys(o)
+
 export {
   checkContextReady,
   checkIsNotNull,
@@ -44,5 +46,6 @@ export {
   helloworldMixins,
   trueIfUndefinedOrNull,
   checkDataReady,
-  isDefined
+  isDefined,
+  getKeys
 }
