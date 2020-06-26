@@ -112,8 +112,7 @@ function ProfileContextProvider(props) {
   }
 
   const updateCurrentProfileAndSaveToFirebase = (profile_in) =>{
-    console.log('profile-context.js','updateCurrentProfileAndSaveToFirebase')
-    console.log('profile-context.js','profile_in',profile_in)
+    console.log('profile-context.js','saving profile to firebase')
 
     updateCurrentProfile(profile_in)
     return saveProfile(profile_in)
@@ -127,20 +126,19 @@ function ProfileContextProvider(props) {
 
   let [current_profile, setCurrentProfile] = React.useState({})
   React.useEffect(()=>{
+    // load user profile , layout and vid
+    console.log('profile-context.js','loading profile')
     if (isDefined(user_info.uid)){
       loadProfile()
         .then(ss => {
           let result_from_fb = ss.data()
-          // console.log('result_from_fb', result_from_fb)
           if (checkProfileHealthy(result_from_fb) == PROFILE_HEALTHY){
-            console.log('findme', unpackProfile(result_from_fb))
+            // load user profile found healthy
             let unpacked_profile = unpackProfile(result_from_fb)
             updateCurrentProfile(unpacked_profile)
-            console.log('profile-context.js','profile loading done')
-            console.log('profile-context.js','unpacked_profile', unpacked_profile)
 
           }else{
-            // data is missing key
+            // data is missing key, reset user profile
             updateCurrentProfile(default_profile)
             console.log('profile-context.js','data is missing required key')
           }
@@ -157,12 +155,27 @@ function ProfileContextProvider(props) {
     return {...profile_in, [key]: value}
   }
 
+  const packLayoutToProfile = (profile_in, layout_name, value) =>{
+    console.log('profile-context.js',
+    'layout_name',layout_name)
+    let result_layout = {...profile_in.layout, [layout_name]:value}
+    let result_profile = {
+      ...profile_in,
+      layout: result_layout
+    }
+    console.log('profile-context.js', 'result_profile',result_profile)
+    console.log('profile-context.js', 'result_layout',result_layout)
+    return result_profile
+  }
+
   const unpackProfile = (profile_in) =>{
     return {
       channel_setting: JSON.parse(profile_in.channel_setting),
       layout: JSON.parse(profile_in.layout)
     }
   }
+
+
 
   const unpackProfileByKey = (profile_in, key_wanted) => {
     return JSON.parse(profile_in[key_wanted])
@@ -179,6 +192,7 @@ function ProfileContextProvider(props) {
         clearCurrentProfile,
         updateCurrentProfileAndSaveToFirebase,
         packProfile, unpackProfileByKey, unpackProfile,
+        packLayoutToProfile,
         checkProfileHealthy
       }}
     >

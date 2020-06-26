@@ -176,7 +176,10 @@ const layout_default = `
 
 const default_profile = {
   channel_setting:JSON.parse(channel_settings_default),
-  layout: JSON.parse(layout_default)
+  layout: {
+    sm: JSON.parse(layout_default),
+    lg: JSON.parse(layout_default)
+  }
 }
 
 export {default_profile}
