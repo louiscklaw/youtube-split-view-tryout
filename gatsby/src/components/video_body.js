@@ -1,10 +1,10 @@
 import React from 'react'
-import _, { set } from "lodash"
+import _ from "lodash"
 import { Responsive, WidthProvider } from 'react-grid-layout'
 
 import Loading from './loading'
 
-import {checkIsNotUndefined, getKeys, checkContextReady} from '../utils/mixins'
+import {checkIsNotUndefined, getKeys, checkContextReady, isDefined} from '../utils/mixins'
 
 import style from '../scss/style.module.scss'
 import 'react-grid-layout/css/styles.css'
@@ -14,62 +14,47 @@ import YoutubeTestCell from './youtube-test-cell'
 
 import ProfileContext from '../contexts/profile-context'
 
+import {default_layout_settings} from '../constants/default_profile'
+
 const ResponsiveGridLayout = WidthProvider(Responsive);
 
-let layout_settings = {
-  lg: {
-    breakpoints: 1200,
-    seating_plan: [
-      {i: 'view_0',  x: 0, y: 0, w: 3, h: 3},
-      {i: 'view_1',  x: 0, y: 3, w: 1, h: 1},
-      {i: 'view_2',  x: 1, y: 3, w: 1, h: 1},
-      {i: 'view_3',  x: 2, y: 3, w: 1, h: 1},
-      {i: 'view_4',  x: 0, y: 4, w: 1, h: 1},
-      {i: 'view_5',  x: 1, y: 4, w: 1, h: 1},
-
-      {i: 'view_6',  x: 2, y: 4, w: 1, h: 1},
-
-      {i: 'view_7',  x: 3, y: 0, w: 1, h: 1},
-      {i: 'view_8',  x: 4, y: 0, w: 1, h: 1},
-      {i: 'view_9',  x: 3, y: 1, w: 1, h: 1},
-      {i: 'view_10', x: 4, y: 1, w: 1, h: 1},
-      {i: 'view_11', x: 3, y: 2, w: 1, h: 1},
-      {i: 'view_12', x: 4, y: 2, w: 1, h: 1},
-      {i: 'view_13', x: 3, y: 3, w: 1, h: 1},
-      {i: 'view_14', x: 4, y: 3, w: 1, h: 1},
-      {i: 'view_15', x: 3, y: 4, w: 1, h: 1},
-      {i: 'view_16', x: 4, y: 4, w: 1, h: 1}
-    ],
-    cols: 5
-  },
-  sm:{
-    breakpoints: 600,
-    seating_plan: [
-      {i: 'view_0', x: 0, y: 0, w: 2, h: 2},
-      {i: 'view_1', x: 0, y: 2, w: 1, h: 1},
-      {i: 'view_2', x: 1, y: 2, w: 1, h: 1},
-      {i: 'view_3', x: 0, y: 3, w: 1, h: 1},
-      {i: 'view_4', x: 1, y: 3, w: 1, h: 1},
-      {i: 'view_5', x: 0, y: 4, w: 1, h: 1},
-      {i: 'view_6', x: 1, y: 4, w: 1, h: 1}
-    ],
-    cols: 2
-  }
-}
-
-let reformBySubKey = (o, key_wanted) => _.mapValues(layout_settings, (o)=>{return o[key_wanted]})
-
-let layout_breakpoints = reformBySubKey(layout_settings, 'breakpoints')
-
-let layout_seatingplan = reformBySubKey(layout_settings, 'seating_plan')
-let layout_cols = reformBySubKey(layout_settings, 'cols')
-
 function VideoBody(props){
-
+  let [initial_layout_load_done, setInitialLayoutLoadDone] = React.useState(false)
   let profile_context = React.useContext(ProfileContext)
-  let {current_profile, updateCurrentProfile, unpackProfileByKey} = checkIsNotUndefined(profile_context)
+  let {current_profile, checkProfileIsLoaded} = checkIsNotUndefined(profile_context)
     ? profile_context
     : { current_profile:{}, updateCurrentProfile: () => {}}
+
+
+    // FIXME: fix this for not using o from outside
+    let reformBySubKey = (o, key_wanted) => _.mapValues(layout_settings, (o)=>{return o[key_wanted]})
+
+
+    let [layout_settings, setLayoutSettings] = React.useState(default_layout_settings)
+    let [layout_breakpoints, setLayoutBreakpoints] = React.useState(reformBySubKey(default_layout_settings, 'breakpoints'))
+    let [layout_seatingplan, setLayoutSeatingPlan] = React.useState(reformBySubKey(default_layout_settings, 'seating_plan'))
+    let [layout_cols, setLayoutCols] = React.useState(reformBySubKey(default_layout_settings, 'cols'))
+
+    React.useEffect(()=>{
+      console.log('video_body.js','current_profile',current_profile)
+      console.log('video_body.js','initial_layout_load_done',initial_layout_load_done)
+      if (checkProfileIsLoaded(current_profile) && initial_layout_load_done == false){
+        setLayoutSettings(current_profile.layout_settings)
+        setInitialLayoutLoadDone(true)
+        console.log('video_body.js', 'current_profile', current_profile)
+      }
+      return () => {
+        console.log('video_body.js','initial_layout_load_done', 'reset')
+        initial_layout_load_done = false
+      }
+    },[current_profile])
+    React.useEffect(()=>{
+      console.log('video_body.js', 'seating_plan', reformBySubKey(layout_settings, 'seating_plan').sm)
+      setLayoutSeatingPlan(reformBySubKey(layout_settings, 'seating_plan'))
+      setLayoutBreakpoints(reformBySubKey(layout_settings, 'breakpoints'))
+      setLayoutCols(reformBySubKey(layout_settings, 'cols'))
+    },[layout_settings])
+
 
   // 0 => preview refs, 1 => video_ref
   let preview_and_video_refs = [
@@ -134,7 +119,7 @@ function VideoBody(props){
     });
   }
 
-  let preview_panel = getPreviewBox(16)
+  let preview_panel = getPreviewBox(3)
   let [test_preview_panel, setTestPreviewPanel] = React.useState(preview_panel)
 
   React.useEffect(()=>{
@@ -147,7 +132,7 @@ function VideoBody(props){
             ...video_cell_setting,
             channel_vid: v.channel_vid
           })
-         })
+        })
       }
     }
 
@@ -160,34 +145,71 @@ function VideoBody(props){
   const showRightSidePreview = () => {
     _.range(6,16).map(idx => {
       let preview_ref = preview_and_video_refs[idx][0]
-      preview_ref.current.classList.remove('hide-box')
+      if (isDefined(preview_ref.current)){
+        preview_ref.current.classList.remove('hide-box')
+      }
     })
   }
 
   const hideRightSidePreview = () => {
     _.range(6,16).map(idx => {
       let preview_ref = preview_and_video_refs[idx][0]
-      preview_ref.current.classList.add('hide-box')
+      if (isDefined(preview_ref.current)){
+        preview_ref.current.classList.add('hide-box')
+      }
     })
+  }
+
+  const setToProfile1 = () => {
+    if (checkContextReady(profile_context)){
+      let {saveToFirebase, packLayoutToProfile, updateCurrentProfile} = profile_context
+      let profile_in = packLayoutToProfile(current_profile, 'lg', {layout: '1'})
+      let profile_in_end = packLayoutToProfile(profile_in, 'sm', {layout: '1'})
+      console.log('video_body.js',profile_in_end)
+      saveToFirebase( profile_in_end )
+      updateCurrentProfile(profile_in_end)
+
+    }
+  }
+
+  const setToProfile2 = () => {
+    if (checkContextReady(profile_context)){
+      let {saveToFirebase, packLayoutToProfile, updateCurrentProfile} = profile_context
+      let profile_in = packLayoutToProfile(current_profile, 'lg', {layout: '2'})
+      let profile_in_end = packLayoutToProfile(profile_in, 'sm', {layout: '2'})
+      console.log('video_body.js',profile_in_end)
+      saveToFirebase( profile_in_end )
+      updateCurrentProfile(profile_in_end)
+
+    }
   }
 
   // grid-layout handlers start
   const onLayoutChange = (layout, layouts) => {
+
     if (checkContextReady(profile_context)){
-      let {updateCurrentProfileAndSaveToFirebase, packProfile} = profile_context
-
-      console.log('video_body.js','layout', layout)
-
       if (getKeys(current_profile).length > 0){
-        testOnClick1(current_profile, layout)
+        if (checkContextReady(profile_context)){{
+          let {saveToFirebase, packLayoutToProfile} = profile_context
+
+          let profile_in = packLayoutToProfile(current_profile, current_breakpoint_name, layout)
+
+          saveToFirebase( profile_in )
+
+
+          console.log('video_body.js','saving to profile')
+        }}
       }
     }
   }
 
+
+  let [current_breakpoint_name, setCurrentBreakpointName] = React.useState('sm')
   const onBreakpointChange = (breakpoint_name, num_cols) => {
     // get triggered when breakpoint change
     // regenerate the required children
 
+    setCurrentBreakpointName(breakpoint_name)
     if (breakpoint_name == 'sm'){
       hideRightSidePreview()
     }else{
@@ -197,25 +219,22 @@ function VideoBody(props){
   const onWidthChange = () => {}
   // grid-layout handlers end
 
-  const testOnClick1 = (profile_in, layout) =>{
-    if (checkContextReady(profile_context)){{
-      let {updateCurrentProfileAndSaveToFirebase, packProfile} = profile_context
+  let [debug_text, setDebugText] = React.useState()
+  React.useEffect(()=>{
+    setDebugText(JSON.stringify(layout_seatingplan, null , 1))
+  })
 
-      updateCurrentProfileAndSaveToFirebase(
-        packProfile(profile_in,'layout', layout)
-      )
-    }
-  }
-
-  }
   return (
     <>
+      <button onClick={setToProfile1}>profile1</button>
+      <button onClick={setToProfile2}>profile2</button>
+
 
       <ResponsiveGridLayout
         className="layout"
         breakpoints={layout_breakpoints}
         layouts={layout_seatingplan}
-        cols={layout_cols}
+        cols={{lg: 5, sm: 2}}
 
         onBreakpointChange={onBreakpointChange}
         onLayoutChange={onLayoutChange}
@@ -227,7 +246,7 @@ function VideoBody(props){
         containerPadding={[0,0]}
 
         style={{
-          height: '90vh'
+          height: '70vh'
         }}
 
         >
@@ -235,6 +254,11 @@ function VideoBody(props){
         { test_preview_panel }
 
       </ResponsiveGridLayout>
+{/*
+      <pre>
+        { debug_text }
+      </pre>
+      */}
 
     </>
   )

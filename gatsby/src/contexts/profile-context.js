@@ -4,7 +4,7 @@ import _ from 'lodash'
 import FirebaseAuthContext from "./firebase-auth-context"
 
 import FirebaseMixinsContext from './firebase-mixins'
-import {isDefined} from '../utils/mixins'
+import {isDefined, checkIsNotUndefined, getKeys} from '../utils/mixins'
 import {saveSettingsToFirebase, loadProfileFromFirebase} from '../utils/firebase'
 
 import {LOGGED_IN, LOGGED_OUT} from '../constants/login'
@@ -23,6 +23,7 @@ let ProfileContext = React.createContext()
 //     b:2
 //   }]
 // }
+
 
 console.log('profile-contextType.js','default_profile', default_profile)
 
@@ -84,7 +85,7 @@ function ProfileContextProvider(props) {
     console.log('profile-context.js','checkProfileHealthy',p_in)
 
     if (isDefined(p_in)){
-      if ([ checkKeyExist(p_in, 'channel_setting'), checkKeyExist(p_in, 'layout') ].every( test => test == true )){
+      if ([ checkKeyExist(p_in, 'channel_setting'), checkKeyExist(p_in, 'layout_settings') ].every( test => test == true )){
         return PROFILE_HEALTHY
       }
     }else{
@@ -97,13 +98,18 @@ function ProfileContextProvider(props) {
     return loadProfileFromFirebase(user_info.uid)
   }
 
+  const filterOutUndefinedForFirebase = (profile_in) =>{
+    // FIXME: this is an lazy method to filter out undefined in complex dict tree
+    return JSON.parse(JSON.stringify(profile_in))
+  }
+
   const saveProfile = (profile_in) => {
     console.log('profile-context.js', 'saveProfile', profile_in)
 
-    return saveSettingsToFirebase(user_info.uid, {
-      channel_setting: JSON.stringify(profile_in.channel_setting),
-      layout: JSON.stringify(profile_in.layout)
-    })
+    return saveSettingsToFirebase(
+      user_info.uid,
+      filterOutUndefinedForFirebase(profile_in)
+      )
   }
 
   const updateCurrentProfile = (profile_in) =>{
@@ -111,11 +117,16 @@ function ProfileContextProvider(props) {
     setCurrentProfile(profile_in)
   }
 
+  const saveToFirebase = (profile_in) => {
+    return saveProfile(profile_in)
+  }
+
   const updateCurrentProfileAndSaveToFirebase = (profile_in) =>{
-    console.log('profile-context.js','saving profile to firebase')
+    console.log('profile-context.js','saving profile to firebase', profile_in)
 
     updateCurrentProfile(profile_in)
-    return saveProfile(profile_in)
+
+    return saveToFirebase(profile_in)
   }
 
   const clearCurrentProfile = () => {
@@ -156,29 +167,39 @@ function ProfileContextProvider(props) {
   }
 
   const packLayoutToProfile = (profile_in, layout_name, value) =>{
-    console.log('profile-context.js',
-    'layout_name',layout_name)
-    let result_layout = {...profile_in.layout, [layout_name]:value}
+
     let result_profile = {
       ...profile_in,
-      layout: result_layout
+      layout_settings: {
+        ...profile_in.layout_settings,
+        [layout_name]: { seating_plan: value}
+      }
     }
-    console.log('profile-context.js', 'result_profile',result_profile)
-    console.log('profile-context.js', 'result_layout',result_layout)
+
     return result_profile
   }
 
   const unpackProfile = (profile_in) =>{
-    return {
-      channel_setting: JSON.parse(profile_in.channel_setting),
-      layout: JSON.parse(profile_in.layout)
-    }
+    return profile_in
   }
 
 
 
   const unpackProfileByKey = (profile_in, key_wanted) => {
-    return JSON.parse(profile_in[key_wanted])
+    return profile_in[key_wanted]
+  }
+
+  // FIXME: for POC only
+  const checkProfileIsLoaded = () => {
+    if (checkIsNotUndefined(current_profile)){
+      if (getKeys(current_profile).length > 0){
+        return true
+      }else{
+        return false
+      }
+    }else{
+      return false
+    }
   }
 
   return (
@@ -193,7 +214,9 @@ function ProfileContextProvider(props) {
         updateCurrentProfileAndSaveToFirebase,
         packProfile, unpackProfileByKey, unpackProfile,
         packLayoutToProfile,
-        checkProfileHealthy
+        saveToFirebase,
+        checkProfileHealthy,
+        checkProfileIsLoaded
       }}
     >
       {props.children}

@@ -53,7 +53,7 @@ function MainCanvas(props){
       <SettingsModal show={settings_show} onClose={closeSettings} />
       <LoginModal />
 
-      <button onClick={test_notify}>test notify</button>
+      {/* <button onClick={test_notify}>test notify</button> */}
       <ToastContainer />
 
       <VideoBody />
