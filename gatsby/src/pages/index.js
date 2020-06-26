@@ -11,16 +11,24 @@ import Layout from "../components/layout"
 import VideoBody from '../components/video_body'
 import Footer from "../components/footer"
 
-
 import LoginModal from "../components/modals/login-modal"
 import AnnouncementModal from "../components/modals/announcement-modal"
 import SettingsModal from "../components/modals/settings-modal"
 import LogoutButton from "../components/buttons/logout-button"
 
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+import {showSavingNotification} from '../components/notification/notify_saving'
+
+
 function MainCanvas(props){
   // modals start
   let [announce_show, setAnnouncementShow] = React.useState(true)
   let [settings_show, setSettingsShow] = React.useState(false)
+
+  const test_notify = () => {
+    showSavingNotification()
+  }
 
   // handle announcement modal
   const showAnnounce = e => {
@@ -44,6 +52,9 @@ function MainCanvas(props){
       <AnnouncementModal show={announce_show} onClose={closeAnnounce} />
       <SettingsModal show={settings_show} onClose={closeSettings} />
       <LoginModal />
+
+      <button onClick={test_notify}>test notify</button>
+      <ToastContainer />
 
       <VideoBody />
 

@@ -47,14 +47,14 @@ function LoginForm(props) {
       >
         <input
           type="email"
-          placeHolder="admin@example.com"
+          placeholder="admin@example.com"
           defaultValue="admin@example.com"
           name="email"
         />
 
         <input
           type="password"
-          placeHolder="123456"
+          placeholder="123456"
           defaultValue="123456"
           name="password"
         />
@@ -69,14 +69,14 @@ function LoginForm(props) {
       >
         <input
           type="email"
-          placeHolder="user@example.com"
+          placeholder="user@example.com"
           defaultValue="user@example.com"
           name="email"
         />
 
         <input
           type="password"
-          placeHolder="123456"
+          placeholder="123456"
           defaultValue="123456"
           name="password"
         />
