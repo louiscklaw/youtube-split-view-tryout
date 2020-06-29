@@ -108,7 +108,7 @@ function VideoBody(props){
     });
   }
 
-  let preview_panel = getPreviewBox(3)
+  let preview_panel = getPreviewBox(7)
   let [test_preview_panel, setTestPreviewPanel] = React.useState(preview_panel)
 
   React.useEffect(()=>{
@@ -188,16 +188,14 @@ function VideoBody(props){
 
   return(
     <>
-
       <ResponsiveGridLayout
         className="layout"
         breakpoints={layout_breakpoints}
         layouts={layout_seatingplan}
-        cols={{lg: 5, sm: 2}}
+        cols={layout_cols}
 
         onBreakpointChange={onBreakpointChange}
         onLayoutChange={onLayoutChange}
-
 
         rowHeight={190}
 
@@ -205,15 +203,11 @@ function VideoBody(props){
         containerPadding={[0,0]}
 
         style={{
-          height: '70vh'
+          height: '90vh'
         }}
-
         >
-
         { test_preview_panel }
-
       </ResponsiveGridLayout>
-      VideoBody
     </>
   )
 }
