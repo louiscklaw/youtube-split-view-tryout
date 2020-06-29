@@ -101,14 +101,16 @@ function VideoBody(props){
 
       return (
         <div ref={preview_ref} className="box" key={view_idx} >
-          {/* {JSON.stringify(video_cell_setting)} */}
-          <YoutubeTestCell vid={video_cell_setting.channel_vid}/>
+          <YoutubeTestCell
+            vid={video_cell_setting.channel_vid}
+            channel_title={video_cell_setting.channel_title}
+            />
         </div>
       )
     });
   }
 
-  let preview_panel = getPreviewBox(7)
+  let preview_panel = getPreviewBox(16)
   let [test_preview_panel, setTestPreviewPanel] = React.useState(preview_panel)
 
   React.useEffect(()=>{
@@ -119,7 +121,8 @@ function VideoBody(props){
           let [video_cell_setting, setVideoCellSetting] = video_cell_settings[k]
           setVideoCellSetting({
             ...video_cell_setting,
-            channel_vid: v.channel_vid
+            channel_vid: v.channel_vid,
+            channel_title: v.channel_title
           })
         })
       }
