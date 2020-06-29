@@ -3,7 +3,7 @@ import React from 'react'
 // import './youtube-test-cell.css'
 import style from '../scss/style.module.scss'
 import ThemeContext from '../contexts/theme-context'
-import { checkIsNotUndefined } from '../utils/mixins'
+import { checkIsNotUndefined, combineStyle } from '../utils/mixins'
 
 function YoutubeTestCell(props){
   let {vid, channel_title} = props
@@ -14,7 +14,7 @@ function YoutubeTestCell(props){
   : style
 
   return (
-    <div>
+    <div className={active_style.youtubeVideoContainer}>
       <iframe
         src={`//www.youtube.com/embed/${vid}`}
         frameBorder="0"
@@ -22,9 +22,14 @@ function YoutubeTestCell(props){
         className={active_style.video}
         />
 
-        <div className={active_style.handlerDrag}>
-          drag {channel_title}
+      <div className={active_style.dragButtonContainer}>
+        <div className={combineStyle([
+          active_style.dragButton,
+          active_style.button
+        ])}>
+          <i className="fas fa-arrows-alt"></i>
         </div>
+      </div>
 
     </div>
   )
