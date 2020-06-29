@@ -2,11 +2,12 @@ import React from 'react'
 import _ from "lodash"
 import { Responsive, WidthProvider } from 'react-grid-layout'
 
+import style from '../scss/style.module.scss'
+
 import Loading from './loading'
 
 import {checkIsNotUndefined, getKeys, checkContextReady, isDefined} from '../utils/mixins'
 
-import style from '../scss/style.module.scss'
 import 'react-grid-layout/css/styles.css'
 import 'react-resizable/css/styles.css'
 
@@ -19,42 +20,31 @@ import {default_layout_settings} from '../constants/default_profile'
 const ResponsiveGridLayout = WidthProvider(Responsive);
 
 function VideoBody(props){
-  let [initial_layout_load_done, setInitialLayoutLoadDone] = React.useState(false)
   let profile_context = React.useContext(ProfileContext)
   let {current_profile, checkProfileIsLoaded} = checkIsNotUndefined(profile_context)
-    ? profile_context
-    : { current_profile:{}, updateCurrentProfile: () => {}}
+  ? profile_context
+  : { current_profile:{}, updateCurrentProfile: () => {}}
 
+  let reformBySubKey = (o, key_wanted) =>  _.mapValues(o, key_wanted)
 
-    // FIXME: fix this for not using o from outside
-    let reformBySubKey = (o, key_wanted) => _.mapValues(layout_settings, (o)=>{return o[key_wanted]})
+  let [layout_settings, setLayoutSettings] = React.useState(default_layout_settings)
+  let [layout_breakpoints, setLayoutBreakpoints] = React.useState(reformBySubKey(default_layout_settings, 'breakpoints'))
+  let [layout_seatingplan, setLayoutSeatingPlan] = React.useState(reformBySubKey(default_layout_settings, 'seating_plan'))
+  let [layout_cols, setLayoutCols] = React.useState(reformBySubKey(default_layout_settings, 'cols'))
 
+  React.useEffect(()=>{
+    if (checkProfileIsLoaded(current_profile)){
+      setLayoutSettings(current_profile.layout_settings)
+      console.log('video_body.js', 'current_profile', current_profile)
+    }
+  },[current_profile])
 
-    let [layout_settings, setLayoutSettings] = React.useState(default_layout_settings)
-    let [layout_breakpoints, setLayoutBreakpoints] = React.useState(reformBySubKey(default_layout_settings, 'breakpoints'))
-    let [layout_seatingplan, setLayoutSeatingPlan] = React.useState(reformBySubKey(default_layout_settings, 'seating_plan'))
-    let [layout_cols, setLayoutCols] = React.useState(reformBySubKey(default_layout_settings, 'cols'))
-
-    React.useEffect(()=>{
-      console.log('video_body.js','current_profile',current_profile)
-      console.log('video_body.js','initial_layout_load_done',initial_layout_load_done)
-      if (checkProfileIsLoaded(current_profile) && initial_layout_load_done == false){
-        setLayoutSettings(current_profile.layout_settings)
-        setInitialLayoutLoadDone(true)
-        console.log('video_body.js', 'current_profile', current_profile)
-      }
-      return () => {
-        console.log('video_body.js','initial_layout_load_done', 'reset')
-        initial_layout_load_done = false
-      }
-    },[current_profile])
-    React.useEffect(()=>{
-      console.log('video_body.js', 'seating_plan', reformBySubKey(layout_settings, 'seating_plan').sm)
-      setLayoutSeatingPlan(reformBySubKey(layout_settings, 'seating_plan'))
-      setLayoutBreakpoints(reformBySubKey(layout_settings, 'breakpoints'))
-      setLayoutCols(reformBySubKey(layout_settings, 'cols'))
-    },[layout_settings])
-
+  React.useEffect(()=>{
+    console.log('video_body.js', 'layout_settings.sm', layout_settings.sm)
+    setLayoutSeatingPlan(reformBySubKey(layout_settings, 'seating_plan'))
+    setLayoutBreakpoints(reformBySubKey(layout_settings, 'breakpoints'))
+    setLayoutCols(reformBySubKey(layout_settings, 'cols'))
+  },[layout_settings])
 
   // 0 => preview refs, 1 => video_ref
   let preview_and_video_refs = [
@@ -82,7 +72,6 @@ function VideoBody(props){
     channel_type: '',
     channel_vid: ''
   }
-
 
   let video_cell_settings = [
     React.useState(init_video_cell_setting),
@@ -135,7 +124,6 @@ function VideoBody(props){
         })
       }
     }
-
   },[current_profile])
 
   React.useEffect(()=>{
@@ -160,55 +148,31 @@ function VideoBody(props){
     })
   }
 
-  const setToProfile1 = () => {
-    if (checkContextReady(profile_context)){
-      let {saveToFirebase, packLayoutToProfile, updateCurrentProfile} = profile_context
-      let profile_in = packLayoutToProfile(current_profile, 'lg', {layout: '1'})
-      let profile_in_end = packLayoutToProfile(profile_in, 'sm', {layout: '1'})
-      console.log('video_body.js',profile_in_end)
-      saveToFirebase( profile_in_end )
-      updateCurrentProfile(profile_in_end)
-
-    }
-  }
-
-  const setToProfile2 = () => {
-    if (checkContextReady(profile_context)){
-      let {saveToFirebase, packLayoutToProfile, updateCurrentProfile} = profile_context
-      let profile_in = packLayoutToProfile(current_profile, 'lg', {layout: '2'})
-      let profile_in_end = packLayoutToProfile(profile_in, 'sm', {layout: '2'})
-      console.log('video_body.js',profile_in_end)
-      saveToFirebase( profile_in_end )
-      updateCurrentProfile(profile_in_end)
-
-    }
-  }
-
   // grid-layout handlers start
   const onLayoutChange = (layout, layouts) => {
+    console.log('video_body.js','current_profile',current_profile)
+    console.log('video_body.js','current_profile.layout_settings',current_profile.layout_settings)
+    let current_layout_settings = current_profile.layout_settings
 
-    if (checkContextReady(profile_context)){
-      if (getKeys(current_profile).length > 0){
-        if (checkContextReady(profile_context)){{
-          let {saveToFirebase, packLayoutToProfile} = profile_context
+    // update when defined only
+    if (isDefined(current_layout_settings)){
+      let {saveToFirebase} = profile_context
+      let {breakpoints, cols} = current_layout_settings[current_breakpoint_name]
 
-          let profile_in = packLayoutToProfile(current_profile, current_breakpoint_name, layout)
-
-          saveToFirebase( profile_in )
-
-
-          console.log('video_body.js','saving to profile')
-        }}
+      // update layout settings
+      current_layout_settings[current_breakpoint_name] = {
+        breakpoints, cols,
+        seating_plan: layout
       }
+      console.log('video_body.js','current_profile',current_profile)
+      saveToFirebase(current_profile)
     }
   }
-
 
   let [current_breakpoint_name, setCurrentBreakpointName] = React.useState('sm')
   const onBreakpointChange = (breakpoint_name, num_cols) => {
     // get triggered when breakpoint change
     // regenerate the required children
-
     setCurrentBreakpointName(breakpoint_name)
     if (breakpoint_name == 'sm'){
       hideRightSidePreview()
@@ -216,19 +180,14 @@ function VideoBody(props){
       showRightSidePreview()
     }
   }
-  const onWidthChange = () => {}
-  // grid-layout handlers end
 
   let [debug_text, setDebugText] = React.useState()
   React.useEffect(()=>{
-    setDebugText(JSON.stringify(layout_seatingplan, null , 1))
+    setDebugText(JSON.stringify(layout_seatingplan))
   })
 
-  return (
+  return(
     <>
-      <button onClick={setToProfile1}>profile1</button>
-      <button onClick={setToProfile2}>profile2</button>
-
 
       <ResponsiveGridLayout
         className="layout"
@@ -238,7 +197,7 @@ function VideoBody(props){
 
         onBreakpointChange={onBreakpointChange}
         onLayoutChange={onLayoutChange}
-        onWidthChange={onWidthChange}
+
 
         rowHeight={190}
 
@@ -254,12 +213,7 @@ function VideoBody(props){
         { test_preview_panel }
 
       </ResponsiveGridLayout>
-{/*
-      <pre>
-        { debug_text }
-      </pre>
-      */}
-
+      VideoBody
     </>
   )
 }

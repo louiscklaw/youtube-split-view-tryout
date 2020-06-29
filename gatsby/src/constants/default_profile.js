@@ -36,7 +36,7 @@ const channel_settings_default = [ {
 ]
 
 const default_layout_settings = {
-  sm: {
+  lg: {
     breakpoints: 1200,
     seating_plan: [
       {i: 'view_0',  x: 0, y: 0, w: 3, h: 3},
@@ -58,7 +58,7 @@ const default_layout_settings = {
     ],
     cols: 5
   },
-  lg: {
+  sm: {
     breakpoints: 600,
     seating_plan: [
       {i: 'view_0', x: 0, y: 0, w: 2, h: 2},
