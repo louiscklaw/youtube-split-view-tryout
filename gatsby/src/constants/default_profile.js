@@ -1,37 +1,37 @@
 const channel_settings_default = [ {
     channel_type: 'youtube',
     channel_vid: 'KGBv8oT5lwk',
-    channel_title: 'ttttt'
+    channel_title: 'title1'
   },
   {
-    channel_type: 'rthk',
-    channel_vid: 'KGBv8oT5lwk',
-    channel_title: ''
+    channel_type: 'youtube',
+    channel_vid: '-eUtoororgQ',
+    channel_title: 'title2'
   },
   {
-    channel_type: 'rthk',
-    channel_vid: '',
-    channel_title: ''
+    channel_type: 'youtube',
+    channel_vid: '-eUtoororgQ',
+    channel_title: 'title3'
   },
   {
-    channel_type: 'rthk',
-    channel_vid: '',
-    channel_title: ''
+    channel_type: 'youtube',
+    channel_vid: '-eUtoororgQ',
+    channel_title: 'title4'
   },
   {
-    channel_type: 'rthk',
-    channel_vid: '',
-    channel_title: ''
+    channel_type: 'youtube',
+    channel_vid: '-eUtoororgQ',
+    channel_title: 'title5'
   },
   {
-    channel_type: 'rthk',
-    channel_vid: '',
-    channel_title: ''
+    channel_type: 'youtube',
+    channel_vid: '-eUtoororgQ',
+    channel_title: 'title6'
   },
   {
-    channel_type: 'rthk',
-    channel_vid: '',
-    channel_title: ''
+    channel_type: 'youtube',
+    channel_vid: '-eUtoororgQ',
+    channel_title: 'title7'
   }
 ]
 
@@ -54,7 +54,8 @@ const default_layout_settings = {
       {i: 'view_12', x: 4, y: 2, w: 1, h: 1},
       {i: 'view_13', x: 3, y: 3, w: 1, h: 1},
       {i: 'view_14', x: 4, y: 3, w: 1, h: 1},
-      {i: 'view_15', x: 3, y: 4, w: 1, h: 1}
+      {i: 'view_15', x: 3, y: 4, w: 1, h: 1},
+      {i: 'view_16', x: 4, y: 4, w: 1, h: 1}
     ],
     cols: 5
   },

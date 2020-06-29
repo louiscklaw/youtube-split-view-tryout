@@ -82,8 +82,13 @@
   display: none;
 }
 
+.video-body-height {
+  height: 90vh !important;
+}
+
 .test {
-  color: gold;
+  color: aqua;
+  background-color: gold;
 }
 
 * {

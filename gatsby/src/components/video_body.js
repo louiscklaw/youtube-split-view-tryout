@@ -14,6 +14,7 @@ import 'react-resizable/css/styles.css'
 import YoutubeTestCell from './youtube-test-cell'
 
 import ProfileContext from '../contexts/profile-context'
+import ThemeContext from '../contexts/theme-context'
 
 import {default_layout_settings} from '../constants/default_profile'
 
@@ -24,6 +25,11 @@ function VideoBody(props){
   let {current_profile, checkProfileIsLoaded} = checkIsNotUndefined(profile_context)
   ? profile_context
   : { current_profile:{}, updateCurrentProfile: () => {}}
+
+  let theme_context = React.useContext(ThemeContext)
+  let active_style = checkIsNotUndefined(theme_context)
+  ? theme_context.active_style
+  : style
 
   let reformBySubKey = (o, key_wanted) =>  _.mapValues(o, key_wanted)
 
@@ -100,7 +106,7 @@ function VideoBody(props){
       let [video_cell_setting, setVideoCellSetting] = video_cell_settings[idx]
 
       return (
-        <div ref={preview_ref} className="box" key={view_idx} >
+        <div ref={preview_ref} className={active_style.videoContainer} key={view_idx} >
           <YoutubeTestCell
             vid={video_cell_setting.channel_vid}
             channel_title={video_cell_setting.channel_title}
@@ -110,7 +116,7 @@ function VideoBody(props){
     });
   }
 
-  let preview_panel = getPreviewBox(16)
+  let preview_panel = getPreviewBox(17)
   let [test_preview_panel, setTestPreviewPanel] = React.useState(preview_panel)
 
   React.useEffect(()=>{
@@ -134,7 +140,9 @@ function VideoBody(props){
   }, video_cell_settings.map(x => x[0]))
 
   const showRightSidePreview = () => {
-    _.range(6,16).map(idx => {
+    console.log('video_body.js','showRightSidePreview')
+    console.log('video_body.js','showRightSidePreview',_.range(6,16))
+    _.range(6,16+1).map(idx => {
       let preview_ref = preview_and_video_refs[idx][0]
       if (isDefined(preview_ref.current)){
         preview_ref.current.classList.remove('hide-box')
@@ -143,7 +151,8 @@ function VideoBody(props){
   }
 
   const hideRightSidePreview = () => {
-    _.range(6,16).map(idx => {
+    console.log('video_body.js','hideRightSidePreview')
+    _.range(6,16+1).map(idx => {
       let preview_ref = preview_and_video_refs[idx][0]
       if (isDefined(preview_ref.current)){
         preview_ref.current.classList.add('hide-box')
@@ -177,11 +186,19 @@ function VideoBody(props){
     // get triggered when breakpoint change
     // regenerate the required children
     setCurrentBreakpointName(breakpoint_name)
-    if (breakpoint_name == 'sm'){
-      hideRightSidePreview()
-    }else{
-      showRightSidePreview()
+    console.log('video_body.js','breakpoint_name',breakpoint_name)
+    switch (breakpoint_name) {
+      case "sm":
+        hideRightSidePreview()
+        break;
+      case "lg":
+        showRightSidePreview()
+        break;
+      default:
+        hideRightSidePreview()
+        break;
     }
+
   }
 
   let [debug_text, setDebugText] = React.useState()
@@ -192,7 +209,8 @@ function VideoBody(props){
   return(
     <>
       <ResponsiveGridLayout
-        className="layout"
+
+        className={ `layout ` + active_style.test + ' ' + active_style.videoBodyHeight }
         breakpoints={layout_breakpoints}
         layouts={layout_seatingplan}
         cols={layout_cols}
@@ -205,9 +223,6 @@ function VideoBody(props){
         margin={[0,0]}
         containerPadding={[0,0]}
 
-        style={{
-          height: '90vh'
-        }}
         >
         { test_preview_panel }
       </ResponsiveGridLayout>
@@ -238,7 +253,6 @@ function VideoBodyIndex(props){
     }else{
       console.log('index.js', 'profile_context not ready')
     }
-
   },[profile_context])
 
   return(
