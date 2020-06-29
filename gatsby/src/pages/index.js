@@ -10,6 +10,7 @@ import ProfileContext from '../contexts/profile-context'
 import Layout from "../components/layout"
 import VideoBody from '../components/video_body'
 import Footer from "../components/footer"
+import SideBar from '../components/side-bar'
 
 import LoginModal from "../components/modals/login-modal"
 import AnnouncementModal from "../components/modals/announcement-modal"
@@ -60,6 +61,8 @@ function MainCanvas(props){
       <ToastContainer />
 
       <VideoBody />
+
+      <SideBar />
 
       <Footer>
         <ul>

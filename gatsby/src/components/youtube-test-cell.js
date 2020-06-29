@@ -15,14 +15,12 @@ function YoutubeTestCell(props){
 
   return (
     <div>
-      {/*
       <iframe
         src={`//www.youtube.com/embed/${vid}`}
         frameBorder="0"
         allowFullScreen
-        className="video"
+        className={active_style.video}
         />
-      */}
 
         <div className={active_style.handlerDrag}>
           drag {channel_title}

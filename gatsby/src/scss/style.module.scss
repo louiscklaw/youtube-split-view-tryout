@@ -67,7 +67,7 @@
   padding-bottom: 56.25%;
 }
 
-.video-container{
+.video-container {
   display: inline-flex;
   flex-flow: column nowrap;
   justify-content: center;
@@ -78,10 +78,10 @@
 
 .video {
   position: absolute;
-  top: 10;
-  left: 0;
-  width: 95%;
-  height: 95%;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
 }
 
 .handler-drag:hover {
@@ -100,6 +100,40 @@
   transition: 1s;
 }
 
+.sidebar-container {
+  // background-color: red;
+  position: absolute;
+  top: calc((100vh - 200px)/2);
+  left: calc(100vw - 60px);
+
+  /* background-color: green; */
+
+  width: 50px;
+  height: 200px;
+  display: inline-flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: flex-start;
+
+}
+
+.sidebar-button {
+  background-color: #e67e22;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  display: inline-flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+.sidebar-button svg {
+  color: #ecf0f1;
+}
 
 .test {
   color: gold;
