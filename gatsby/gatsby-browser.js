@@ -1,21 +1,16 @@
 import React from "react"
 
-import { ThemeContextProvider } from "./src/contexts/theme-context"
 import { GlobalContextProvider } from "./src/contexts/global-context"
-import { ModalContextProvider } from "./src/contexts/modals-context"
-import { FirebaseContextProvider } from "./src/contexts/firebase-context"
-import { ProfileContextProvider } from "./src/contexts/profile-context"
+import { ThemeContextProvider } from "./src/contexts/theme-context"
+import { ModalContextProvider } from './src/contexts/modal-context'
+
 
 export const wrapRootElement = ({ element }) => {
   return (
     <GlobalContextProvider>
       <ThemeContextProvider>
         <ModalContextProvider>
-          <FirebaseContextProvider>
-            <ProfileContextProvider>
-              {element}
-            </ProfileContextProvider>
-          </FirebaseContextProvider>
+          {element}
         </ModalContextProvider>
       </ThemeContextProvider>
     </GlobalContextProvider>

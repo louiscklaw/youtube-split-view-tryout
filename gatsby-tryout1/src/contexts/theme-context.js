@@ -6,17 +6,9 @@ import style_narrow from "../scss/style_narrow.module.scss"
 import config from "../config"
 const { narrow_screen_checkpoint } = config
 
-let default_context = {
-  hello: 'world', setHello: () => {},
-  checkNarrowWindow: () => {},
-  updateDimensions: () => {},
-  active_style: style
-}
-
-let ThemeContext = React.createContext(default_context)
+let ThemeContext = React.createContext()
 
 function ThemeContextProvider(props) {
-  let [hello, setHello] = React.useState({})
   let [active_style, setActiveStyle] = React.useState(style)
   let [narrow_window, setNarrowWindow] = React.useState(false)
 
@@ -43,18 +35,14 @@ function ThemeContextProvider(props) {
   return (
     <ThemeContext.Provider
       value={{
-        hello, setHello,
-        checkNarrowWindow, narrow_window,
-        updateDimensions,
-        active_style
+        active_style,
+        narrow_window,
       }}
     >
       {props.children}
     </ThemeContext.Provider>
   )
 }
-
-
 
 export default ThemeContext
 export { ThemeContextProvider }

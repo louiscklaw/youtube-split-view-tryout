@@ -1,35 +1,20 @@
 import React from "react"
 
-import style from "../../scss/style.module.scss"
+import ThemeContext from '../../contexts/theme-context'
+import ModalContext from '../../contexts/modal-context'
 
-import { combineStyle, checkIsNotUndefined } from "../../utils/mixins"
+function AnnouncementModal(props){
+  let modal_ref = React.useRef()
 
-import ThemeContext from "../../contexts/theme-context"
+  let {setAnnouncementModalRef, closeAnnouncementModal} = React.useContext(ModalContext)
+  setAnnouncementModalRef(modal_ref)
 
-import CloseButton from "../buttons/close-button"
+  let {active_style} = React.useContext(ThemeContext)
 
-function AnnouncementModal(props) {
-  let theme_context = React.useContext(ThemeContext)
-  let active_style = checkIsNotUndefined(theme_context)
-    ? theme_context.active_style
-    : style
-
-  let { show, onClose } = props
-
-  let [modal_style, setModalStyle] = React.useState([active_style.modal])
-
-  React.useEffect(() => {
-    if (show) {
-      setModalStyle([active_style.modal, active_style.isActive])
-    } else {
-      setModalStyle([active_style.modal])
-    }
-  }, [show])
-
-  return (
+  return(
     <>
-      <div className={combineStyle(modal_style)}>
-        <div className={active_style.modalBackground} onClick={onClose}></div>
+      <div className={active_style.modal} ref={modal_ref}>
+        <div className={active_style.modalBackground} onClick={closeAnnouncementModal}></div>
 
         <div className={active_style.modalCard}>
           <header className={active_style.modalCardHead}>
@@ -44,12 +29,13 @@ function AnnouncementModal(props) {
           </section>
 
           <footer className={active_style.modalCardFoot}>
-            <CloseButton onClick={onClose} />
+            <button className={active_style.button} onClick={closeAnnouncementModal} >close</button>
           </footer>
         </div>
       </div>
     </>
   )
 }
+
 
 export default AnnouncementModal
