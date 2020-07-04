@@ -35,6 +35,36 @@ $input-shadow: none;
 @import "../../node_modules/bulma/bulma.sass";
 @import "../../node_modules/@creativebulma/bulma-divider/src/sass/index.sass";
 
+
+.sidebar-container{
+  // background-color: red;
+}
+
+.footer-custom {
+  background-color: $preview_bg_color;
+  color: $text-color;
+
+  width: 100vw;
+  height: 10vh;
+
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  text-align: center;
+
+  ul {
+    list-style: none;
+    display: inline-flex;
+    flex-flow: row nowrap;
+    justify-content: space-evenly;
+
+    li {
+      text-align: center;
+      width: 120px;
+    }
+  }
+}
+
 .login-status {
   text-align: center;
 }

@@ -1,27 +1,47 @@
 import React from 'react'
+import {Link} from "gatsby"
+import {isDefined} from '../utils/mixins'
 
 import ThemeContext from '../contexts/theme-context'
 import ModalContext from '../contexts/modal-context'
+import FirebaseAuthContext from '../contexts/firebase-auth-context'
 
 function Footer(props){
   const {active_style} = React.useContext(ThemeContext)
   const {openTestModal, openAnnouncementModal} = React.useContext(ModalContext)
+  const {user_info, firebaseLogout} = React.useContext(FirebaseAuthContext)
+
+  let [user_id, setUserId] = React.useState('')
+  React.useEffect(()=>{
+    if (isDefined(user_info.raw_user)){
+      setUserId(JSON.stringify(user_info.raw_user.uid))
+    }
+  },[user_info])
 
   return(
     <>
-      Footer
-      <button className={active_style.button} onClick={openTestModal}>open modal in footer.js</button>
-      <ul>
-        <li>
-          <button className={active_style.button} onClick={openTestModal}>settings</button>
-        </li>
-        <li>
-        <button className={active_style.button} onClick={openTestModal}>logout</button>
-        </li>
-        <li>
-          <button className={active_style.button} onClick={openAnnouncementModal}>announcement</button>
-        </li>
+      <div className={active_style.footerCustom}>
+        {user_id}
+        {props.children}
+
+        <Link to="/debug">debug</Link>
+
+        <ul>
+          <li>
+            <button className={active_style.button} onClick={openTestModal}>settings</button>
+          </li>
+
+          <li>
+            <button className={active_style.button} onClick={firebaseLogout}>logout</button>
+          </li>
+
+          <li>
+            <button className={active_style.button} onClick={openAnnouncementModal}>announcement</button>
+          </li>
         </ul>
+
+      </div>
+
     </>
   )
 }

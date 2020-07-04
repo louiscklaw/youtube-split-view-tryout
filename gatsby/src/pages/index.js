@@ -1,44 +1,36 @@
 import React from "react"
 import _ from "lodash"
+import {LOGGED_OUT} from '../constants/login'
 
-import { Link } from "gatsby"
+import { ToastContainer } from "react-toastify"
+import 'react-toastify/dist/ReactToastify.css'
 
 import Layout from "../components/layout"
 import Image from "../components/image"
 import SEO from "../components/seo"
 
-import ThemeContext from '../contexts/theme-context'
-import ModalContext from '../contexts/modal-context'
+import ModalMixins from '../components/modals/modal_mixins'
 
-import Footer from '../components/footer'
-import Sidebar from '../components/sidebar'
-import TestLogin from '../components/test-login'
+import FirebaseAuthContext from '../contexts/firebase-auth-context'
 
-import TestModal from '../components/modals/test-modal'
-import AnnouncementModal from '../components/modals/announcement-modal'
+import LoginPage from '../components/login-page'
+import VideoPage from '../components/video-page'
 
-function IndexPage()
-{
-  const {active_style} = React.useContext(ThemeContext)
-  const {openTestModal} = React.useContext(ModalContext)
+function IndexPage() {
+  let {user_info} = React.useContext(FirebaseAuthContext)
+
+
+  console.log('index.js','user_info', user_info)
 
   return (
     <Layout>
       <SEO title="Youtube split viewer" />
 
-      <AnnouncementModal />
-      <TestModal />
+      <ToastContainer />
 
-      <h1 className={active_style.test}>helloworld</h1>
+      <ModalMixins />
 
-      <button className={active_style.button} onClick={openTestModal}>open modal in index.js</button>
-
-
-      <TestLogin />
-
-
-      <Sidebar />
-      <Footer />
+      {user_info.status == LOGGED_OUT ? <LoginPage /> : <VideoPage />}
 
     </Layout>
   )

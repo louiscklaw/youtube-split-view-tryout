@@ -15,13 +15,16 @@ let init_user_info = {
 }
 
 let default_context = {
-  hello: 'world', setHello: () => {},
+  user_info: {}, setUserInfo: () => {},
+
+  helloFirebaseAuthContext: () => {},
 
   firebaseLogin: () => {},
   firebaseLogout: () => {},
-  user_info: '', setUserInfo: () => {},
 
   githubLogin: () => {},
+  facebookLogin: () => {},
+  googleLogin: () => {},
 
 }
 
@@ -31,6 +34,10 @@ function FirebaseAuthContextProvider(props){
   let { firebase_app } = React.useContext(FirebaseContext)
   let firebase_auth = firebase_app.auth()
   let [user_info, setUserInfo] = React.useState(init_user_info)
+
+  const helloFirebaseAuthContext = () => {
+    console.log("findme", "hello firebaseDBContext")
+  }
 
   const firebaseAuthChanged = () => {
     firebase_auth.onAuthStateChanged(user => {
@@ -78,6 +85,36 @@ function FirebaseAuthContextProvider(props){
       })
   }
 
+  const googleLogin = () => {
+    var provider = new firebase.auth.GoogleAuthProvider()
+    provider.setCustomParameters({ login_hint: "user@example.com" })
+    firebase_auth
+      .signInWithPopup(provider)
+      .then(userdata => {
+        console.log("google login ok")
+      })
+      .catch(err => {
+        console.log("google login failed, ", err.message)
+      })
+  }
+
+  const facebookLogin = () => {
+    var provider = new firebase.auth.FacebookAuthProvider()
+
+    provider.setCustomParameters({
+      login_hint: "user@example.com",
+    })
+
+    firebase_auth
+      .signInWithPopup(provider)
+      .then(userdata => {
+        console.log("facebook login ok")
+      })
+      .catch(err => {
+        console.log("facebook login fail,", err.message)
+      })
+  }
+
   React.useEffect(() => {
     firebaseAuthChanged()
 
@@ -89,9 +126,10 @@ function FirebaseAuthContextProvider(props){
 
   return(
     <FirebaseAuthContext.Provider value={{
+      helloFirebaseAuthContext,
       firebaseLogin, firebaseLogout,
       user_info, setUserInfo,
-      githubLogin
+      githubLogin, facebookLogin, googleLogin
     }}>
       {props.children}
     </FirebaseAuthContext.Provider>

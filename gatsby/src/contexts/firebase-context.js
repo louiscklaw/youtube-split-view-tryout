@@ -7,9 +7,8 @@ import "firebase/firestore"
 import firebaseConfig from "../firebase-config"
 
 import { FirebaseAuthContextProvider } from "./firebase-auth-context"
-// import { FirebaseDbContextProvider } from "./firebase-db-context"
-// import { FirebaseFunctionContextProvider } from "./firebase-functions-context"
-// import { FirebaseMixinsContextProvider } from "./firebase-mixins"
+import { FirebaseDbContextProvider } from "./firebase-db-context"
+import { FirebaseFunctionContextProvider } from "./firebase-functions-context"
 
 let default_context = {
   firebase_app: {}, firebase_db: {},
@@ -26,7 +25,11 @@ function FirebaseContextProvider(props) {
       firebase_app, firebase_db
     }}>
       <FirebaseAuthContextProvider>
-        {props.children}
+        <FirebaseDbContextProvider>
+          <FirebaseFunctionContextProvider>
+            {props.children}
+          </FirebaseFunctionContextProvider>
+        </FirebaseDbContextProvider>
       </FirebaseAuthContextProvider>
     </FirebaseContext.Provider>
   )

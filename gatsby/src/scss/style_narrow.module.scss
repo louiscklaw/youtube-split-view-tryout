@@ -1,36 +1,16 @@
 @import "./style.scss";
 
 
+.sidebar-container{
+  // background-color: red;
+  display: none;
+}
+
 .login-chooser {
   background-color: red;
   display: flex;
   flex-flow: column nowrap;
   justify-content: center;
-}
-
-.footer-custom {
-  background-color: $preview_bg_color;
-  color: $text-color;
-
-  width: 100vw;
-  height: 10vh;
-
-  display: flex;
-  flex-flow: column nowrap;
-  justify-content: center;
-  text-align: center;
-
-  ul {
-    list-style: none;
-    display: inline-flex;
-    flex-flow: row nowrap;
-    justify-content: space-evenly;
-
-    li {
-      text-align: center;
-      width: 120px;
-    }
-  }
 }
 
 
