@@ -12,6 +12,7 @@ import ModalContext from '../contexts/modal-context'
 
 import Footer from '../components/footer'
 import Sidebar from '../components/sidebar'
+import TestLogin from '../components/test-login'
 
 import TestModal from '../components/modals/test-modal'
 import AnnouncementModal from '../components/modals/announcement-modal'
@@ -23,7 +24,7 @@ function IndexPage()
 
   return (
     <Layout>
-      <SEO title="Home" />
+      <SEO title="Youtube split viewer" />
 
       <AnnouncementModal />
       <TestModal />
@@ -31,6 +32,9 @@ function IndexPage()
       <h1 className={active_style.test}>helloworld</h1>
 
       <button className={active_style.button} onClick={openTestModal}>open modal in index.js</button>
+
+
+      <TestLogin />
 
 
       <Sidebar />
