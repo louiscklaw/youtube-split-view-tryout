@@ -24,6 +24,8 @@ function ProfileContextProvider(props){
   let [hello, setHello] = React.useState({})
   let {user_info} = React.useContext(FirebaseAuthContext)
 
+  let [current_profile, setCurrentProfile] = React.useState({})
+
   const resetSettings = () =>{
     setCurrentProfile({})
   }
@@ -93,7 +95,7 @@ function ProfileContextProvider(props){
     setCurrentProfile({})
   }
 
-  let [current_profile, setCurrentProfile] = React.useState({})
+
   React.useEffect(()=>{
     // load user profile , layout and vid
 
@@ -105,7 +107,7 @@ function ProfileContextProvider(props){
             // load user profile found healthy
             let unpacked_profile = unpackProfile(result_from_fb)
             updateCurrentProfile(unpacked_profile)
-
+            console.log('profile-context.js','load profile done')
           }else{
             // data is missing key, reset user profile
             updateCurrentProfile(default_profile)
