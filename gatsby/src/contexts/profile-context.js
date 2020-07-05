@@ -15,6 +15,7 @@ let default_context = {
   resetSettings: funcPlaceholder,
   loadProfile: funcPlaceholder,
   saveProfile: funcPlaceholder,
+  saveToFirebase: funcPlaceholder,
 
   checkProfileIsLoaded: funcPlaceholder
 }
@@ -171,6 +172,8 @@ function ProfileContextProvider(props){
       resetSettings,
       loadProfile,
       saveProfile,
+
+      saveToFirebase,
 
       checkProfileIsLoaded
     }}>

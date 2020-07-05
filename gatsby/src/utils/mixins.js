@@ -62,5 +62,6 @@ export {
   isDefined,
   getKeys,
   funcPlaceholder,
-  checkKeyExist
+  checkKeyExist,
+  filterOutUndefinedFromJson
 }

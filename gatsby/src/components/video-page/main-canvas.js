@@ -19,7 +19,7 @@ const ResponsiveGridLayout = WidthProvider(Responsive);
 
 function MainCanvas(props){
   let {active_style} = React.useContext(ThemeContext)
-  let {current_profile, checkProfileIsLoaded} = React.useContext(ProfileContext)
+  let {current_profile, checkProfileIsLoaded, saveToFirebase} = React.useContext(ProfileContext)
 
   let reformBySubKey = (o, key_wanted) =>  _.mapValues(o, key_wanted)
 
@@ -142,7 +142,6 @@ function MainCanvas(props){
 
     // update when defined only
     if (isDefined(current_layout_settings)){
-      let {saveToFirebase} = profile_context
       let {breakpoints, cols} = current_layout_settings[current_breakpoint_name]
 
       // update layout settings
@@ -179,20 +178,38 @@ function MainCanvas(props){
     setDebugText(JSON.stringify(layout_seatingplan))
   })
 
+  return(
+    <>
+      <ResponsiveGridLayout
+        className={ `layout ` + active_style.test + ' ' + active_style.videoBodyHeight }
+        breakpoints={layout_breakpoints}
+        layouts={layout_seatingplan}
+        cols={layout_cols}
+
+        onBreakpointChange={onBreakpointChange}
+        onLayoutChange={onLayoutChange}
+
+        rowHeight={190}
+
+        margin={[0,0]}
+        containerPadding={[0,0]}
+
+        >
+        { test_preview_panel }
+      </ResponsiveGridLayout>
+    </>
+  )
+
   // return(
   //   <>
-  //     <ResponsiveGridLayout>
-  //       { test_preview_panel }
-  //     </ResponsiveGridLayout>
+  //     {/* {JSON.stringify(layout_breakpoints)} */}
+  //     {/* {JSON.stringify(layout_seatingplan)} */}
+  //     {/* {JSON.stringify(layout_cols)} */}
+  //     {/* {JSON.stringify(test_preview_panel)} */}
+  //     {/* {JSON.stringify(current_profile)} */}
   //   </>
   // )
 
-  return(
-    <>
-      main-canvas.js
-      {JSON.stringify(current_profile)}
-    </>
-  )
 }
 
 export default MainCanvas
