@@ -179,8 +179,6 @@ function MainCanvas(props){
     setDebugText(JSON.stringify(layout_seatingplan))
   })
 
-
-
   // return(
   //   <>
   //     <ResponsiveGridLayout>
@@ -188,6 +186,7 @@ function MainCanvas(props){
   //     </ResponsiveGridLayout>
   //   </>
   // )
+
   return(
     <>
       main-canvas.js

@@ -3,6 +3,7 @@ import _ from 'lodash'
 import {isDefined, funcPlaceholder, checkKeyExist, filterOutUndefinedFromJson} from '../utils/mixins'
 
 import FirebaseAuthContext from './firebase-auth-context'
+import FirebaseDbContext from './firebase-db-context'
 
 const PROFILE_HEALTHY = 1
 const PROFILE_NOT_HEALTHY = 2
@@ -23,6 +24,7 @@ let ProfileContext = React.createContext(default_context)
 function ProfileContextProvider(props){
   let [hello, setHello] = React.useState({})
   let {user_info} = React.useContext(FirebaseAuthContext)
+  let {getDoc} = React.useContext(FirebaseDbContext)
 
   let [current_profile, setCurrentProfile] = React.useState({})
 

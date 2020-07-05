@@ -1,17 +1,18 @@
 import React from 'react'
-
+import {funcPlaceholder} from '~utils/mixins'
 import FirebaseContext from "./firebase-context"
 
 let default_context = {
-  helloFirebaseDBContext: () => {},
+  helloFirebaseDBContext: funcPlaceholder,
 
-  addingNewRecord: () => {},
-  listRecord: () => {},
-  updateRecord: () => {},
-  deleteRecord: () => {},
-  searchRecord: () => {},
-  getSettingsFromFirebase: () => {},
-  saveSettingsToFirebase: () => {}
+  addingNewRecord: funcPlaceholder,
+  listRecord: funcPlaceholder,
+  updateRecord: funcPlaceholder,
+  deleteRecord: funcPlaceholder,
+  searchRecord: funcPlaceholder,
+  getSettingsFromFirebase: funcPlaceholder,
+  saveSettingsToFirebase: funcPlaceholder,
+  getDoc: funcPlaceholder
 }
 
 let FirebaseDbContext = React.createContext(default_context)
@@ -98,7 +99,8 @@ function FirebaseDbContextProvider(props) {
       deleteRecord,
       searchRecord,
       getSettingsFromFirebase,
-      saveSettingsToFirebase
+      saveSettingsToFirebase,
+      getDoc
     }}>
       {props.children}
     </FirebaseDbContext.Provider>
