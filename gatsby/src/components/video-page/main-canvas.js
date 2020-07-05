@@ -19,7 +19,7 @@ const ResponsiveGridLayout = WidthProvider(Responsive);
 
 function MainCanvas(props){
   let {active_style} = React.useContext(ThemeContext)
-  let {current_profile} = React.useContext(ProfileContext)
+  let {current_profile, checkProfileIsLoaded} = React.useContext(ProfileContext)
 
   let reformBySubKey = (o, key_wanted) =>  _.mapValues(o, key_wanted)
 
