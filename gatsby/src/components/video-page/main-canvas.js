@@ -191,6 +191,7 @@ function MainCanvas(props){
   return(
     <>
       main-canvas.js
+      {JSON.stringify(current_profile)}
     </>
   )
 }
