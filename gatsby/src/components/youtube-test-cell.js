@@ -1,9 +1,11 @@
 import React from 'react'
-import { combineStyle } from '../utils/mixins'
 
-import ThemeContext from '../contexts/theme-context'
+import { combineStyle } from '~utils/mixins'
+import ThemeContext from '~contexts/theme-context'
 
 function YoutubeTestCell(props){
+  let {vid, channel_title} = props
+
   let {active_style} = React.useContext(ThemeContext)
 
   return(
