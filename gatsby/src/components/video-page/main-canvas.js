@@ -181,11 +181,16 @@ function MainCanvas(props){
 
 
 
+  // return(
+  //   <>
+  //     <ResponsiveGridLayout>
+  //       { test_preview_panel }
+  //     </ResponsiveGridLayout>
+  //   </>
+  // )
   return(
     <>
-      <ResponsiveGridLayout>
-        { test_preview_panel }
-      </ResponsiveGridLayout>
+      main-canvas.js
     </>
   )
 }
