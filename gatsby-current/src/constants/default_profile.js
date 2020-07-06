@@ -35,7 +35,7 @@ const channel_settings_default = [ {
 }
 ]
 
-const default_breakpoints = {lg: 600, sm: 0}
+const default_breakpoints = {lg: 600, xxs: 0}
 
 const default_layout_lg = [
   {i: 'view_0',  x: 0, y: 0, w: 3, h: 3},
@@ -43,7 +43,7 @@ const default_layout_lg = [
   {i: 'view_2',  x: 3, y: 1, w: 1, h: 1}
 ]
 
-const default_layout_sm = [
+const default_layout_xxs = [
   {i: 'view_0', x: 0, y: 0, w: 2, h: 2},
   {i: 'view_1', x: 0, y: 2, w: 1, h: 1},
   {i: 'view_2', x: 1, y: 2, w: 1, h: 1}
@@ -51,10 +51,10 @@ const default_layout_sm = [
 
 const default_layouts = {
   lg: default_layout_lg,
-  sm: default_layout_sm
+  xxs: default_layout_xxs
 }
 
-const default_cols = {lg: 5, sm: 2}
+const default_cols = {lg: 5, xxs: 2}
 
 // const default_layout_settings = {
 //   lg: {
@@ -79,7 +79,7 @@ const default_cols = {lg: 5, sm: 2}
 //     ],
 //     cols: 5
 //   },
-//   sm: {
+//   xxs: {
 //     seating_plan: [
 //       {i: 'view_0', x: 0, y: 0, w: 2, h: 2},
 //       {i: 'view_1', x: 0, y: 2, w: 1, h: 1},

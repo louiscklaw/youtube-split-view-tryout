@@ -78,7 +78,7 @@ function FirebaseDbContextProvider(props) {
   }
 
   const getDoc = (collection_name, doc_id) => {
-    console.log("getDoc", collection_name, doc_id)
+    // console.log("getDoc", collection_name, doc_id)
     return firebase_db.collection(collection_name).doc(doc_id)
   }
 

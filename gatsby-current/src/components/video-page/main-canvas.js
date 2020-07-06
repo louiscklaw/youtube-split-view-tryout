@@ -157,8 +157,8 @@ function MainCanvas(props){
   }
 
   const onLayoutChange = ( layout, layouts ) => {
-    console.log(current_breakpoint_name)
-    saveLayoutToFirebase(current_breakpoint_name, layout )
+    // console.log(current_breakpoint_name)
+    saveLayoutToFirebase( layout )
   }
 
   let [current_breakpoint_name, setCurrentBreakpointName] = React.useState('sm')
@@ -169,7 +169,7 @@ function MainCanvas(props){
     console.log('video_body.js','breakpoint_name',breakpoint_name)
 
     switch (breakpoint_name) {
-      case "sm":
+      case "xxs":
         hideRightSidePreview()
         break;
       case "lg":

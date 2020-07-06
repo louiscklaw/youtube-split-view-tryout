@@ -11,7 +11,7 @@ function TestModal(props) {
 
   let {active_style} = React.useContext(ThemeContext)
 
-  console.log(active_style)
+  // console.log(active_style)
   return(
     <>
       <div className={active_style.modal} ref={test_modal_ref}>

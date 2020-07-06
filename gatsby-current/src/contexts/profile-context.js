@@ -44,8 +44,8 @@ function ProfileContextProvider(props){
   }
 
   const saveSettingsToFirebase = (uid, settings_in) => {
-    console.log('profile-context.js','saveSettingsToFirebase', settings_in)
-    console.log('profile-context.js','uid', uid)
+    // console.log('profile-context.js','saveSettingsToFirebase', settings_in)
+    // console.log('profile-context.js','uid', uid)
     return getDoc("user_settings", uid).set(settings_in)
   }
 
@@ -54,7 +54,7 @@ function ProfileContextProvider(props){
   }
 
   const saveProfile = (profile_in) => {
-    console.log('profile-context.js','saveProfile')
+    // console.log('profile-context.js','saveProfile')
     return saveSettingsToFirebase(
       user_info.uid,
       filterOutUndefinedForFirebase(profile_in)
@@ -76,15 +76,20 @@ function ProfileContextProvider(props){
     setCurrentProfile({})
   }
 
-  const saveLayoutToFirebase = (breakpoint_name, layout) => {
-    console.log('profile-context.js','saveLayoutToFirebase')
-    let new_profile = {
-      ...current_profile,
-      layouts:{
-        ...current_profile.layouts,
-        [breakpoint_name]: layout
+  const updateLayoutSettings = (layout) => {
+    let new_profile = JSON.parse(JSON.stringify(current_profile))
 
-      }}
+    if (isDefined(new_profile.layouts)){
+      let test_breakpoint_name = window.innerWidth > 600 ? 'lg':'xxs'
+      new_profile.layouts[test_breakpoint_name] = layout
+      console.log('profile-context.js','new_profile', new_profile)
+    }
+    return new_profile
+  }
+
+  const saveLayoutToFirebase = (layout) => {
+    console.log('profile-context.js','saveLayoutToFirebase')
+    let new_profile = updateLayoutSettings(layout)
     saveProfile(new_profile)
     updateCurrentProfile(new_profile)
   }
