@@ -19,7 +19,6 @@ import VideoPage from '../components/video-page'
 function IndexPage() {
   let {user_info} = React.useContext(FirebaseAuthContext)
 
-
   console.log('index.js','user_info', user_info)
 
   return (

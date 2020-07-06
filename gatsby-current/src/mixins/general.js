@@ -1,5 +1,10 @@
+// for use with every
+const isTrue = (x) => x
+
+const reformBySubKey = (o, key_wanted) =>  _.mapValues(o, key_wanted)
+
 const helloworldMixins = () => {
-  console.log("hello mixins")
+  console.log( "hello mixins" )
 }
 
 const checkContextReady = context_in => {
@@ -20,35 +25,37 @@ const checkIsNotUndefined = obj_in => {
 }
 
 const trueIfUndefinedOrNull = obj_in => {
-  return checkIsNotNull(obj_in) || checkIsNotUndefined(obj_in)
+  return checkIsNotNull( obj_in ) || checkIsNotUndefined( obj_in )
 }
 
-const dictKeyExist = (d_in, key_wanted) => {
-  return Object.keys(d_in).indexOf(key_wanted) > -1
+const dictKeyExist = ( d_in, key_wanted ) => {
+  return Object.keys( d_in ).indexOf( key_wanted ) > -1
 }
 
 const combineStyle = in_style => {
-  return in_style.join(" ")
+  return in_style.join( " " )
 }
 
-const isDefined = obj_in =>{
+const isDefined = obj_in => {
   return typeof obj_in !== "undefined"
 }
 
-const getKeys = (o) => Object.keys(o)
+const getKeys = ( o ) => Object.keys( o )
 
 const funcPlaceholder = () => {}
 
-const checkKeyExist = (o,k) =>{
-  return Object.keys(o).indexOf(k) > -1
+const checkKeyExist = ( o, k ) => {
+  return Object.keys( o ).indexOf( k ) > -1
 }
 
-
-const filterOutUndefinedFromJson = (json_in) =>{
+const filterOutUndefinedFromJson = ( json_in ) => {
   // FIXME: this is an lazy method to filter out undefined in complex dict tree
-  return JSON.parse(JSON.stringify(json_in))
+  return JSON.parse( JSON.stringify( json_in ) )
 }
 
+function copyObj(source_json){
+  return JSON.parse(JSON.stringify(source_json))
+}
 
 export {
   checkContextReady,
@@ -63,5 +70,7 @@ export {
   getKeys,
   funcPlaceholder,
   checkKeyExist,
-  filterOutUndefinedFromJson
+  filterOutUndefinedFromJson,
+  copyObj,
+  reformBySubKey
 }

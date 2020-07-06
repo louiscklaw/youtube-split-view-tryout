@@ -5,42 +5,40 @@ import { Responsive, WidthProvider } from 'react-grid-layout'
 import 'react-grid-layout/css/styles.css'
 import 'react-resizable/css/styles.css'
 
-// import ThemeContext from '../contexts/theme-context'
+import {default_profile} from '~constants/default_profile'
 import ThemeContext from '~contexts/theme-context'
 import ProfileContext from '~contexts/profile-context'
 
-import {checkIsNotUndefined, getKeys, checkContextReady, isDefined} from '~utils/mixins'
+import {checkIsNotUndefined, getKeys, checkContextReady, isDefined} from '~mixins/general'
 
 import {default_layout_settings} from '~constants/default_profile'
 
 import YoutubeTestCell from '~components/youtube-test-cell'
 
-const ResponsiveGridLayout = WidthProvider(Responsive);
+const ResponsiveGridLayout = WidthProvider(Responsive)
 
 function MainCanvas(props){
   let {active_style} = React.useContext(ThemeContext)
-  let {current_profile, checkProfileIsLoaded, saveToFirebase} = React.useContext(ProfileContext)
+  let {current_profile, checkProfileIsLoaded, saveLayoutToFirebase} = React.useContext(ProfileContext)
 
-  let reformBySubKey = (o, key_wanted) =>  _.mapValues(o, key_wanted)
-
-  let [layout_settings, setLayoutSettings] = React.useState(default_layout_settings)
-  let [layout_breakpoints, setLayoutBreakpoints] = React.useState(reformBySubKey(default_layout_settings, 'breakpoints'))
-  let [layout_seatingplan, setLayoutSeatingPlan] = React.useState(reformBySubKey(default_layout_settings, 'seating_plan'))
-  let [layout_cols, setLayoutCols] = React.useState(reformBySubKey(default_layout_settings, 'cols'))
+  // let [layout_settings, setLayoutSettings] = React.useState()
+  let [breakpoints, setBreakpoints] = React.useState(current_profile.breakpoints)
+  let [layouts, setLayouts] = React.useState(current_profile.layouts)
+  let [cols, setCols] = React.useState(current_profile.cols)
 
   React.useEffect(()=>{
-    if (checkProfileIsLoaded(current_profile)){
-      setLayoutSettings(current_profile.layout_settings)
-      console.log('video_body.js', 'current_profile', current_profile)
+    if (isDefined(current_profile.layouts)){
+      setLayouts(current_profile.layouts)
+      setCols(current_profile.cols)
+      setBreakpoints(current_profile.breakpoints)
     }
   },[current_profile])
 
-  React.useEffect(()=>{
-    console.log('video_body.js', 'layout_settings.sm', layout_settings.sm)
-    setLayoutSeatingPlan(reformBySubKey(layout_settings, 'seating_plan'))
-    setLayoutBreakpoints(reformBySubKey(layout_settings, 'breakpoints'))
-    setLayoutCols(reformBySubKey(layout_settings, 'cols'))
-  },[layout_settings])
+  // React.useEffect(()=>{
+  //   setLayoutSeatingPlan(default_profile.layouts)
+  //   setLayoutBreakpoints({lg: 600, sm: 0})
+  //   setLayoutCols({lg: 5, sm: 2})
+  // },[layout_settings])
 
   // 0 => preview refs, 1 => video_ref
   let preview_and_video_refs = [
@@ -95,6 +93,12 @@ function MainCanvas(props){
       let preview_ref = preview_and_video_refs[idx][0]
       let [video_cell_setting, setVideoCellSetting] = video_cell_settings[idx]
 
+      // return (
+      //   <div ref={preview_ref} className={active_style.videoContainer} key={view_idx}>
+      //     {JSON.stringify(video_cell_setting)}
+      //   </div>
+      // )
+
       return (
         <div ref={preview_ref} className={active_style.videoContainer} key={view_idx} >
           <YoutubeTestCell
@@ -106,8 +110,26 @@ function MainCanvas(props){
     });
   }
 
-  let preview_panel = getPreviewBox(17)
+  let preview_panel = getPreviewBox(3)
+  // let preview_panel = getPreviewBox(17)
+
   let [test_preview_panel, setTestPreviewPanel] = React.useState(preview_panel)
+
+  React.useEffect(()=>{
+    if (checkIsNotUndefined(current_profile)){
+      if (getKeys(current_profile).length>0){
+        let {channel_setting} = current_profile
+        _.mapKeys(channel_setting, (v,k)=>{
+          let [video_cell_setting, setVideoCellSetting] = video_cell_settings[k]
+          setVideoCellSetting({
+            ...video_cell_setting,
+            channel_vid: v.channel_vid,
+            channel_title: v.channel_title
+          })
+        })
+      }
+    }
+  },[current_profile])
 
   React.useEffect(()=>{
     setTestPreviewPanel(preview_panel)
@@ -134,24 +156,9 @@ function MainCanvas(props){
     })
   }
 
-  // grid-layout handlers start
-  const onLayoutChange = (layout, layouts) => {
-    console.log('video_body.js','current_profile',current_profile)
-    console.log('video_body.js','current_profile.layout_settings',current_profile.layout_settings)
-    let current_layout_settings = current_profile.layout_settings
-
-    // update when defined only
-    if (isDefined(current_layout_settings)){
-      let {breakpoints, cols} = current_layout_settings[current_breakpoint_name]
-
-      // update layout settings
-      current_layout_settings[current_breakpoint_name] = {
-        breakpoints, cols,
-        seating_plan: layout
-      }
-      console.log('video_body.js','current_profile',current_profile)
-      saveToFirebase(current_profile)
-    }
+  const onLayoutChange = ( layout, layouts ) => {
+    console.log(current_breakpoint_name)
+    saveLayoutToFirebase(current_breakpoint_name, layout )
   }
 
   let [current_breakpoint_name, setCurrentBreakpointName] = React.useState('sm')
@@ -160,6 +167,7 @@ function MainCanvas(props){
     // regenerate the required children
     setCurrentBreakpointName(breakpoint_name)
     console.log('video_body.js','breakpoint_name',breakpoint_name)
+
     switch (breakpoint_name) {
       case "sm":
         hideRightSidePreview()
@@ -173,43 +181,29 @@ function MainCanvas(props){
     }
   }
 
-  let [debug_text, setDebugText] = React.useState()
-  React.useEffect(()=>{
-    setDebugText(JSON.stringify(layout_seatingplan))
-  })
-
   return(
     <>
+      {/* {JSON.stringify(current_profile)} */}
       <ResponsiveGridLayout
         className={ `layout ` + active_style.test + ' ' + active_style.videoBodyHeight }
-        breakpoints={layout_breakpoints}
-        layouts={layout_seatingplan}
-        cols={layout_cols}
+
+        breakpoints={breakpoints}
+        layouts={layouts}
+        cols={cols}
 
         onBreakpointChange={onBreakpointChange}
         onLayoutChange={onLayoutChange}
 
-        rowHeight={190}
+        // rowHeight={190}
 
-        margin={[0,0]}
-        containerPadding={[0,0]}
+        // margin={[0,0]}
+        // containerPadding={[0,0]}
 
         >
         { test_preview_panel }
       </ResponsiveGridLayout>
     </>
   )
-
-  // return(
-  //   <>
-  //     {/* {JSON.stringify(layout_breakpoints)} */}
-  //     {/* {JSON.stringify(layout_seatingplan)} */}
-  //     {/* {JSON.stringify(layout_cols)} */}
-  //     {/* {JSON.stringify(test_preview_panel)} */}
-  //     {/* {JSON.stringify(current_profile)} */}
-  //   </>
-  // )
-
 }
 
 export default MainCanvas

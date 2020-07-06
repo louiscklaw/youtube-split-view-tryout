@@ -1,6 +1,6 @@
 import React from 'react'
 import _ from "lodash"
-import {checkIsNotUndefined, getKeys, checkContextReady, isDefined} from '../utils/mixins'
+import {checkIsNotUndefined, getKeys, checkContextReady, isDefined} from '~mixins/general'
 
 import { Responsive, WidthProvider } from 'react-grid-layout'
 import 'react-grid-layout/css/styles.css'

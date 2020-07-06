@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { combineStyle } from '~utils/mixins'
+import { combineStyle } from '~mixins/general'
 import ThemeContext from '~contexts/theme-context'
 
 function YoutubeTestCell(props){
@@ -8,7 +8,7 @@ function YoutubeTestCell(props){
 
   let {active_style} = React.useContext(ThemeContext)
 
-  return(
+  return (
     <div className={active_style.youtubeVideoContainer}>
       <iframe
         src={`//www.youtube.com/embed/${vid}`}

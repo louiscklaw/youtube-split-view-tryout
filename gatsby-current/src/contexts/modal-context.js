@@ -39,7 +39,6 @@ let ModalContext = React.createContext(default_context)
 
 function ModalContextProvider(props){
   let {active_style} = React.useContext(ThemeContext)
-
   let [hello, setHello] = React.useState({})
 
   const createModalHandler = () => {

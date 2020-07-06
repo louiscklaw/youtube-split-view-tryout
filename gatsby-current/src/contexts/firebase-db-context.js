@@ -1,5 +1,6 @@
 import React from 'react'
-import {funcPlaceholder} from '~utils/mixins'
+import {funcPlaceholder} from '~mixins/general'
+
 import FirebaseContext from "./firebase-context"
 
 let default_context = {

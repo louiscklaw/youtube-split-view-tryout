@@ -1,6 +1,6 @@
 import React from 'react'
 import {Link} from "gatsby"
-import {isDefined} from '../utils/mixins'
+import {isDefined} from '~mixins/general'
 
 import ThemeContext from '../contexts/theme-context'
 import ModalContext from '../contexts/modal-context'
@@ -11,12 +11,20 @@ function Footer(props){
   const {openTestModal, openAnnouncementModal} = React.useContext(ModalContext)
   const {user_info, firebaseLogout} = React.useContext(FirebaseAuthContext)
 
-  let [user_id, setUserId] = React.useState('')
-  React.useEffect(()=>{
-    if (isDefined(user_info.raw_user)){
-      setUserId(JSON.stringify(user_info.raw_user.uid))
+  let [ user_id, setUserId ] = React.useState( '' )
+  React.useEffect( () => {
+    if ( isDefined( user_info.raw_user ) ) {
+      setUserId( JSON.stringify( user_info.raw_user.uid ) )
     }
-  },[user_info])
+  }, [ user_info ] )
+
+  const testLayout1 = () => {
+    alert( "test layout 1" )
+  }
+
+  const testLayout2 = () => {
+    alert( "test layout 2" )
+  }
 
   return(
     <>
@@ -25,6 +33,15 @@ function Footer(props){
         {props.children}
 
         <Link to="/debug">debug</Link>
+
+        <ul>
+          <li>
+            <button className={active_style.button} onClick={testLayout1}>layout 1</button>
+          </li>
+          <li>
+            <button className={active_style.button} onClick={testLayout2}>layout 2</button>
+          </li>
+        </ul>
 
         <ul>
           <li>
