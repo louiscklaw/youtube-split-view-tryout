@@ -36,15 +36,6 @@ function Footer(props){
 
         <ul>
           <li>
-            <button className={active_style.button} onClick={testLayout1}>layout 1</button>
-          </li>
-          <li>
-            <button className={active_style.button} onClick={testLayout2}>layout 2</button>
-          </li>
-        </ul>
-
-        <ul>
-          <li>
             <button className={active_style.button} onClick={openTestModal}>settings</button>
           </li>
 
