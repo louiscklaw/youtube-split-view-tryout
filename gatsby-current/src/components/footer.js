@@ -8,7 +8,7 @@ import FirebaseAuthContext from '../contexts/firebase-auth-context'
 
 function Footer(props){
   const {active_style} = React.useContext(ThemeContext)
-  const {openTestModal, openAnnouncementModal} = React.useContext(ModalContext)
+  const {openSettingsModal, openTestModal, openAnnouncementModal} = React.useContext(ModalContext)
   const {user_info, firebaseLogout} = React.useContext(FirebaseAuthContext)
 
   let [ user_id, setUserId ] = React.useState( '' )
@@ -17,14 +17,6 @@ function Footer(props){
       setUserId( JSON.stringify( user_info.raw_user.uid ) )
     }
   }, [ user_info ] )
-
-  const testLayout1 = () => {
-    alert( "test layout 1" )
-  }
-
-  const testLayout2 = () => {
-    alert( "test layout 2" )
-  }
 
   return(
     <>
@@ -36,7 +28,7 @@ function Footer(props){
 
         <ul>
           <li>
-            <button className={active_style.button} onClick={openTestModal}>settings</button>
+            <button className={active_style.button} onClick={openSettingsModal}>settings</button>
           </li>
 
           <li>
