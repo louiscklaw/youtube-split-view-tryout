@@ -85,7 +85,6 @@ function MainForm(props){
       //     console.log('seven-channel-select.js', 'error found during submit profile', data)
       //   })
 
-
     }
   }
 

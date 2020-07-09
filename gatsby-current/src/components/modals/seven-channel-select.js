@@ -34,11 +34,15 @@ function PerChannelInput(props){
   return(
     <>
       <td>{idx}</td>
-      <td><ChannelTypeSelectList name={`${idx}.channel_type`} reg={reg}/></td>
-      <td><input name={`${idx}.channel_vid`} ref={reg} /></td>
-      <td><input name={`${idx}.channel_title`} ref={reg} /></td>
+      <td><ChannelTypeSelectList name={`channel_type`} reg={reg}/></td>
+      <td><input name={`channel_vid`} ref={reg} /></td>
+      <td><input name={`channel_title`} ref={reg} /></td>
     </>
   )
+}
+
+function createArrayWithNumbers(length) {
+  return Array.from({ length }, (_, k) => k);
 }
 
 function SevenChannelSelect(props){
@@ -46,18 +50,18 @@ function SevenChannelSelect(props){
   let {active_style} = React.useContext(ThemeContext)
   let {closeSettingsModal} = React.useContext(ModalContext)
 
-
   let {current_profile, saveChannelSettingToFirebase} = React.useContext(ProfileContext)
 
-  const { register, handleSubmit, watch, errors, reset } = useForm({ defaultValues: current_profile.channel_setting })
+  const { control, register, handleSubmit, watch, errors, reset } = useForm()
 
   let test_default_value = {}
 
   const onSubmit = (data) => {
-    saveChannelSettingToFirebase(data)
-      .then(() => {
-        closeSettingsModal()
-      })
+    console.log(data)
+    // saveChannelSettingToFirebase(data)
+    //   .then(() => {
+    //     closeSettingsModal()
+    //   })
   }
 
   const resetForm = () =>{
@@ -83,56 +87,51 @@ function SevenChannelSelect(props){
 
   return(
     <>
-      <form onSubmit={handleSubmit(async (data) => await onSubmit(data))}>
-        <section className={active_style.modalCardBody}>
-          <table className={active_style.table}>
-            <tbody>
-              <tr>
-                <td>#</td>
-                <td>channel_type</td>
-                <td>v_id</td>
-                <td>v_title</td>
-              </tr>
-              {
-                _.range(0,6+1).map( idx =>{ return(
-                  <tr>
-                    <PerChannelInput idx={idx} reg={register} />
-                  </tr>
-                ) } )
-              }
-            </tbody>
-          </table>
-        </section>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        {createArrayWithNumbers(3).map((number) => {
+          return (
+            <div key={number}>
+              <div>
+                <label htmlFor="firstName">First Name</label>
+                <input
+                  name={`firstName[${number}]`}
+                  value="first name"
+                  ref={register({ required: true })}
+                />
+              </div>
 
-        <footer className={active_style.modalCardFoot}>
-          <div
-            className={combineStyle([
-              active_style.field,
-              active_style.isGrouped,
-            ])}
-            >
+              <div>
+                <label htmlFor="lastName">Last Name</label>
+                <input
+                  name={`lastName[${number}]`}
+                  value="last name"
+                  ref={register({ required: true })}
+                />
+              </div>
 
-            <div className={active_style.control}>
-              <input
-                type="submit"
-                className={combineStyle([active_style.button, active_style.isSuccess])}
-                {...props}
-                value="save settings"
-              />
+              <div>
+                <label htmlFor="email">Email</label>
+                <input
+                  name={`email[${number}]`}
+                  value="email"
+                  ref={register({ required: true })}
+                />
+              </div>
+
+              <hr />
             </div>
+          );
+        })}
 
-            <div className={active_style.control}>
-              <input type="button" onClick={onResetButtonClick} value="reset"/>
-            </div>
-
-            <div className={active_style.control}>
-              <input type="button" onClick={onCloseButtonClick} value="close"/>
-            </div>
-
-          </div>
-
-        </footer>
-
+        <button type="button" onClick={() => setSize(size + 1)}>
+          Add Person
+        </button>
+        <br />
+        <div style={{ color: 'red' }}>
+          {Object.keys(errors).length > 0 &&
+            'There are errors, check your console.'}
+        </div>
+        <button type="submit">Submit</button>
       </form>
       {JSON.stringify(current_profile.channel_setting)}
       {/* { is_loading? <Loading /> : <MainForm
