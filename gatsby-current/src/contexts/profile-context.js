@@ -25,7 +25,8 @@ let default_context = {
   saveToFirebase: funcPlaceholder,
 
   checkProfileIsLoaded: funcPlaceholder,
-  saveLayoutToFirebase: funcPlaceholder
+  saveLayoutToFirebase: funcPlaceholder,
+  saveChannelSettingToFirebase: funcPlaceholder
 }
 
 let ProfileContext = React.createContext(default_context)
@@ -92,6 +93,21 @@ function ProfileContextProvider(props){
     let new_profile = updateLayoutSettings(layout)
     saveProfile(new_profile)
     updateCurrentProfile(new_profile)
+  }
+
+  const updateChannelSettings = (channel_setting) =>{
+    let new_profile = JSON.parse(JSON.stringify(current_profile))
+    if (isDefined(new_profile.channel_setting)){
+      new_profile.channel_setting = channel_setting
+    }
+    return new_profile
+  }
+
+  const saveChannelSettingToFirebase = (channel_setting) => {
+    console.log('profile-context.js','saveChannelSettingToFirebase')
+    let new_profile = updateChannelSettings(channel_setting)
+    updateCurrentProfile(new_profile)
+    return saveProfile(new_profile)
   }
 
   const filterOutUndefinedForFirebase = (profile_in) =>{
@@ -170,7 +186,8 @@ function ProfileContextProvider(props){
 
       current_profile,
       checkProfileIsLoaded,
-      saveLayoutToFirebase
+      saveLayoutToFirebase,
+      saveChannelSettingToFirebase
 
     }}>
       {props.children}

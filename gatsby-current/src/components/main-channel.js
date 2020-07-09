@@ -1,11 +1,10 @@
 import React from "react"
 
-import ThemeContext from "../contexts/theme-context"
-import ProfileContext from '../contexts/profile-context'
+import ThemeContext from "~contexts/theme-context"
+import ProfileContext from '~contexts/profile-context'
 
 function MainChannel(props){
   const {active_style} = React.useContext(ThemeContext)
-
   let {current_profile} = React.useContext(ProfileContext)
 
   return(
