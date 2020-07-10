@@ -1,10 +1,11 @@
 import React from 'react'
 import {Link} from "gatsby"
+
 import {isDefined} from '~mixins/general'
 
-import ThemeContext from '../contexts/theme-context'
-import ModalContext from '../contexts/modal-context'
-import FirebaseAuthContext from '../contexts/firebase-auth-context'
+import ThemeContext from '~contexts/theme-context'
+import ModalContext from '~contexts/modal-context'
+import FirebaseAuthContext from '~contexts/firebase-auth-context'
 
 function Footer(props){
   const {active_style} = React.useContext(ThemeContext)
@@ -24,7 +25,7 @@ function Footer(props){
         {user_id}
         {props.children}
 
-        <Link to="/debug">debug</Link>
+
 
         <ul>
           <li>
@@ -32,11 +33,14 @@ function Footer(props){
           </li>
 
           <li>
-            <button className={active_style.button} onClick={firebaseLogout}>logout</button>
+            <Link to="/logout" className={active_style.button}>Logout</Link>
           </li>
 
           <li>
             <button className={active_style.button} onClick={openAnnouncementModal}>announcement</button>
+          </li>
+          <li>
+            <Link to="/debug">debug</Link>
           </li>
         </ul>
 

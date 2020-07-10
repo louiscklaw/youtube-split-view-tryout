@@ -1,39 +1,8 @@
-const channel_settings_default = [ {
-  channel_type: 'youtube',
-  channel_vid: 'KGBv8oT5lwk',
-  channel_title: 'title1'
-},
-{
-  channel_type: 'youtube',
-  channel_vid: '-eUtoororgQ',
-  channel_title: 'title2'
-},
-{
-  channel_type: 'youtube',
-  channel_vid: '-eUtoororgQ',
-  channel_title: 'title3'
-},
-{
-  channel_type: 'youtube',
-  channel_vid: '-eUtoororgQ',
-  channel_title: 'title4'
-},
-{
-  channel_type: 'youtube',
-  channel_vid: '-eUtoororgQ',
-  channel_title: 'title5'
-},
-{
-  channel_type: 'youtube',
-  channel_vid: '-eUtoororgQ',
-  channel_title: 'title6'
-},
-{
-  channel_type: 'youtube',
-  channel_vid: '-eUtoororgQ',
-  channel_title: 'title7'
+const channel_settings_default = {
+  channel_type:['channel_type_1aaa','channel_type_2','channel_type_3'],
+  channel_vid: ['channel_vid_4','channel_vid_5','channel_vid_6'],
+  channel_title: ['channel_title_7','channel_title_8','channel_title_9']
 }
-]
 
 const default_breakpoints = {lg: 600, xxs: 0}
 

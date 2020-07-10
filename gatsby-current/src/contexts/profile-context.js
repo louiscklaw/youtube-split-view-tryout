@@ -26,7 +26,9 @@ let default_context = {
 
   checkProfileIsLoaded: funcPlaceholder,
   saveLayoutToFirebase: funcPlaceholder,
-  saveChannelSettingToFirebase: funcPlaceholder
+  saveChannelSettingToFirebase: funcPlaceholder,
+
+  clearCurrentProfile: funcPlaceholder
 }
 
 let ProfileContext = React.createContext(default_context)
@@ -50,8 +52,19 @@ function ProfileContextProvider(props){
     return getDoc("user_settings", uid).set(settings_in)
   }
 
-  const loadProfile = () => {
-    return loadProfileFromFirebase(user_info.uid)
+  const loadProfileFromFirebase = (uid) =>{
+    console.log('profile-context.js','loadProfileFromFirebase','uid',uid)
+    return getDoc('user_settings', uid).get()
+  }
+
+  const loadProfile = (uid) => {
+    console.log('profile-context.js','loadProfile','uid',uid)
+    return loadProfileFromFirebase(uid)
+  }
+
+  const filterOutUndefinedForFirebase = (profile_in) =>{
+    // FIXME: this is an lazy method to filter out undefined in complex dict tree
+    return filterOutUndefinedFromJson(profile_in)
   }
 
   const saveProfile = (profile_in) => {
@@ -62,18 +75,13 @@ function ProfileContextProvider(props){
       )
   }
 
-  const loadProfileFromFirebase = (uid) =>{
-    return getDoc('user_settings', uid).get()
-  }
-
-  const updateCurrentProfile = (profile_in) =>{
-    // update current profile and save
-    setCurrentProfile(profile_in)
-  }
+  // update current profile and save
+  const updateCurrentProfile = (profile_in) =>{ setCurrentProfile(profile_in) }
 
   const clearCurrentProfile = () => {
     // for testing
     console.log('profile-context.js', 'clearCurrentProfile')
+
     setCurrentProfile({})
   }
 
@@ -110,11 +118,6 @@ function ProfileContextProvider(props){
     return saveProfile(new_profile)
   }
 
-  const filterOutUndefinedForFirebase = (profile_in) =>{
-    // FIXME: this is an lazy method to filter out undefined in complex dict tree
-    return filterOutUndefinedFromJson(profile_in)
-  }
-
   // FIXME: for POC only
   const checkProfileIsLoaded = () => {
     if (checkIsNotUndefined(current_profile)){
@@ -130,6 +133,10 @@ function ProfileContextProvider(props){
 
   const sayHello = () => {
     console.log('say Hello')
+  }
+
+  const initNewUserProfile= () => {
+    updateCurrentProfileAndSaveToFirebase( default_profile )
   }
 
   const updateCurrentProfileAndSaveToFirebase = (profile_in) =>{
@@ -156,24 +163,29 @@ function ProfileContextProvider(props){
     //   return PROFILE_NOT_HEALTHY
     // }
 
-    return profile_key_check_result.every( x => x == true) ? PROFILE_HEALTHY: PROFILE_NOT_HEALTHY
+    let verdict = profile_key_check_result.every( x => x == true) ? PROFILE_HEALTHY: PROFILE_NOT_HEALTHY
+    console.log('profile-context.js','checkProfileHealthy','verdict', verdict)
+
+    return verdict
 
   }
 
   React.useEffect( () => {
+    console.log('profile-context.js','user_info',user_info)
     if ( isDefined( user_info.uid ) ) {
-      loadProfile()
+      // assume valid user login = user_info with uid
+
+      loadProfile(user_info.uid)
         .then( ss => {
           let result_from_fb = ss.data()
-          if ( checkProfileHealthy( result_from_fb ) == PROFILE_HEALTHY ) {
+          console.log('profile-context.js','result_from_fb', result_from_fb)
 
+          if ( checkProfileHealthy( result_from_fb ) == PROFILE_HEALTHY ) {
             console.log('profile-context.js','load profile done')
             setCurrentProfile(result_from_fb)
 
           } else {
-
-            updateCurrentProfileAndSaveToFirebase( default_profile )
-
+            initNewUserProfile()
           }
         } )
     }
@@ -187,7 +199,8 @@ function ProfileContextProvider(props){
       current_profile,
       checkProfileIsLoaded,
       saveLayoutToFirebase,
-      saveChannelSettingToFirebase
+      saveChannelSettingToFirebase,
+      clearCurrentProfile
 
     }}>
       {props.children}

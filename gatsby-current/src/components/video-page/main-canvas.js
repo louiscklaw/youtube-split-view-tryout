@@ -119,14 +119,17 @@ function MainCanvas(props){
     if (checkIsNotUndefined(current_profile)){
       if (getKeys(current_profile).length>0){
         let {channel_setting} = current_profile
-        _.mapKeys(channel_setting, (v,k)=>{
-          let [video_cell_setting, setVideoCellSetting] = video_cell_settings[k]
-          setVideoCellSetting({
-            ...video_cell_setting,
-            channel_vid: v.channel_vid,
-            channel_title: v.channel_title
-          })
-        })
+
+        // FIXME: update of the config json
+        // _.mapKeys(channel_setting, (v,k)=>{
+        //   let [video_cell_setting, setVideoCellSetting] = video_cell_settings[k]
+        //   setVideoCellSetting({
+        //     ...video_cell_setting,
+        //     channel_vid: v.channel_vid,
+        //     channel_title: v.channel_title
+        //   })
+        // })
+
       }
     }
   },[current_profile])
@@ -158,7 +161,9 @@ function MainCanvas(props){
 
   const onLayoutChange = ( layout, layouts ) => {
     // console.log(current_breakpoint_name)
-    saveLayoutToFirebase( layout )
+
+    // TODO: resume me
+    // saveLayoutToFirebase( layout )
   }
 
   let [current_breakpoint_name, setCurrentBreakpointName] = React.useState('sm')

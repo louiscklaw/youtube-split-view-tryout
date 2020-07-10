@@ -48,6 +48,7 @@ function LoginForm(props) {
         className={active_style.emailPasswordLogin}
         onSubmit={handleLoginFormSubmit}
       >
+        iy
         <input
           type="email"
           placeholder="admin@example.com"
@@ -72,6 +73,7 @@ function LoginForm(props) {
         className={active_style.emailPasswordLogin}
         onSubmit={handleLoginFormSubmit}
       >
+        8q
         <input
           type="email"
           placeholder="user@example.com"
