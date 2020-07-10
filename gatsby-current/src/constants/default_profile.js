@@ -1,7 +1,7 @@
 const channel_settings_default = {
   channel_type:['channel_type_1','channel_type_2','channel_type_3'],
-  channel_vid: ['channel_vid_4','channel_vid_5','channel_vid_6'],
-  channel_title: ['channel_title_7','channel_title_8','channel_title_9']
+  channel_vid: ['w_YONkxB2HA','w_YONkxB2HA','w_YONkxB2HA'],
+  channel_title: ['channel_title_1','channel_title_2','channel_title_3']
 }
 
 const default_breakpoints = {lg: 600, xxs: 0}

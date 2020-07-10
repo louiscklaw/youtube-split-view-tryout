@@ -220,7 +220,7 @@ function MainCanvas(props){
 
   return(
     <>
-      {/* {JSON.stringify(current_profile)} */}
+      {JSON.stringify(current_profile)}
       <ResponsiveGridLayout
         className={ `layout ` + active_style.test + ' ' + active_style.videoBodyHeight }
 
