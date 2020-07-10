@@ -64,8 +64,8 @@ function FirebaseAuthContextProvider(props){
 
   const firebaseLogout = () => {
     // alert('calling firebase auth context logout')
-    console.log("calling firebaseLogout")
-    firebase_auth.signOut()
+    console.log('firebase-auth-context.js','calling firebaseLogout')
+    return firebase_auth.signOut()
   }
 
   const githubLogin = () => {

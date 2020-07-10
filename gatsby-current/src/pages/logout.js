@@ -1,5 +1,5 @@
 import React from 'react'
-import {Link} from 'gatsby'
+import {Link, navigate} from 'gatsby'
 
 import ProfileContext from '~contexts/profile-context'
 import FirebaseAuthContext from '~contexts/firebase-auth-context'
@@ -11,6 +11,9 @@ function LogoutPage(props){
   React.useEffect(()=>{
     clearCurrentProfile()
     firebaseLogout()
+      .then(() => {
+        navigate('/')
+      })
   },[])
 
   return(

@@ -1,5 +1,5 @@
 const channel_settings_default = {
-  channel_type:['channel_type_1aaa','channel_type_2','channel_type_3'],
+  channel_type:['channel_type_1','channel_type_2','channel_type_3'],
   channel_vid: ['channel_vid_4','channel_vid_5','channel_vid_6'],
   channel_title: ['channel_title_7','channel_title_8','channel_title_9']
 }

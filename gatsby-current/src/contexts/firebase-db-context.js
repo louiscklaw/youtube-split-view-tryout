@@ -78,17 +78,19 @@ function FirebaseDbContextProvider(props) {
   }
 
   const getDoc = (collection_name, doc_id) => {
-    // console.log("getDoc", collection_name, doc_id)
+    // console.log('fierbase-db-context.js','getDoc','collection_name',collection_name)
+    // console.log('fierbase-db-context.js','getDoc','doc_id',doc_id)
+
     return firebase_db.collection(collection_name).doc(doc_id)
   }
 
   const getSettingsFromFirebase = uid => {
-    console.log("getSettingsFromFirebase uid", uid)
-    return getDoc("user_settings", uid).get()
+    console.log( "getSettingsFromFirebase uid", uid )
+    return getDoc( "user_settings", uid ).get()
   }
 
-  const saveSettingsToFirebase = (uid, settings_in) => {
-    return getDoc("user_settings", uid).set(settings_in)
+  const saveSettingsToFirebase = ( uid, settings_in ) => {
+    return getDoc( "user_settings", uid ).set( settings_in )
   }
 
   return(

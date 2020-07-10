@@ -15,6 +15,7 @@ import {default_layout_settings} from '~constants/default_profile'
 
 import YoutubeTestCell from '~components/youtube-test-cell'
 
+
 const ResponsiveGridLayout = WidthProvider(Responsive)
 
 function MainCanvas(props){
@@ -139,8 +140,8 @@ function MainCanvas(props){
   }, video_cell_settings.map(x => x[0]))
 
   const showRightSidePreview = () => {
-    console.log('video_body.js','showRightSidePreview')
-    console.log('video_body.js','showRightSidePreview',_.range(6,16))
+    console.log('main-canvas.js','video_body.js','showRightSidePreview')
+    console.log('main-canvas.js','video_body.js','showRightSidePreview',_.range(6,16))
     _.range(6,16+1).map(idx => {
       let preview_ref = preview_and_video_refs[idx][0]
       if (isDefined(preview_ref.current)){
@@ -150,7 +151,7 @@ function MainCanvas(props){
   }
 
   const hideRightSidePreview = () => {
-    console.log('video_body.js','hideRightSidePreview')
+    console.log('main-canvas.js','video_body.js','hideRightSidePreview')
     _.range(6,16+1).map(idx => {
       let preview_ref = preview_and_video_refs[idx][0]
       if (isDefined(preview_ref.current)){
@@ -159,11 +160,42 @@ function MainCanvas(props){
     })
   }
 
+  const getObjValueOnly = (obj_in) => JSON.parse(JSON.stringify(obj_in))
+
+  let [last_save_snapshot, setLastSaveSnapshot] = React.useState({})
+  const saveLayoutChangeWithCoolDown = (layout) => {
+    console.log('main-canvas.js','profile-context.js','saving layout change with cool down')
+    if (_.isEqual(layout, last_save_snapshot)){
+      console.log('main-canvas.js','layout is same, skip save')
+    }else{
+      console.log('main-canvas.js','found layout diff, perform save')
+      saveLayoutToFirebase( layout )
+
+      // copy obj
+      setLastSaveSnapshot(layout)
+    }
+  }
+
+  let [page_load_done, setPageLoadDone] = React.useState(false)
+  let [save_blocker, setSaveBlocker] = React.useState({})
+  React.useEffect(()=>{
+    setSaveBlocker(setTimeout(() => {
+      setPageLoadDone(true)
+      console.log('main-canvas.js','setting page load done to true')
+    }, 5000))
+
+    return clearTimeout(save_blocker)
+  },[])
+
   const onLayoutChange = ( layout, layouts ) => {
     // console.log(current_breakpoint_name)
 
+    // it get called when first enter the page
     // TODO: resume me
-    // saveLayoutToFirebase( layout )
+    if (page_load_done){
+      saveLayoutChangeWithCoolDown(layout)
+    }
+
   }
 
   let [current_breakpoint_name, setCurrentBreakpointName] = React.useState('sm')
@@ -171,7 +203,7 @@ function MainCanvas(props){
     // get triggered when breakpoint change
     // regenerate the required children
     setCurrentBreakpointName(breakpoint_name)
-    console.log('video_body.js','breakpoint_name',breakpoint_name)
+    console.log('main-canvas.js','video_body.js','breakpoint_name',breakpoint_name)
 
     switch (breakpoint_name) {
       case "xxs":

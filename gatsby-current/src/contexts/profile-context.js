@@ -54,11 +54,19 @@ function ProfileContextProvider(props){
 
   const loadProfileFromFirebase = (uid) =>{
     console.log('profile-context.js','loadProfileFromFirebase','uid',uid)
+    getDoc('user_settings', uid).get()
+      .then(ss => {
+        console.log('profile-context.js','loadProfileFromFirebase','ss',ss)
+      })
     return getDoc('user_settings', uid).get()
   }
 
   const loadProfile = (uid) => {
     console.log('profile-context.js','loadProfile','uid',uid)
+    loadProfileFromFirebase(uid)
+      .then( ss => {
+        console.log('profile-context.js','loadProfile','ss',ss)
+      })
     return loadProfileFromFirebase(uid)
   }
 
@@ -163,6 +171,8 @@ function ProfileContextProvider(props){
     //   return PROFILE_NOT_HEALTHY
     // }
 
+    console.log( 'profile-context.js', 'profile_key_check_result', profile_key_check_result )
+
     let verdict = profile_key_check_result.every( x => x == true) ? PROFILE_HEALTHY: PROFILE_NOT_HEALTHY
     console.log('profile-context.js','checkProfileHealthy','verdict', verdict)
 
@@ -174,13 +184,18 @@ function ProfileContextProvider(props){
     console.log('profile-context.js','user_info',user_info)
     if ( isDefined( user_info.uid ) ) {
       // assume valid user login = user_info with uid
+      console.log('profile-context.js','loading profile as uid defined')
 
       loadProfile(user_info.uid)
         .then( ss => {
           let result_from_fb = ss.data()
+          let profile_check_result = checkProfileHealthy( result_from_fb ) == PROFILE_HEALTHY
+          console.log('profile-context.js','user_info','ss',ss.data())
+          console.log('profile-context.js','ss',ss)
           console.log('profile-context.js','result_from_fb', result_from_fb)
+          console.log('profile-context.js', 'profile_check_result', profile_check_result)
 
-          if ( checkProfileHealthy( result_from_fb ) == PROFILE_HEALTHY ) {
+          if ( profile_check_result ) {
             console.log('profile-context.js','load profile done')
             setCurrentProfile(result_from_fb)
 
