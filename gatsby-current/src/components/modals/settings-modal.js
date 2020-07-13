@@ -47,12 +47,12 @@ function TestSettingsModal(props){
         <div className={active_style.modalCard}>
           <form onSubmit={handleSubmit(onSubmit)}>
             {createArrayWithNumbers(3).map((number) => {
-              let current_type_value = ''
+              let current_type_value = '1'
               let current_vid_value = ''
               let current_title_value = ''
 
               if (isDefined(current_profile.channel_setting)){
-                current_type_value = current_profile.channel_setting.channel_type[number] || ''
+                current_type_value = current_profile.channel_setting.channel_type[number] || '1'
                 current_vid_value = current_profile.channel_setting.channel_vid[number] || ''
                 current_title_value = current_profile.channel_setting.channel_title[number] || ''
 
@@ -62,20 +62,25 @@ function TestSettingsModal(props){
               return(
                 <>
                   <select
-                    name={'test_select'}
-                    onChange={handleChannelTypeChange}
+                    name={`channel_type[${number}]`}
                     defaultValue={current_type_value}
-                    ref={props.reg}
+                    ref={register}
                     >
                     <option value="RTHK">RTHK</option>
-                    <option value="youtube0">youtube0</option>
-                    <option value="youtube1">youtube1</option>
-                    <option value="youtube2">youtube2</option>
-                    <option value="youtube3">youtube3</option>
-                    <option value="youtube4">youtube4</option>
-                    <option value="youtube5">youtube5</option>
-                    <option value="youtube6">youtube6</option>
+                    <option value="youtube">youtube</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
                   </select>
+
+                  <input
+                    className={combineStyle([active_style.input, active_style.isSmall])}
+                    defaultValue={current_type_value}
+                    ref={register({ required: true })}
+                    />
 
                   <input
                     className={combineStyle([active_style.input, active_style.isSmall])}
