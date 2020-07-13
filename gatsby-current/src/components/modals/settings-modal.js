@@ -19,6 +19,10 @@ function TestSettingsModal(props){
   let {current_profile, saveChannelSettingToFirebase} = React.useContext(ProfileContext)
   const {combineStyle} = React.useContext(GlobalContext)
 
+  let [current_type_values, setCurrentTypeValues ] = React.useState(Array(3).fill('1'))
+  let [current_vid_values, setCurrentVidValues] = React.useState(Array(3).fill(''))
+  let [current_title_values, setCurrentTitleValues] = React.useState(Array(3).fill(''))
+
   let modal_ref = React.useRef()
   let { setSettingsModalRef, closeSettingsModal } = React.useContext(ModalContext)
   setSettingsModalRef(modal_ref)
@@ -38,69 +42,105 @@ function TestSettingsModal(props){
 
   const handleChannelTypeChange = (e) =>{
     console.log('settings-modal.js','handleChannelTypeChange', e.target.value)
+    let idx = e.target.dataset.idx
+    let new_current_type_values = [...current_type_values]
+    new_current_type_values[idx] = e.target.value
+    setCurrentTypeValues(new_current_type_values)
+
   }
+
+  React.useEffect(()=>{
+    if (isDefined(current_profile.channel_setting)){
+      let current_channel_setting = current_profile.channel_setting
+
+      if (isDefined(current_channel_setting.channel_type)){
+        // console.log('settings-modal.js','current_profile.channel_setting',current_profile.channel_setting.channel_type)
+        setCurrentTypeValues(current_channel_setting.channel_type)
+      }
+
+      if (isDefined(current_channel_setting.channel_vid)){
+        setCurrentVidValues(current_channel_setting.channel_vid)
+      }
+
+      if (isDefined(current_channel_setting.channel_title)){
+        setCurrentTitleValues(current_channel_setting.channel_title)
+      }
+
+    }
+  }, [current_profile])
 
   return(
     <>
       <div className={active_style.modal} ref={modal_ref}>
         <div className={active_style.modalBackground} ></div>
         <div className={active_style.modalCard}>
+          <header className={active_style.modalCardHead}>
+            <p className={active_style.modalCardTitle}>Settings</p>
+            <button className={active_style.delete} aria-label="close"></button>
+          </header>
           <form onSubmit={handleSubmit(onSubmit)}>
-            {createArrayWithNumbers(3).map((number) => {
-              let current_type_value = '1'
-              let current_vid_value = ''
-              let current_title_value = ''
+            <section className={active_style.modalCardBody}>
+              <table className={combineStyle([active_style.tale, active_style.isFullWidth])}>
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>type</th>
+                    <th>id</th>
+                    <th>title</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {createArrayWithNumbers(3).map((number) => {
+                    return(
+                      <tr>
+                        <td>{number}</td>
+                        <td>
+                          <select
+                            data-idx={number}
+                            name={`channel_type[${number}]`}
+                            value={current_type_values[number]}
+                            ref={register}
+                            onChange={handleChannelTypeChange}
+                            >
+                            <option value="RTHK">RTHK</option>
+                            <option value="youtube">youtube</option>
+                          </select>
+                        </td>
+                        <td>
+                          <input
+                            className={combineStyle([active_style.input, active_style.isSmall])}
+                            defaultValue={current_vid_values[number]}
+                            name={`channel_vid[${number}]`}
+                            ref={register({ required: true })}
+                            />
+                        </td>
 
-              if (isDefined(current_profile.channel_setting)){
-                current_type_value = current_profile.channel_setting.channel_type[number] || '1'
-                current_vid_value = current_profile.channel_setting.channel_vid[number] || ''
-                current_title_value = current_profile.channel_setting.channel_title[number] || ''
+                        <td>
+                          <input
+                            className={combineStyle([active_style.input, active_style.isSmall])}
+                            defaultValue={current_title_values[number]}
+                            name={`channel_title[${number}]`}
+                            ref={register({ required: true })}
+                            />
+                        </td>
+                      </tr>
+                    )
+                  })}
+                </tbody>
 
-                console.log('channel_type', current_profile.channel_setting.channel_type[number])
-              }
-
-              return(
-                <>
-                  <select
-                    name={`channel_type[${number}]`}
-                    defaultValue={current_type_value}
-                    ref={register}
-                    >
-                    <option value="RTHK">RTHK</option>
-                    <option value="youtube">youtube</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="6">6</option>
-                  </select>
-
-                  <input
-                    className={combineStyle([active_style.input, active_style.isSmall])}
-                    defaultValue={current_type_value}
-                    ref={register({ required: true })}
-                    />
-
-                  <input
-                    className={combineStyle([active_style.input, active_style.isSmall])}
-                    defaultValue={current_vid_value}
-                    name={`channel_vid[${number}]`}
-                    ref={register({ required: true })}
-                    />
-
-                  <input
-                    className={combineStyle([active_style.input, active_style.isSmall])}
-                    defaultValue={current_title_value}
-                    name={`channel_title[${number}]`}
-                    ref={register({ required: true })}
-                    />
-                </>
-              )
-            })}
-
+              </table>
+            </section>
+            <footer className={active_style.modalCardFoot}>
+              <input type="submit" className={combineStyle([active_style.button, active_style.isSmall, active_style.isSuccess])} value="Save changes" />
+              <input type="reset" className={combineStyle([active_style.button, active_style.isSmall])} value="Cancel" />
+            </footer>
             <input type="submit" />
           </form>
+        </div>
+        <div className={active_style.modalCard}>
+
+
+
         </div>
       </div>
     </>
