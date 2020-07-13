@@ -1,31 +1,17 @@
-import React from "react"
-import _ from "lodash"
-import {LOGGED_OUT} from '~constants/login'
+import React from 'react'
+import { useForm } from "react-hook-form";
 
-import Layout from "~components/layout"
-import ChannelType from '~components/modals/settings-modal/channel-type'
-import ChannelVid from '~components/modals/settings-modal/channel-vid'
-import ChannelTitle from '~components/modals/settings-modal/channel-title'
+import TestSettingsModal from '../components/modals/test-settings-modal'
 
 function TestPage(props){
+  const { register, handleSubmit } = useForm()
+
+  const onSubmit = data => console.log(data);
+
   return(
-    <Layout>
-      <div>
-        Test Page
-        <ChannelType />
-      </div>
-
-      <div>
-        channel vid
-        <ChannelVid />
-      </div>
-
-      <div>
-        channel title
-        <ChannelTitle />
-      </div>
-
-    </Layout>
+    <>
+      <TestSettingsModal />
+    </>
   )
 }
 

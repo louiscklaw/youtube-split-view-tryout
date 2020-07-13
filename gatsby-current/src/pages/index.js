@@ -16,6 +16,8 @@ import FirebaseAuthContext from '../contexts/firebase-auth-context'
 import LoginPage from '../components/login-page'
 import VideoPage from '../components/video-page'
 
+import TestSettingsModal from '../components/modals/test-settings-modal'
+
 function IndexPage() {
   let {user_info} = React.useContext(FirebaseAuthContext)
 
@@ -28,6 +30,8 @@ function IndexPage() {
       <ToastContainer />
 
       <ModalMixins />
+
+
 
       {user_info.status == LOGGED_OUT ? <LoginPage /> : <VideoPage />}
 
