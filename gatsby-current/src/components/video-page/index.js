@@ -9,7 +9,9 @@ import Footer from '~components/footer'
 function VideoPage(props){
   return(
     <>
+      hellworld
       <MainCanvas />
+      helloworld
       <Sidebar />
       <Footer />
     </>

@@ -204,7 +204,7 @@ function MainCanvas(props){
     // regenerate the required children
     setCurrentBreakpointName(breakpoint_name)
     console.log('main-canvas.js','video_body.js','breakpoint_name',breakpoint_name)
-
+　
     switch (breakpoint_name) {
       case "xxs":
         hideRightSidePreview()
@@ -220,7 +220,7 @@ function MainCanvas(props){
 
   return(
     <>
-      {JSON.stringify(current_profile)}
+      {/* {JSON.stringify(current_profile)} */}
       <ResponsiveGridLayout
         className={ `layout ` + active_style.test + ' ' + active_style.videoBodyHeight }
 
