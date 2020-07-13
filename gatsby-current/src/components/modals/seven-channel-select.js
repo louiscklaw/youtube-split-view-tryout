@@ -19,6 +19,8 @@ function createArrayWithNumbers(length) {
 function SevenChannelSelect(props) {
   let {current_profile, saveChannelSettingToFirebase} = React.useContext(ProfileContext)
   let {closeSettingsModal} = React.useContext(ModalContext)
+  const {combineStyle} = React.useContext(GlobalContext)
+  let {active_style} = React.useContext(ThemeContext)
 
   const { register, handleSubmit, errors } = useForm()
 
@@ -39,27 +41,44 @@ function SevenChannelSelect(props) {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      {createArrayWithNumbers(3).map((number) => {
-        let current_type_value = ''
-        let current_vid_value = ''
-        let current_title_value = ''
+      <table className={combineStyle([
+          active_style.table,
+          active_style.isFullwidth
+          ])}>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>type</th>
+            <th>vid</th>
+            <th>title</th>
+          </tr>
+        </thead>
+        <tbody>
+          {createArrayWithNumbers(3).map((number) => {
+          let current_type_value = ''
+          let current_vid_value = ''
+          let current_title_value = ''
 
-        if (isDefined(current_profile.channel_setting)){
-          current_type_value = current_profile.channel_setting.channel_type[number] || ''
-          current_vid_value = current_profile.channel_setting.channel_vid[number] || ''
-          current_title_value = current_profile.channel_setting.channel_title[number] || ''
-        }
+          if (isDefined(current_profile.channel_setting)){
+            current_type_value = current_profile.channel_setting.channel_type[number] || ''
+            current_vid_value = current_profile.channel_setting.channel_vid[number] || ''
+            current_title_value = current_profile.channel_setting.channel_title[number] || ''
+          }
 
-        return (
-          <div key={number}>
+          return (
+            <tr key={number}>
+                <td>{number}</td>
 
-              <input name={`channel_type[${number}]`} ref={register({ required: true })} defaultValue={current_type_value} />
-              <input name={`channel_vid[${number}]`} ref={register({ required: true })} defaultValue={current_vid_value} />
-              <input name={`channel_title[${number}]`} ref={register({ required: true })} defaultValue={current_title_value} />
+                <td><input className={combineStyle([active_style.input, active_style.isSmall])} name={`channel_type[${number}]`} ref={register({ required: true })} defaultValue={current_type_value} /></td>
+                <td><input className={combineStyle([active_style.input, active_style.isSmall])} name={`channel_vid[${number}]`} ref={register({ required: true })} defaultValue={current_vid_value} /></td>
+                <td><input className={combineStyle([active_style.input, active_style.isSmall])} name={`channel_title[${number}]`} ref={register({ required: true })} defaultValue={current_title_value} /></td>
 
-          </div>
-        );
-      })}
+            </tr>
+          );
+        })}
+        </tbody>
+      </table>
+
 
 
       <input type="submit" />

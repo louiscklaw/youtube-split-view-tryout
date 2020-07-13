@@ -27,9 +27,9 @@ function SettingsModal(props) {
           </p>
         </header>
 
-
-
-        <SevenChannelSelect defaultValues={current_profile.channel_setting} />
+        <div className={active_style.modalCardBody}>
+          <SevenChannelSelect defaultValues={current_profile.channel_setting} />
+        </div>
 
         <button className={active_style.button} onClick={closeSettingsModal}>close</button>
       </div>
