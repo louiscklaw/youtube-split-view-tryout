@@ -19,7 +19,7 @@ function createArrayWithNumbers(length) {
 function SevenChannelSelect(props) {
   let {current_profile, saveChannelSettingToFirebase} = React.useContext(ProfileContext)
   let {closeSettingsModal} = React.useContext(ModalContext)
-  const {combineStyle} = React.useContext(GlobalContext)
+  let {combineStyle} = React.useContext(GlobalContext)
   let {active_style} = React.useContext(ThemeContext)
 
   const { register, handleSubmit, errors } = useForm()

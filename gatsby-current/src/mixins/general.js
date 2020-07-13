@@ -1,3 +1,5 @@
+import _ from "lodash"
+
 // for use with every
 const isTrue = (x) => x
 
