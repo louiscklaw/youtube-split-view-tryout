@@ -10,6 +10,7 @@
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma-divider@0.2.0/dist/css/bulma-divider.min.css">
 
+  <link rel="stylesheet" href="style.css">
 
   <style>
     .login-button-github {
@@ -69,22 +70,16 @@
     }
 
     .login-spacer-top {
-      height: 20vh;
+      height: 10vh;
     }
 
     .center-login-button {
       text-align: center;
     }
 
-    .head-room-login-button {
-      margin-top: 3em;
-      margin-bottom: 5em;
-    }
-
     .login-main {
-      height: calc(100vh - 20vh - 5vh);
+      height: calc(100vh - 10vh - 5vh);
       text-align: center;
-
     }
 
     .login-footer {
@@ -96,54 +91,69 @@
 <body>
   <div class="login-spacer-top"></div>
   <section class="section login-main">
-    <div class="login-greeting">
-      Hello, please login
+    <div class="wrapper">
+      <div class="login-greeting">
+        Hello, please login
+      </div>
     </div>
-    <div class="email-login-wrapper">
-      <div class="field">
-        <p class="control has-icons-left has-icons-right">
-          <input class="input" type="email" placeholder="Email">
-          <span class="icon is-small is-left">
-            <i class="fas fa-envelope"></i>
-          </span>
-        </p>
-      </div>
-      <div class="field">
-        <p class="control has-icons-left">
-          <input class="input" type="password" placeholder="Password">
-          <span class="icon is-small is-left">
-            <i class="fas fa-lock"></i>
-          </span>
-        </p>
-      </div>
+
+    <div class="wrapper">
+      <div class="email-login-wrapper">
+        <div class="field">
+          <p class="control has-icons-left has-icons-right">
+            <input class="input" type="email" placeholder="Email">
+            <span class="icon is-small is-left">
+              <i class="fas fa-envelope"></i>
+            </span>
+          </p>
+        </div>
+        <div class="field">
+          <p class="control has-icons-left">
+            <input class="input" type="password" placeholder="Password">
+            <span class="icon is-small is-left">
+              <i class="fas fa-lock"></i>
+            </span>
+          </p>
+        </div>
 
 
-      <div class="field">
-        <p class="control center-login-button head-room-login-button">
-          <button class="button is-success">
-            Login
-          </button>
-        </p>
+        <div class="field">
+          <p class="control center-login-button head-room-login-button">
+            <button class="button is-success">
+              Login
+            </button>
+          </p>
+        </div>
       </div>
-
     </div>
 
     <div class="is-divider" data-content="OR"></div>
 
-    <div class="social-login-container">
-      <div class="social-login-wrapper">
+    <div class="wrapper">
+      <div class="social-login-container">
+        <div class="social-login-wrapper">
 
-        <a class="button login-button login-button-facebook">
-          <i class="fab fa-facebook-f"></i>
-        </a>
-        <a class="button login-button login-button-google">
-          <i class="fab fa-google"></i>
-        </a>
-        <a class="button login-button login-button-github">
-          <i class="fab fa-github-alt"></i>
-        </a>
+          <a class="button login-button login-button-facebook">
+            <i class="fab fa-facebook-f"></i>
+          </a>
+          <a class="button login-button login-button-google">
+            <i class="fab fa-google"></i>
+          </a>
+          <a class="button login-button login-button-github">
+            <i class="fab fa-github-alt"></i>
+          </a>
+        </div>
       </div>
     </div>
+
+    <div class="is-divider" data-content="OR"></div>
+
+    <div class="wrapper">
+      <div>
+        <a href="mobile-new-user.html">New user ?</a>
+      </div>
+    </div>
+
   </section>
   <div class="login-footer">
     <div class="footer-text">

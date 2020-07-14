@@ -1,0 +1,140 @@
+.login-button-github {
+  background-color: #2c3e50;
+}
+
+.login-button-google {
+  background-color: #c0392b;
+}
+
+.login-button-facebook {
+  background-color: #2980b9;
+}
+
+.social-login-button-text {
+  margin-left: 1em;
+}
+
+.social-login-button:hover{
+  color: white;
+}
+
+.social-login-button{
+  color: white;
+  width: 200px;
+}
+
+.email-login-bottom{
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.email-login-wrapper {
+
+  height: 100%;
+
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-evenly;
+  align-content: center;
+
+}
+
+.social-login-wrapper {
+  width: 50%;
+  height: 100%;
+
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-evenly;
+  align-content: center;
+
+  text-align: center;
+}
+
+.login-wrapper {
+  width: 40vw;
+  height: 40vh;
+
+  display: inline-flex;
+  flex-direction: row nowrap;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.new-user-wrapper{
+  height: 50vh;
+
+}
+
+.new-user-container{
+  width: 100vw;
+  height: 100vh;
+
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.login-container {
+  width: 100vw;
+  height: 100vh;
+
+  display: flex;
+  flex-direction: column nowrap;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.new-user-title {
+  width: 100%;
+  background-color: green;
+}
+
+.back-to-main-link{
+  width: 100%;
+  background-color: blue;
+}
+
+.new-user-input-field {}
+
+.new-user-register-wrapper {
+  width: 33vw;
+  height: 50vh;
+
+  display: flex;
+  flex-direction: column nowrap;
+  /* justify-content: flex-start; */
+  /* align-items: center; */
+
+
+  background-color: gold;
+}
+
+.wrapper {
+  margin: 2em 0em;
+}
+
+.new-user-register-container {
+  width: 100vw;
+  height: 100vh;
+
+  /* background-color: gold; */
+
+  display: flex;
+  flex-direction: column nowrap;
+  justify-content: center;
+  align-items: center;
+
+}
+
+* {
+  padding: 0px;
+  margin: 0px;
+  box-sizing: border-box;
+}
