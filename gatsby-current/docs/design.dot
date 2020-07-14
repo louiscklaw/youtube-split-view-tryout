@@ -1,0 +1,9 @@
+graph {
+  rankdir=LR;
+  login -- main
+  main -- logout
+  login -- "new user"
+
+  main -- settings
+  settings -- main
+}
