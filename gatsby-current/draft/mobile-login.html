@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hello Bulma!</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css">
+  <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma-divider@0.2.0/dist/css/bulma-divider.min.css">
+
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    .login-button-github {
+      background-color: #2c3e50;
+    }
+
+    .login-button-google {
+      background-color: #c0392b;
+    }
+
+    .login-button-facebook {
+      background-color: #2980b9;
+    }
+
+    .login-button:hover {
+      color: white;
+    }
+
+    .email-login-wrapper {
+      text-align: center;
+    }
+
+    .login-button {
+      font-size: 1.5em;
+
+      height: 60px;
+      width: 60px;
+
+      color: white;
+      border-radius: 50%;
+    }
+
+    .social-login-wrapper {
+      width: 75%;
+
+      display: inline-flex;
+      flex-flow: row nowrap;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .social-login-container {
+      width: 100%;
+
+    }
+
+    .footer-text {
+      width: 100%;
+      display: inline-flex;
+      flex-flow: row nowrap;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .login-greeting {
+      height: 10vh;
+    }
+
+    .login-spacer-top {
+      height: 10vh;
+    }
+
+    .center-login-button {
+      text-align: center;
+    }
+
+    .login-main {
+      height: calc(100vh - 10vh - 5vh);
+      text-align: center;
+    }
+
+    .login-footer {
+      height: 5vh;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="login-spacer-top"></div>
+  <section class="section login-main">
+    <div class="wrapper">
+      <div class="login-greeting">
+        Hello, please login
+      </div>
+    </div>
+
+    <div class="wrapper">
+      <div class="email-login-wrapper">
+        <div class="field">
+          <p class="control has-icons-left has-icons-right">
+            <input class="input" type="email" placeholder="Email">
+            <span class="icon is-small is-left">
+              <i class="fas fa-envelope"></i>
+            </span>
+          </p>
+        </div>
+        <div class="field">
+          <p class="control has-icons-left">
+            <input class="input" type="password" placeholder="Password">
+            <span class="icon is-small is-left">
+              <i class="fas fa-lock"></i>
+            </span>
+          </p>
+        </div>
+
+
+        <div class="field">
+          <p class="control center-login-button head-room-login-button">
+            <button class="button is-success">
+              Login
+            </button>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="is-divider" data-content="OR"></div>
+
+    <div class="wrapper">
+      <div class="social-login-container">
+        <div class="social-login-wrapper">
+
+          <a class="button login-button login-button-facebook">
+            <i class="fab fa-facebook-f"></i>
+          </a>
+          <a class="button login-button login-button-google">
+            <i class="fab fa-google"></i>
+          </a>
+          <a class="button login-button login-button-github">
+            <i class="fab fa-github-alt"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="is-divider" data-content="OR"></div>
+
+    <div class="wrapper">
+      <div>
+        <a href="mobile-new-user.html">New user ?</a>
+      </div>
+    </div>
+
+  </section>
+  <div class="login-footer">
+    <div class="footer-text">
+      2020 louislabs.com
+    </div>
+  </div>
+
+</body>
+
+</html>
