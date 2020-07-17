@@ -15,6 +15,13 @@ $preview_channel_bg_color: black;
 @import './fontawesome-free/brands';
 @import './fontawesome-free/regular';
 
+.credit_unsplash {
+  position: fixed;
+
+  top: 95vh;
+  left: 82vw;
+}
+
 .login-button-github {
   background-color: #2c3e50;
 }
