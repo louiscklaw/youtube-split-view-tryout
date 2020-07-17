@@ -88,74 +88,100 @@
       flex-direction: column nowrap;
       justify-content: center;
       align-items: center;
+    }
 
+    body {
+      background-image: url("assets/login-background.jpg");
+    }
+
+    .credit_unsplash {
+      position: fixed;
+
+      top: 95vh;
+      left: 82vw;
+    }
+
+    *{
+      color: white;
     }
   </style>
 </head>
 
 <body>
-  <div class="login-container">
+    <div class="login-container">
 
-    <div class="login-wrapper">
-      <div class="login-greetings">
-        Login
-      </div>
-
-      <div class="login-panel">
-        <div class="social-login-wrapper">
-
+      <div class="login-wrapper">
+        <div class="login-greetings">
           <div>
-            <a class="button social-login-button login-button-facebook">
-              <i class="fab fa-facebook-f"></i>
-              <span class="social-login-button-text">facebook login</span>
-            </a>
-          </div>
-          <div>
-            <a class="button social-login-button login-button-google">
-              <i class="fab fa-google"></i>
-              <span class="social-login-button-text">google login</span>
-            </a>
+            Youtube split viewer
           </div>
 
           <div>
-            <a class="button social-login-button login-button-github">
-              <i class="fab fa-github-alt"></i>
-              <span class="social-login-button-text">github login</span>
-            </a>
+            Login
           </div>
         </div>
 
+        <div class="login-panel">
+          <div class="social-login-wrapper">
 
-        <div class="email-login-wrapper">
-          <div class="field">
-            <label class="label">Email</label>
-            <div class="control">
-              <input class="input" type="text" placeholder="e.g Alex Smith">
+            <div>
+              <a class="button social-login-button login-button-facebook">
+                <i class="fab fa-facebook-f"></i>
+                <span class="social-login-button-text">facebook login</span>
+              </a>
+            </div>
+            <div>
+              <a class="button social-login-button login-button-google">
+                <i class="fab fa-google"></i>
+                <span class="social-login-button-text">google login</span>
+              </a>
+            </div>
+
+            <div>
+              <a class="button social-login-button login-button-github">
+                <i class="fab fa-github-alt"></i>
+                <span class="social-login-button-text">github login</span>
+              </a>
             </div>
           </div>
 
-          <div class="field">
-            <label class="label">Password</label>
-            <div class="control">
-              <input class="input" type="email" placeholder="e.g. alexsmith@gmail.com">
+
+          <div class="email-login-wrapper">
+            <div class="field">
+              <label class="label">Email</label>
+              <div class="control">
+                <input class="input" type="text" placeholder="e.g Alex Smith">
+              </div>
             </div>
+
+            <div class="field">
+              <label class="label">Password</label>
+              <div class="control">
+                <input class="input" type="email" placeholder="e.g. alexsmith@gmail.com">
+              </div>
+            </div>
+
+            <div class="email-login-bottom">
+              <div class="control">
+                <a class="button is-primary" href="main.html">Login</a>
+              </div>
+
+              <div class="control">
+                <a class="is-primary" href="desktop-new-user.html">New user ?</a>
+              </div>
+            </div>
+
           </div>
-
-          <div class="email-login-bottom">
-            <div class="control">
-              <a class="button is-primary" href="main.html">Login</a>
-            </div>
-
-            <div class="control">
-              <a class="is-primary" href="desktop-new-user.html">New user ?</a>
-            </div>
-          </div>
-
         </div>
+
       </div>
+
 
     </div>
-  </div>
+
+    <span class="credit_unsplash">
+      Photo by<a href="https://unsplash.com/@konkarampelas?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Kon Karampelas</a> on <a href="https://unsplash.com/s/photos/youtube?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Unsplash</a>
+    </span>
 
 </body>
 
