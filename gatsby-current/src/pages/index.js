@@ -41,7 +41,7 @@ function IndexPage() {
 
       <ModalMixins />
 
-      {user_info.status == LOGGED_OUT ? <LoginPage /> : <VideoPage />}
+      <VideoPage />
 
     </Layout>
   )
