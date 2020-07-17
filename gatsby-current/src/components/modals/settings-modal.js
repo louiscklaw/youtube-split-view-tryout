@@ -133,6 +133,7 @@ function TestSettingsModal(props){
             </section>
             <footer className={active_style.modalCardFoot}>
               <input type="submit" className={combineStyle([active_style.button, active_style.isSmall, active_style.isSuccess])} value="Save changes" />
+
               <button type="button" className={combineStyle([active_style.button, active_style.isSmall])} value="Cancel"
                 onClick={()=>{
                   createArrayWithNumbers(3).map(idx => {
@@ -144,7 +145,15 @@ function TestSettingsModal(props){
                 >
                 reset value
               </button>
-              <input type="reset" className={combineStyle([active_style.button, active_style.isSmall])} value="Cancel" />
+
+              <button type="button" className={combineStyle([active_style.button, active_style.isSmall])} value="Close"
+                onClose={()=>{
+                  onCancelClick()
+                }}
+                >
+                Close
+              </button>
+
             </footer>
           </form>
 
