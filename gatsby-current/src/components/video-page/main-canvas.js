@@ -94,12 +94,6 @@ function MainCanvas(props){
       let preview_ref = preview_and_video_refs[idx][0]
       let [video_cell_setting, setVideoCellSetting] = video_cell_settings[idx]
 
-      // return (
-      //   <div ref={preview_ref} className={active_style.videoContainer} key={view_idx}>
-      //     {JSON.stringify(video_cell_setting)}
-      //   </div>
-      // )
-
       return (
         <div ref={preview_ref} className={active_style.videoContainer} key={view_idx} >
           <YoutubeTestCell
@@ -120,16 +114,29 @@ function MainCanvas(props){
     if (checkIsNotUndefined(current_profile)){
       if (getKeys(current_profile).length>0){
         let {channel_setting} = current_profile
+        console.log('main-canvas.js','channel_setting', channel_setting)
 
-        // FIXME: update of the config json
-        // _.mapKeys(channel_setting, (v,k)=>{
-        //   let [video_cell_setting, setVideoCellSetting] = video_cell_settings[k]
-        //   setVideoCellSetting({
-        //     ...video_cell_setting,
-        //     channel_vid: v.channel_vid,
-        //     channel_title: v.channel_title
-        //   })
+        // let [video_cell_setting, setVideoCellSetting] = video_cell_settings[0]
+        // setVideoCellSetting({
+        //   channel_vid: 'DMVU_rP0ftU',
+        //   channel_title: 'title',
+
         // })
+
+        let channel_setting_length = channel_setting.channel_vid.length
+        _.range(0,channel_setting_length).forEach(idx => {
+
+          let array_channel_vid = channel_setting.channel_vid[idx]
+          // console.log('main-canvas.js','idx',idx)
+          // console.log('main-canvas.js','channel_vid',array_channel_vid[idx])
+
+          let [video_cell_setting, setVideoCellSetting] = video_cell_settings[idx]
+          setVideoCellSetting({
+            channel_vid: channel_setting.channel_vid[idx],
+            channel_title: channel_setting.channel_title[idx],
+            channel_type: channel_setting.channel_type[idx]
+          })
+        })
 
       }
     }
@@ -137,6 +144,9 @@ function MainCanvas(props){
 
   React.useEffect(()=>{
     setTestPreviewPanel(preview_panel)
+    console.log('main-canvas.js','preview_panel',preview_panel)
+    console.log('main-canvas.js','video_cell_settings',video_cell_settings)
+
   }, video_cell_settings.map(x => x[0]))
 
   const showRightSidePreview = () => {

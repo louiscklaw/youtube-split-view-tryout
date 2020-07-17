@@ -27,7 +27,7 @@ function TestSettingsModal(props){
   let { setSettingsModalRef, closeSettingsModal } = React.useContext(ModalContext)
   setSettingsModalRef(modal_ref)
 
-  const { register, handleSubmit, errors } = useForm()
+  const { register, handleSubmit, errors, setValue } = useForm()
 
   const onSubmit = (data) => {
     saveChannelSettingToFirebase(data)
@@ -46,8 +46,9 @@ function TestSettingsModal(props){
     let new_current_type_values = [...current_type_values]
     new_current_type_values[idx] = e.target.value
     setCurrentTypeValues(new_current_type_values)
-
   }
+
+  const origional_channel_setting = current_profile.channel_setting
 
   React.useEffect(()=>{
     if (isDefined(current_profile.channel_setting)){
@@ -132,10 +133,21 @@ function TestSettingsModal(props){
             </section>
             <footer className={active_style.modalCardFoot}>
               <input type="submit" className={combineStyle([active_style.button, active_style.isSmall, active_style.isSuccess])} value="Save changes" />
+              <button type="button" className={combineStyle([active_style.button, active_style.isSmall])} value="Cancel"
+                onClick={()=>{
+                  createArrayWithNumbers(3).map(idx => {
+                    setValue(`channel_vid[${idx}]`, origional_channel_setting.channel_vid[idx])
+                    setValue(`channel_title[${idx}]`, origional_channel_setting.channel_title[idx])
+                    setValue(`channel_type[${idx}]`, origional_channel_setting.channel_type[idx])
+                  })
+                }}
+                >
+                reset value
+              </button>
               <input type="reset" className={combineStyle([active_style.button, active_style.isSmall])} value="Cancel" />
             </footer>
-            <input type="submit" />
           </form>
+
         </div>
         <div className={active_style.modalCard}>
 
