@@ -4,6 +4,8 @@ function ForgetPassword(props){
   return(
     <>
       forget password
+
+      work in progress
     </>
   )
 }
