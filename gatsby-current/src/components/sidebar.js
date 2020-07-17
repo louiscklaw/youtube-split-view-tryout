@@ -23,7 +23,10 @@ function Sidebar(props){
           ])}
           onClick={firebaseLogout}
           >
-          <i className="fas fa-sign-in-alt"></i>
+          <i className={combineStyle([
+            active_style.fas,
+            active_style.faSignInAlt
+            ])}></i>
         </div>
 
 
@@ -33,7 +36,10 @@ function Sidebar(props){
           ])}
           onClick={openSettingsModal}
           >
-          <i className="fas fa-cogs"></i>
+          <i className={combineStyle([
+            active_style.fas,
+            active_style.faCogs
+            ])}></i>
         </div>
 
         <div className={combineStyle([
@@ -42,7 +48,10 @@ function Sidebar(props){
           ])}
           onClick={openAnnouncementModal}
           >
-          <i className="fas fa-bullhorn"></i>
+          <i className={combineStyle([
+            active_style.fas,
+            active_style.faBullhorn
+            ])}></i>
         </div>
       </div>
     </>

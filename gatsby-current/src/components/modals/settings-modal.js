@@ -147,7 +147,7 @@ function TestSettingsModal(props){
               </button>
 
               <button type="button" className={combineStyle([active_style.button, active_style.isSmall])} value="Close"
-                onClose={()=>{
+                onClick={()=>{
                   onCancelClick()
                 }}
                 >
