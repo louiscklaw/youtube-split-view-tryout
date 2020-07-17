@@ -1,5 +1,9 @@
 import React from "react"
+import {navigate} from "gatsby"
+
 import _ from "lodash"
+
+
 import {LOGGED_OUT} from '../constants/login'
 
 import { ToastContainer } from "react-toastify"
@@ -22,6 +26,12 @@ function IndexPage() {
   let {user_info} = React.useContext(FirebaseAuthContext)
 
   console.log('index.js','user_info', user_info)
+
+  React.useEffect(()=>{
+    if (user_info.status == LOGGED_OUT){
+      navigate('/login/')
+    }
+  }, [user_info])
 
   return (
     <Layout>
