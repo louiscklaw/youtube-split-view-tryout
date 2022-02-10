@@ -15,7 +15,7 @@
     "gatsby-plugin-sharp": "^2.6.9",
     "gatsby-source-filesystem": "^2.3.8",
     "gatsby-transformer-sharp": "^2.5.3",
-    "node-sass": "^4.14.1",
+    "node-sass": "^7.0.0",
     "plyr": "^3.6.2",
     "prop-types": "^15.7.2",
     "react": "^16.12.0",
